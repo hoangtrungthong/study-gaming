@@ -1,0 +1,30 @@
+{
+  "name": "study-gaming",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.28.11",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @study/game dev",
+    "build": "pnpm -r build",
+    "lint": "eslint .",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "e2e": "pnpm --filter @study/game e2e",
+    "speech-list": "pnpm --filter @study/content speech-list",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "@vue/eslint-config-typescript": "^14.9.0",
+    "eslint": "^10.15.0",
+    "eslint-plugin-vue": "^10.12.1",
+    "globals": "^16.0.0",
+    "prettier": "^3.10.1",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.73.0"
+  }
+}

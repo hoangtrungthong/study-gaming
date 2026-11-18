@@ -1,0 +1,97 @@
+#!/bin/sh
+# Kiểm các file đang stage trước khi commit (checklist DoD mục 2b). Test đầy đủ do CI lo.
+#   0. Không commit thẳng lên main (trừ commit đầu tiên của repo)
+#   1. Chặn file không được commit: .env thật, khóa, file > 5 MB, chuỗi giống secret
+#   2. Luật của repo: nội dung bài học hợp lệ (packages/content/data)
+#   3. .ts / .vue → ESLint (bản đã stage)
+# Bật một lần cho mỗi clone: git config core.hooksPath .githooks
+
+root=$(git rev-parse --show-toplevel) || exit 1
+cd "$root" || exit 1
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$staged" ] && exit 0
+
+MAX_BYTES=5242880
+failed=0
+
+fail() {
+  echo "  ✗ $1"
+  failed=1
+}
+
+# ---- 0. Nhánh ------------------------------------------------------------------------------------
+
+branch=$(git symbolic-ref --quiet --short HEAD)
+if [ "$branch" = "main" ] && git rev-parse --verify --quiet HEAD >/dev/null; then
+  echo "pre-commit: không commit thẳng lên main."
+  echo "  → git switch -c feat/<tên> (giữ nguyên thay đổi đang stage), rồi commit và mở PR vào main."
+  exit 1
+fi
+
+# ---- 1. File không được commit -------------------------------------------------------------------
+
+forbidden=$(printf '%s\n' "$staged" | grep -E '(^|/)\.env($|\.)|\.(pem|key|p8|p12|pfx|jks|keystore)$|(^|/)id_(rsa|ed25519)|google-services\.json$|GoogleService-Info\.plist$' | grep -vE '\.example$')
+if [ -n "$forbidden" ]; then
+  echo "pre-commit: file bí mật"
+  printf '%s\n' "$forbidden" | while read -r f; do echo "  ✗ $f"; done
+  echo "  → Bỏ khỏi stage: git restore --staged <file>. File mẫu thì đặt tên *.example."
+  failed=1
+fi
+
+printf '%s\n' "$staged" | while read -r f; do
+  size=$(git cat-file -s ":$f" 2>/dev/null || echo 0)
+  if [ "$size" -gt "$MAX_BYTES" ]; then
+    echo "pre-commit: file quá lớn ($((size / 1024)) KB, giới hạn 5120 KB): $f"
+    exit 1
+  fi
+done || failed=1
+
+# Chỉ xét dòng được thêm, không quét file mẫu, lockfile. `sk-` / `sk_live_` phải đứng đầu một từ.
+secrets=$(git diff --cached -U0 --diff-filter=ACMR -- . ':(exclude)*.example' ':(exclude)pnpm-lock.yaml' ':(exclude)**/data/*.csv' ':(exclude)**/data/*.json' \
+  | grep -E '^\+' | grep -vE '^\+\+\+' \
+  | grep -inE '(AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|(^|[^A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|(^|[^A-Za-z0-9])sk_live_[0-9A-Za-z]{20,}|gh[pousr]_[A-Za-z0-9]{36}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|(password|secret|api_?key|token)["'"'"' ]*[:=]["'"'"' ]*[A-Za-z0-9_/+=-]{16,})' \
+  | head -5)
+if [ -n "$secrets" ]; then
+  echo "pre-commit: dòng mới giống secret (key, token, mật khẩu)"
+  printf '%s\n' "$secrets" | cut -c1-120 | sed 's/^/  ✗ /'
+  echo "  → Đưa giá trị vào .env (không commit). Nếu là dữ liệu giả, đổi cho không giống secret."
+  failed=1
+fi
+
+# ---- 2. Nội dung bài học -------------------------------------------------------------------------
+
+eslint_bin=node_modules/eslint/bin/eslint.js
+
+if printf '%s\n' "$staged" | grep -qE '^packages/content/(data|src)/'; then
+  if [ -d packages/content/node_modules ]; then
+    echo "pre-commit: kiểm nội dung bài học"
+    (cd packages/content && node node_modules/vitest/vitest.mjs run src/content.test.ts >/dev/null 2>&1) \
+      || fail "Nội dung bài học chưa hợp lệ. Xem lỗi: pnpm --filter @study/content test"
+  else
+    echo "pre-commit: ⚠ bỏ qua kiểm nội dung: chưa pnpm install. CI vẫn kiểm."
+  fi
+fi
+
+# ---- 3. ESLint -----------------------------------------------------------------------------------
+
+js_files=$(printf '%s\n' "$staged" | grep -E '\.(ts|vue|js|mjs)$' | grep -vE '^\.(agents|claude|cursor|kiro|github|codex)/')
+if [ -n "$js_files" ]; then
+  if [ -f "$eslint_bin" ]; then
+    echo "pre-commit: ESLint"
+    # Lint bản đã stage (bản sẽ commit), không phải file trong thư mục làm việc.
+    for f in $js_files; do
+      git show ":$f" | node "$eslint_bin" --stdin --stdin-filename "$f" \
+        || fail "ESLint $f. Sửa: pnpm exec eslint --fix $f, rồi git add lại."
+    done
+  else
+    echo "pre-commit: ⚠ bỏ qua ESLint: chưa pnpm install."
+  fi
+fi
+
+if [ "$failed" -ne 0 ]; then
+  echo "pre-commit: chưa đạt, commit bị chặn."
+  exit 1
+fi
+
+exit 0

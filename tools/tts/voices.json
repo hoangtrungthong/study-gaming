@@ -1,0 +1,39 @@
+{
+  "_comment": "Giọng dùng để tạo sẵn âm thanh. enabled=false thì bỏ qua. Mỗi ngôn ngữ nên có 1 giọng mặc định (đứng đầu) và 1–2 giọng thêm. Giọng VOICEVOX: kiểm điều khoản của từng nhân vật trước khi bật, ghi 'credit' đúng tên.",
+  "voices": [
+    {
+      "id": "vi-vieneu-1",
+      "lang": "vi",
+      "engine": "vieneu",
+      "label": "Giọng Việt 1 (VieNeu)",
+      "voice": null,
+      "enabled": true
+    },
+    {
+      "id": "en-vieneu-1",
+      "lang": "en",
+      "engine": "vieneu",
+      "label": "English (VieNeu)",
+      "voice": null,
+      "enabled": true
+    },
+    {
+      "id": "en-kokoro-heart",
+      "lang": "en",
+      "engine": "kokoro",
+      "label": "English (Kokoro, Heart)",
+      "voice": "af_heart",
+      "langCode": "a",
+      "enabled": true
+    },
+    {
+      "id": "ja-voicevox-3",
+      "lang": "ja",
+      "engine": "voicevox",
+      "label": "ずんだもん",
+      "speaker": 3,
+      "credit": "VOICEVOX:ずんだもん",
+      "enabled": true
+    }
+  ]
+}

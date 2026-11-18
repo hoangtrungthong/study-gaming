@@ -1,0 +1,112 @@
+:root {
+  --sea: #2f6f8f;
+  --sea-50: #e8f3f8;
+  --sea-200: #bcd9e6;
+  --ink: #173b4d;
+  --ink-soft: #4d6b7a;
+  --paper: #fffdf8;
+  --sand: #f6ecd5;
+  --sun: #f6c453;
+  --sun-soft: #fdeec3;
+  --leaf: #5aa469;
+  --leaf-soft: #e1f2e3;
+  --coral: #e86a5c;
+
+  font-family: 'Noto Sans', 'Noto Sans JP', system-ui, sans-serif;
+  color: var(--ink);
+  background: #f3f7fa;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+}
+
+:lang(ja) {
+  font-family: 'Noto Sans JP', 'Noto Sans', sans-serif;
+}
+
+button {
+  color: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--sun);
+  outline-offset: 2px;
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.bar h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.back {
+  font: inherit;
+  border: 2px solid var(--sea-200);
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.primary,
+.result button,
+.typing button {
+  font: inherit;
+  font-weight: 700;
+  border: none;
+  border-radius: 16px;
+  padding: 12px 20px;
+  min-height: 48px;
+  cursor: pointer;
+  background: var(--paper);
+  border: 2px solid var(--sea-200);
+}
+
+button.primary {
+  background: var(--sea);
+  border-color: var(--sea);
+  color: white;
+}
+
+button.primary.big {
+  font-size: 1.3rem;
+  padding: 14px 40px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

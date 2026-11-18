@@ -1,0 +1,149 @@
+{
+  "subject": "it",
+  "titleVi": "Đảo Mạch Điện",
+  "titleTarget": "Circuit Island",
+  "termLang": "en",
+  "items": [
+    {
+      "id": "it-cpu",
+      "term": "CPU",
+      "emoji": "🧠",
+      "meaningVi": "bộ xử lý trung tâm",
+      "explainVi": "CPU là bộ não của máy tính, nó tính toán và ra lệnh cho mọi bộ phận."
+    },
+    {
+      "id": "it-ram",
+      "term": "RAM",
+      "emoji": "🗒️",
+      "meaningVi": "bộ nhớ tạm",
+      "explainVi": "RAM giống tờ giấy nháp. Máy dùng để ghi tạm khi đang làm việc, tắt máy là mất."
+    },
+    {
+      "id": "it-keyboard",
+      "term": "keyboard",
+      "emoji": "⌨️",
+      "meaningVi": "bàn phím",
+      "explainVi": "Bàn phím dùng để gõ chữ và số vào máy tính."
+    },
+    {
+      "id": "it-mouse",
+      "term": "mouse",
+      "emoji": "🖱️",
+      "meaningVi": "con chuột máy tính",
+      "explainVi": "Mouse vừa là con chuột, vừa là chuột máy tính, vì nó nhỏ và có dây như cái đuôi."
+    },
+    {
+      "id": "it-screen",
+      "term": "screen",
+      "emoji": "🖥️",
+      "meaningVi": "màn hình",
+      "explainVi": "Màn hình cho ta thấy máy tính đang làm gì."
+    },
+    {
+      "id": "it-bug",
+      "term": "bug",
+      "emoji": "🐛",
+      "meaningVi": "lỗi phần mềm",
+      "explainVi": "Bug nghĩa gốc là con bọ. Ngày xưa có con bọ chui vào máy tính làm hỏng máy, nên lỗi được gọi là bug."
+    },
+    {
+      "id": "it-loop",
+      "term": "loop",
+      "emoji": "🔁",
+      "meaningVi": "vòng lặp",
+      "explainVi": "Vòng lặp là làm đi làm lại một việc. Giống như mỗi sáng bạn đều đánh răng."
+    },
+    {
+      "id": "it-variable",
+      "term": "variable",
+      "emoji": "📦",
+      "meaningVi": "biến",
+      "explainVi": "Biến giống một chiếc hộp có dán tên, dùng để cất một giá trị và đổi được về sau."
+    },
+    {
+      "id": "it-function",
+      "term": "function",
+      "emoji": "⚙️",
+      "meaningVi": "hàm",
+      "explainVi": "Hàm là một công thức có tên. Gọi tên nó là máy làm theo các bước bên trong."
+    },
+    {
+      "id": "it-internet",
+      "term": "internet",
+      "emoji": "🌐",
+      "meaningVi": "mạng internet",
+      "explainVi": "Internet là mạng nối hàng tỷ máy tính trên thế giới lại với nhau."
+    },
+    {
+      "id": "it-password",
+      "term": "password",
+      "emoji": "🔑",
+      "meaningVi": "mật khẩu",
+      "explainVi": "Mật khẩu là chìa khoá bí mật. Không bao giờ cho người lạ biết mật khẩu."
+    },
+    {
+      "id": "it-file",
+      "term": "file",
+      "emoji": "📄",
+      "meaningVi": "tệp tin",
+      "explainVi": "File là một tệp chứa dữ liệu, ví dụ một bức ảnh hay một bài văn."
+    },
+    {
+      "id": "it-folder",
+      "term": "folder",
+      "emoji": "📁",
+      "meaningVi": "thư mục",
+      "explainVi": "Thư mục giống cái cặp hồ sơ, dùng để xếp các file cho gọn."
+    },
+    {
+      "id": "it-database",
+      "term": "database",
+      "emoji": "🗄️",
+      "meaningVi": "cơ sở dữ liệu",
+      "explainVi": "Cơ sở dữ liệu là cái kho lưu thông tin có thứ tự, tìm lại rất nhanh."
+    },
+    {
+      "id": "it-code",
+      "term": "code",
+      "emoji": "💻",
+      "meaningVi": "mã lệnh",
+      "explainVi": "Code là những câu lệnh ta viết để bảo máy tính làm việc."
+    },
+    {
+      "id": "it-wifi",
+      "term": "wifi",
+      "emoji": "📶",
+      "meaningVi": "mạng không dây",
+      "explainVi": "Wifi giúp máy kết nối mạng mà không cần dây.",
+      "accept": ["wi-fi"]
+    },
+    {
+      "id": "it-cloud",
+      "term": "cloud",
+      "emoji": "☁️",
+      "meaningVi": "điện toán đám mây",
+      "explainVi": "Đám mây là thuê máy tính của nhà cung cấp qua internet, dùng bao nhiêu trả bấy nhiêu, thay vì tự mua máy."
+    },
+    {
+      "id": "it-region",
+      "term": "region",
+      "emoji": "🗺️",
+      "meaningVi": "vùng",
+      "explainVi": "Region là một khu vực địa lý có nhiều trung tâm dữ liệu, ví dụ vùng Tokyo hay vùng Singapore. Chọn vùng gần người dùng thì nhanh hơn."
+    },
+    {
+      "id": "it-instance",
+      "term": "instance",
+      "emoji": "🎛️",
+      "meaningVi": "máy chủ ảo",
+      "explainVi": "Instance là một máy chủ ảo thuê trên đám mây. Bên AWS gọi là EC2, bên Google Cloud gọi là Compute Engine."
+    },
+    {
+      "id": "it-bucket",
+      "term": "bucket",
+      "emoji": "🪣",
+      "meaningVi": "thùng lưu trữ",
+      "explainVi": "Bucket là cái thùng chứa file trên đám mây. Bên AWS là S3, bên Google Cloud là Cloud Storage."
+    }
+  ]
+}
