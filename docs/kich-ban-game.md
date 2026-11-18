@@ -1,6 +1,6 @@
 # Kịch bản game học tập — "Tomo và Quần đảo Tri Thức" (tên tạm)
 
-> Bản nháp v0.8 · 2026-11-18
+> Bản nháp v0.9 · 2026-11-18
 > Các điểm có nhãn **[CHỜ CHỌN]** là đề xuất, chưa phải quyết định. Mục 12 ghi những gì đã chốt và những câu còn chờ trả lời.
 
 ---
@@ -433,7 +433,7 @@ Soạn bài (file dữ liệu: từ, câu, giải thích)
 | Góc phụ huynh | Không quảng cáo | Màn hình quản lý, không phải chỗ chơi |
 
 Quảng cáo có thưởng đổi được gì (không bao giờ bắt buộc để qua màn):
-- +3 Đèn Pin gợi ý ở màn trùm.
+- +3 Đèn Pin ("gợi ý", dùng được ở mọi màn — chốt 2026-11-18; dùng gợi ý thì không được 3 sao).
 - Hồi 1 chậu hoa trong Mưa Chữ (mỗi trận 1 lần).
 - Nhân đôi đồ trang trí nhận được ở cuối vùng.
 
@@ -559,6 +559,15 @@ Không có dịch vụ OTP qua SMS nào miễn phí; vì vậy MVP chỉ dùng h
 | Mua trên web (Q-19) | Có, thanh toán bằng chuyển khoản ngân hàng |
 | Đăng nhập (Q-3, sửa 2026-11-18) | MVP: Google + email OTP. Số điện thoại làm sau MVP |
 | Gửi mã OTP (Q-27) | Email: Resend. Số điện thoại (sau MVP): Zalo ZNS |
+| Tên game (Q-2) | Giữ "Tomo và Quần đảo Tri Thức", tên dưới icon "Tomo" |
+| Nội dung bài học (Q-4) | AI soạn nháp, chủ sản phẩm duyệt; chưa bám CEFR / JLPT |
+| Dung lượng offline (Q-9) | App đóng gói sẵn toàn bộ âm thanh của giọng mặc định; chuyển Play Asset Delivery khi AAB vượt khoảng 150 MB |
+| Dữ liệu offline trên máy | SQLite: app Android `@capacitor-community/sqlite`, web `sql.js` lưu vào IndexedDB (như bản offline của medicine-management) |
+| Tài khoản cho trẻ em (liên quan Q-5) | Tài khoản là của người lớn: qua cổng phụ huynh + ô xác nhận đồng ý (lưu `consent_version`); hỏi người có chuyên môn pháp lý (Nghị định 13/2023, Luật 91/2025/QH15) trước khi phát hành |
+| Nơi đặt máy chủ (Q-29) | Máy ảo Ubuntu trên cloud, chạy bằng Docker (cả khi phát triển) — `docs/deploy.md` |
+| Nhóm tuổi trên Google Play | Khai báo mọi nhóm, gồm cả "5 tuổi trở xuống" (áp chính sách Families cho cả app) |
+| Đèn Pin | Là "gợi ý" dùng ở mọi màn (mỗi trò một kiểu gợi ý); khởi đầu 3, quảng cáo có thưởng +3 (tối đa 3 lần/ngày), Mầm được tặng 1/ngày học |
+| Spec giai đoạn 1 | `.kiro/specs/mvp-*` — chủ sản phẩm đồng ý toàn bộ đề xuất; tổng hợp ở `.kiro/specs/mvp-cho-chot.md` |
 | Xác nhận chuyển khoản (Q-20) | Cả hai: tự động qua SePay/Casso, duyệt tay dự phòng |
 | Mua một nơi dùng mọi nơi (Q-22) | Có, quyền bỏ quảng cáo gắn với tài khoản |
 | Giá bỏ quảng cáo (Q-24) | Web 59.000đ, app 79.000đ, giá ra mắt 39.000đ trên web trong tháng đầu |
@@ -571,25 +580,12 @@ Không có dịch vụ OTP qua SMS nào miễn phí; vì vậy MVP chỉ dùng h
 
 ### 12.2. Còn chờ trả lời
 
-**Cần cho giai đoạn 1 (MVP):**
+Không còn câu nào chặn giai đoạn 1 (MVP). Các câu còn lại:
 
-1. **Q-29 Nơi đặt máy chủ:** chủ sản phẩm chưa quyết, đang tìm nơi miễn phí. Các lựa chọn đã tra (2026-11-18):
-    - **Đề xuất cho MVP:** game (PWA) trên **Cloudflare Pages** (miễn phí, băng thông không giới hạn); máy chủ NestJS trên
-      **Render** (miễn phí, tự ngủ sau 15 phút không dùng, lần gọi đầu chờ vài chục giây); PostgreSQL trên **Neon**
-      (miễn phí, tự tắt khi rảnh, khoảng 1 GB). Phát hành thật thì chuyển máy chủ sang Oracle Always Free hoặc VPS rẻ.
-    - **Oracle Cloud Always Free** (máy ARM A1, khoảng 2 OCPU + 12 GB sau khi Oracle cắt giảm): chạy liên tục, nhưng khó
-      xin được máy và chính sách có thể đổi.
-    - Không còn miễn phí: Fly.io, Railway, Koyeb. Supabase miễn phí nhưng tạm dừng dự án sau 1 tuần không dùng.
+1. **Q-30 Chứng chỉ đám mây:** đồng ý 4 chứng chỉ đề xuất ở mục 7.3 (AWS Cloud Practitioner, AWS Solutions Architect – Associate, Google Cloud Digital Leader, Google Associate Cloud Engineer) không? Thêm chứng chỉ nào khác (ví dụ AWS Developer, Google Professional Cloud Architect)? Làm từ giai đoạn nào?
 
-**Các câu khác:**
-
-2. **Q-30 Chứng chỉ đám mây:** đồng ý 4 chứng chỉ đề xuất ở mục 7.3 (AWS Cloud Practitioner, AWS Solutions Architect – Associate, Google Cloud Digital Leader, Google Associate Cloud Engineer) không? Thêm chứng chỉ nào khác (ví dụ AWS Developer, Google Professional Cloud Architect)? Làm từ giai đoạn nào?
-
-3. **Q-2 Tên game:** giữ tên tạm "Tomo và Quần đảo Tri Thức" hay đặt tên khác?
-4. **Q-4 Nội dung bài học:** ai soạn? Có dùng AI hỗ trợ soạn rồi người duyệt không? Có cần bám khung CEFR (tiếng Anh) và JLPT (tiếng Nhật) không?
-5. **Q-5 Dữ liệu trẻ em:** nhóm Mầm/Chồi có cần phụ huynh đồng ý khi tạo tài khoản không? (Liên quan Nghị định 13/2023 về bảo vệ dữ liệu cá nhân.)
-6. **Q-6 Phong cách hình:** 2D phẳng dễ thương, 2D vẽ tay, hay 3D nhẹ? Có hoạ sĩ riêng hay dùng bộ hình có sẵn?
-7. **Q-7 Chấm phát âm (E2):** có đưa vào không, và từ giai đoạn nào?
-8. **Q-9 Dung lượng offline:** đóng gói toàn bộ nội dung trong app ngay khi cài, hay cài bản nhẹ rồi tải từng đảo về (đảo đã tải thì chơi offline)?
-9. **Q-13 Phạm vi IT cho người đi làm:** có muốn một nhánh riêng cho kỹ sư cầu nối (BrSE) / dev làm việc với Nhật (thuật ngữ, email, họp bằng tiếng Nhật) không?
-10. **Q-14 Chơi cùng nhau:** có cần chế độ nhiều người (thi Mưa Chữ với bạn, lớp học) ngay từ MVP không, hay để giai đoạn 3?
+2. **Q-5 Dữ liệu trẻ em:** nhóm Mầm/Chồi có cần phụ huynh đồng ý khi tạo tài khoản không? (Liên quan Nghị định 13/2023 về bảo vệ dữ liệu cá nhân.)
+3. **Q-6 Phong cách hình:** 2D phẳng dễ thương, 2D vẽ tay, hay 3D nhẹ? Có hoạ sĩ riêng hay dùng bộ hình có sẵn?
+4. **Q-7 Chấm phát âm (E2):** có đưa vào không, và từ giai đoạn nào?
+5. **Q-13 Phạm vi IT cho người đi làm:** có muốn một nhánh riêng cho kỹ sư cầu nối (BrSE) / dev làm việc với Nhật (thuật ngữ, email, họp bằng tiếng Nhật) không?
+6. **Q-14 Chơi cùng nhau:** có cần chế độ nhiều người (thi Mưa Chữ với bạn, lớp học) ngay từ MVP không, hay để giai đoạn 3?

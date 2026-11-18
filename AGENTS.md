@@ -54,6 +54,8 @@ Chạy ở gốc repo, Node 22 + pnpm 11. Trên máy này Node mặc định là
 
 Không có lệnh nào khác được cấu hình. Đừng tự chạy lệnh dự án không khai báo.
 
+**Docker (đã chốt 2026-11-18):** máy chủ chạy trên máy ảo Ubuntu bằng Docker Compose, và phát triển cũng dùng Docker (test máy chủ chạy trong container, như medicine-management). Các file Docker được tạo trong spec `mvp-tai-khoan`; các bước ở [docs/deploy.md](docs/deploy.md). Không chạy `docker compose down -v` (xoá volume là mất dữ liệu).
+
 ## 5. Làm một tính năng
 
 Theo quy trình của medicine-management:
