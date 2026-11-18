@@ -1,6 +1,6 @@
 # Kịch bản game học tập — "Tomo và Quần đảo Tri Thức" (tên tạm)
 
-> Bản nháp v0.7 · 2026-11-17
+> Bản nháp v0.8 · 2026-11-18
 > Các điểm có nhãn **[CHỜ CHỌN]** là đề xuất, chưa phải quyết định. Mục 12 ghi những gì đã chốt và những câu còn chờ trả lời.
 
 ---
@@ -481,13 +481,15 @@ Lý do:
 
 ### 10.7. Tài khoản và máy chủ
 
-#### Đăng nhập (đã chốt Q-3: cả ba cách)
+#### Đăng nhập (đã chốt Q-3, sửa ngày 2026-11-18)
 
-| Cách | Ghi chú |
-|---|---|
-| **Google** | Một chạm; trên app dùng đăng nhập Google gốc của Android/iOS, trên web dùng nút Google |
-| **Email + mật khẩu** | Có xác nhận email và quên mật khẩu, nên cần dịch vụ gửi email |
-| **Số điện thoại + mã OTP** | Gửi tin nhắn SMS **tốn phí theo từng tin**; cần chọn nhà cung cấp SMS (Q-27) |
+| Cách | Giai đoạn | Ghi chú |
+|---|---|---|
+| **Google** | 1 (MVP) | Miễn phí. Một chạm; trên app dùng đăng nhập Google gốc của Android/iOS, trên web dùng nút Google |
+| **Email + mã OTP** | 1 (MVP) | Gửi mã qua email bằng **Resend** (gói miễn phí khoảng 3.000 email/tháng, tối đa 100/ngày — kiểm lại trên trang giá trước khi làm) |
+| **Số điện thoại + mã OTP** | Sau MVP, khi có doanh thu | Gửi mã qua **Zalo ZNS** (khoảng 250–360đ/tin, chưa xác nhận giá chính thức); cần Zalo OA đã xác thực doanh nghiệp |
+
+Không có dịch vụ OTP qua SMS nào miễn phí; vì vậy MVP chỉ dùng hai cách miễn phí (Google, email).
 
 - Một người có thể gắn nhiều cách đăng nhập vào cùng một tài khoản.
 - **Chơi khách** (chưa đăng nhập) vẫn chơi đầy đủ, tiến độ lưu trên máy; chỉ cần đăng nhập khi mua trên web, khi muốn đồng bộ nhiều máy. Đăng nhập lần đầu thì tiến độ trên máy được gộp vào tài khoản (đã chốt Q-26).
@@ -505,7 +507,7 @@ Lý do:
 
 | Việc | Ghi chú |
 |---|---|
-| Tài khoản, đăng nhập 3 cách | Mục trên |
+| Tài khoản, đăng nhập (Google, email OTP; số điện thoại sau MVP) | Mục trên |
 | Đơn hàng chuyển khoản | Tạo đơn + mã QR, nhận tin từ SePay/Casso, trang duyệt tay |
 | Xác minh giao dịch Google Play / App Store | Gọi máy chủ của cửa hàng để kiểm tra biên nhận, chống mua giả |
 | Quyền "đã bỏ quảng cáo" | Gắn với tài khoản, trả về cho app/web |
@@ -555,7 +557,8 @@ Lý do:
 | Giọng tiếng Anh (Q-17) | Nghe so sánh VieNeu v3 Turbo và Kokoro-82M ở giai đoạn 0 rồi chốt |
 | Giọng VOICEVOX (Q-18) | Chỉ giọng miễn phí; người dùng được chọn giọng |
 | Mua trên web (Q-19) | Có, thanh toán bằng chuyển khoản ngân hàng |
-| Đăng nhập (Q-3) | Cả ba: Google, email + mật khẩu, số điện thoại + OTP |
+| Đăng nhập (Q-3, sửa 2026-11-18) | MVP: Google + email OTP. Số điện thoại làm sau MVP |
+| Gửi mã OTP (Q-27) | Email: Resend. Số điện thoại (sau MVP): Zalo ZNS |
 | Xác nhận chuyển khoản (Q-20) | Cả hai: tự động qua SePay/Casso, duyệt tay dự phòng |
 | Mua một nơi dùng mọi nơi (Q-22) | Có, quyền bỏ quảng cáo gắn với tài khoản |
 | Giá bỏ quảng cáo (Q-24) | Web 59.000đ, app 79.000đ, giá ra mắt 39.000đ trên web trong tháng đầu |
@@ -570,18 +573,23 @@ Lý do:
 
 **Cần cho giai đoạn 1 (MVP):**
 
-1. **Q-27 Gửi OTP qua SMS:** dùng nhà cung cấp nào? (Ví dụ: Firebase Authentication — dễ tích hợp, tính phí theo tin gửi; hoặc nhà mạng/đơn vị SMS trong nước — rẻ hơn với số Việt Nam nhưng phải đăng ký tên thương hiệu.) Dịch vụ gửi email (xác nhận, quên mật khẩu) có sẵn chưa?
-2. **Q-29 Nơi đặt máy chủ:** VPS trong nước, VPS nước ngoài hay dịch vụ đám mây?
+1. **Q-29 Nơi đặt máy chủ:** chủ sản phẩm chưa quyết, đang tìm nơi miễn phí. Các lựa chọn đã tra (2026-11-18):
+    - **Đề xuất cho MVP:** game (PWA) trên **Cloudflare Pages** (miễn phí, băng thông không giới hạn); máy chủ NestJS trên
+      **Render** (miễn phí, tự ngủ sau 15 phút không dùng, lần gọi đầu chờ vài chục giây); PostgreSQL trên **Neon**
+      (miễn phí, tự tắt khi rảnh, khoảng 1 GB). Phát hành thật thì chuyển máy chủ sang Oracle Always Free hoặc VPS rẻ.
+    - **Oracle Cloud Always Free** (máy ARM A1, khoảng 2 OCPU + 12 GB sau khi Oracle cắt giảm): chạy liên tục, nhưng khó
+      xin được máy và chính sách có thể đổi.
+    - Không còn miễn phí: Fly.io, Railway, Koyeb. Supabase miễn phí nhưng tạm dừng dự án sau 1 tuần không dùng.
 
 **Các câu khác:**
 
-3. **Q-30 Chứng chỉ đám mây:** đồng ý 4 chứng chỉ đề xuất ở mục 7.3 (AWS Cloud Practitioner, AWS Solutions Architect – Associate, Google Cloud Digital Leader, Google Associate Cloud Engineer) không? Thêm chứng chỉ nào khác (ví dụ AWS Developer, Google Professional Cloud Architect)? Làm từ giai đoạn nào?
+2. **Q-30 Chứng chỉ đám mây:** đồng ý 4 chứng chỉ đề xuất ở mục 7.3 (AWS Cloud Practitioner, AWS Solutions Architect – Associate, Google Cloud Digital Leader, Google Associate Cloud Engineer) không? Thêm chứng chỉ nào khác (ví dụ AWS Developer, Google Professional Cloud Architect)? Làm từ giai đoạn nào?
 
-4. **Q-2 Tên game:** giữ tên tạm "Tomo và Quần đảo Tri Thức" hay đặt tên khác?
-5. **Q-4 Nội dung bài học:** ai soạn? Có dùng AI hỗ trợ soạn rồi người duyệt không? Có cần bám khung CEFR (tiếng Anh) và JLPT (tiếng Nhật) không?
-6. **Q-5 Dữ liệu trẻ em:** nhóm Mầm/Chồi có cần phụ huynh đồng ý khi tạo tài khoản không? (Liên quan Nghị định 13/2023 về bảo vệ dữ liệu cá nhân.)
-7. **Q-6 Phong cách hình:** 2D phẳng dễ thương, 2D vẽ tay, hay 3D nhẹ? Có hoạ sĩ riêng hay dùng bộ hình có sẵn?
-8. **Q-7 Chấm phát âm (E2):** có đưa vào không, và từ giai đoạn nào?
-9. **Q-9 Dung lượng offline:** đóng gói toàn bộ nội dung trong app ngay khi cài, hay cài bản nhẹ rồi tải từng đảo về (đảo đã tải thì chơi offline)?
-10. **Q-13 Phạm vi IT cho người đi làm:** có muốn một nhánh riêng cho kỹ sư cầu nối (BrSE) / dev làm việc với Nhật (thuật ngữ, email, họp bằng tiếng Nhật) không?
-11. **Q-14 Chơi cùng nhau:** có cần chế độ nhiều người (thi Mưa Chữ với bạn, lớp học) ngay từ MVP không, hay để giai đoạn 3?
+3. **Q-2 Tên game:** giữ tên tạm "Tomo và Quần đảo Tri Thức" hay đặt tên khác?
+4. **Q-4 Nội dung bài học:** ai soạn? Có dùng AI hỗ trợ soạn rồi người duyệt không? Có cần bám khung CEFR (tiếng Anh) và JLPT (tiếng Nhật) không?
+5. **Q-5 Dữ liệu trẻ em:** nhóm Mầm/Chồi có cần phụ huynh đồng ý khi tạo tài khoản không? (Liên quan Nghị định 13/2023 về bảo vệ dữ liệu cá nhân.)
+6. **Q-6 Phong cách hình:** 2D phẳng dễ thương, 2D vẽ tay, hay 3D nhẹ? Có hoạ sĩ riêng hay dùng bộ hình có sẵn?
+7. **Q-7 Chấm phát âm (E2):** có đưa vào không, và từ giai đoạn nào?
+8. **Q-9 Dung lượng offline:** đóng gói toàn bộ nội dung trong app ngay khi cài, hay cài bản nhẹ rồi tải từng đảo về (đảo đã tải thì chơi offline)?
+9. **Q-13 Phạm vi IT cho người đi làm:** có muốn một nhánh riêng cho kỹ sư cầu nối (BrSE) / dev làm việc với Nhật (thuật ngữ, email, họp bằng tiếng Nhật) không?
+10. **Q-14 Chơi cùng nhau:** có cần chế độ nhiều người (thi Mưa Chữ với bạn, lớp học) ngay từ MVP không, hay để giai đoạn 3?
