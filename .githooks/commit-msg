@@ -1,0 +1,35 @@
+#!/bin/sh
+# Commit message của repo:
+#   1. Xoá dòng ghi tên agent: Co-authored-by của Claude / Cursor / địa chỉ noreply của agent, "Generated with …", "Made with …".
+#      Co-author là người thật giữ nguyên.
+#   2. Dòng đầu theo dạng `type(scope): tóm tắt`, type ∈ feat fix chore docs refactor test perf style build ci revert.
+#      Bỏ qua commit merge / revert do git tự sinh và fixup! / squash!.
+
+msg_file=$1
+
+tmp="$msg_file.tmp"
+grep -viE '^(co-authored-by:.*(claude|cursor|anthropic\.com|cursoragent|copilot|codex)|.*(generated|made) with \[?(claude|cursor))' "$msg_file" > "$tmp"
+# Bỏ các dòng trống thừa ở cuối do xoá trailer
+sed -e ':a' -e '/^\n*$/{$d;N;ba' -e '}' "$tmp" > "$msg_file"
+rm -f "$tmp"
+
+subject=$(grep -v '^#' "$msg_file" | sed -n '/[^[:space:]]/{p;q;}')
+
+case "$subject" in
+  "Merge "* | "Revert \""* | "fixup! "* | "squash! "* | "amend! "*) exit 0 ;;
+esac
+
+if ! printf '%s\n' "$subject" | grep -qE '^(feat|fix|chore|docs|refactor|test|perf|style|build|ci|revert)(\([a-z0-9._/-]+\))?!?: .+'; then
+  echo "commit-msg: dòng đầu chưa đúng dạng 'type(scope): tóm tắt'"
+  echo "  Đang là: $subject"
+  echo "  Ví dụ:   feat(rain): thêm trò Mưa Chữ"
+  echo "  type:    feat fix chore docs refactor test perf style build ci revert; scope không bắt buộc, viết thường"
+  exit 1
+fi
+
+if [ "${#subject}" -gt 100 ]; then
+  echo "commit-msg: dòng đầu dài ${#subject} ký tự, giới hạn 100. Chi tiết đưa xuống thân commit."
+  exit 1
+fi
+
+exit 0

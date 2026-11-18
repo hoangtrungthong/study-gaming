@@ -1,0 +1,33 @@
+#!/bin/sh
+# Chặn push lên main và force-push, cho mọi người.
+# Thay đổi vào main đi qua PR trên GitHub.
+#
+# Git đưa vào stdin mỗi ref một dòng: <local ref> <local sha> <remote ref> <remote sha>
+
+zero=0000000000000000000000000000000000000000
+blocked=0
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ -z "$remote_ref" ] && continue
+  branch=${remote_ref#refs/heads/}
+
+  if [ "$branch" = "main" ]; then
+    if [ "$local_sha" = "$zero" ]; then
+      echo "pre-push: không xoá nhánh main trên remote."
+    else
+      echo "pre-push: không push lên main: main chỉ nhận thay đổi qua PR. Push nhánh của bạn rồi mở PR vào main."
+    fi
+    blocked=1
+    continue
+  fi
+
+  # Force-push: commit đang có trên remote không nằm trong lịch sử của bản sắp push
+  if [ "$local_sha" != "$zero" ] && [ "$remote_sha" != "$zero" ] && git cat-file -e "$remote_sha" 2>/dev/null \
+    && ! git merge-base --is-ancestor "$remote_sha" "$local_sha"; then
+    echo "pre-push: $branch: push này ghi đè lịch sử trên remote (force-push). Kéo về và merge, không viết lại lịch sử đã push."
+    blocked=1
+  fi
+done
+
+[ "$blocked" -eq 0 ] || exit 1
+exit 0

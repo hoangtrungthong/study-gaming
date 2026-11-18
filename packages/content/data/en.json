@@ -1,0 +1,139 @@
+{
+  "subject": "en",
+  "titleVi": "Đảo Chữ Cái",
+  "titleTarget": "Alphabet Island",
+  "termLang": "en",
+  "items": [
+    {
+      "id": "en-apple",
+      "term": "apple",
+      "emoji": "🍎",
+      "meaningVi": "quả táo",
+      "example": "I eat an apple.",
+      "exampleVi": "Tôi ăn một quả táo.",
+      "explainVi": "Trước apple ta dùng an, vì apple bắt đầu bằng nguyên âm a."
+    },
+    {
+      "id": "en-cat",
+      "term": "cat",
+      "emoji": "🐱",
+      "meaningVi": "con mèo",
+      "example": "The cat is sleeping.",
+      "exampleVi": "Con mèo đang ngủ."
+    },
+    {
+      "id": "en-dog",
+      "term": "dog",
+      "emoji": "🐶",
+      "meaningVi": "con chó",
+      "example": "My dog likes to run.",
+      "exampleVi": "Con chó của tôi thích chạy."
+    },
+    {
+      "id": "en-fish",
+      "term": "fish",
+      "emoji": "🐟",
+      "meaningVi": "con cá",
+      "example": "Fish live in water.",
+      "exampleVi": "Cá sống ở dưới nước."
+    },
+    {
+      "id": "en-bird",
+      "term": "bird",
+      "emoji": "🐦",
+      "meaningVi": "con chim",
+      "example": "A bird can fly.",
+      "exampleVi": "Con chim biết bay."
+    },
+    {
+      "id": "en-red",
+      "term": "red",
+      "emoji": "🔴",
+      "meaningVi": "màu đỏ",
+      "example": "The apple is red.",
+      "exampleVi": "Quả táo màu đỏ."
+    },
+    {
+      "id": "en-blue",
+      "term": "blue",
+      "emoji": "🔵",
+      "meaningVi": "màu xanh dương",
+      "example": "The sky is blue.",
+      "exampleVi": "Bầu trời màu xanh dương."
+    },
+    {
+      "id": "en-green",
+      "term": "green",
+      "emoji": "🟢",
+      "meaningVi": "màu xanh lá",
+      "example": "Leaves are green.",
+      "exampleVi": "Lá cây màu xanh lá."
+    },
+    {
+      "id": "en-sun",
+      "term": "sun",
+      "emoji": "☀️",
+      "meaningVi": "mặt trời",
+      "example": "The sun is hot.",
+      "exampleVi": "Mặt trời nóng."
+    },
+    {
+      "id": "en-book",
+      "term": "book",
+      "emoji": "📖",
+      "meaningVi": "quyển sách",
+      "example": "I read a book.",
+      "exampleVi": "Tôi đọc một quyển sách."
+    },
+    {
+      "id": "en-water",
+      "term": "water",
+      "emoji": "💧",
+      "meaningVi": "nước",
+      "example": "Drink some water.",
+      "exampleVi": "Hãy uống chút nước."
+    },
+    {
+      "id": "en-house",
+      "term": "house",
+      "emoji": "🏠",
+      "meaningVi": "ngôi nhà",
+      "example": "This is my house.",
+      "exampleVi": "Đây là nhà của tôi."
+    },
+    {
+      "id": "en-school",
+      "term": "school",
+      "emoji": "🏫",
+      "meaningVi": "trường học",
+      "example": "I go to school.",
+      "exampleVi": "Tôi đi học."
+    },
+    {
+      "id": "en-friend",
+      "term": "friend",
+      "emoji": "🤝",
+      "meaningVi": "người bạn",
+      "example": "She is my friend.",
+      "exampleVi": "Cô ấy là bạn của tôi."
+    },
+    {
+      "id": "en-hello",
+      "term": "hello",
+      "emoji": "👋",
+      "meaningVi": "xin chào",
+      "example": "Hello, how are you?",
+      "exampleVi": "Xin chào, bạn khoẻ không?",
+      "explainVi": "Hello dùng để chào bất kỳ ai, lúc nào cũng được."
+    },
+    {
+      "id": "en-thank-you",
+      "term": "thank you",
+      "emoji": "🙏",
+      "meaningVi": "cảm ơn",
+      "example": "Thank you very much!",
+      "exampleVi": "Cảm ơn bạn rất nhiều!",
+      "accept": ["thankyou", "thanks"]
+    }
+  ]
+}

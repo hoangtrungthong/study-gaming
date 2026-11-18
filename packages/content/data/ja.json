@@ -1,0 +1,153 @@
+{
+  "subject": "ja",
+  "titleVi": "Đảo Hoa Anh Đào",
+  "titleTarget": "さくらじま",
+  "termLang": "ja",
+  "items": [
+    {
+      "id": "ja-neko",
+      "term": "ねこ",
+      "emoji": "🐱",
+      "meaningVi": "con mèo",
+      "example": "ねこが います。",
+      "exampleVi": "Có một con mèo."
+    },
+    {
+      "id": "ja-inu",
+      "term": "いぬ",
+      "emoji": "🐶",
+      "meaningVi": "con chó",
+      "example": "いぬが すきです。",
+      "exampleVi": "Tôi thích chó."
+    },
+    {
+      "id": "ja-sakana",
+      "term": "さかな",
+      "emoji": "🐟",
+      "meaningVi": "con cá",
+      "example": "さかなを たべます。",
+      "exampleVi": "Tôi ăn cá."
+    },
+    {
+      "id": "ja-ringo",
+      "term": "りんご",
+      "emoji": "🍎",
+      "meaningVi": "quả táo",
+      "example": "りんごを ください。",
+      "exampleVi": "Cho tôi táo.",
+      "explainVi": "Ku-da-sai nghĩa là xin cho tôi, dùng khi nhờ hoặc mua đồ."
+    },
+    {
+      "id": "ja-mizu",
+      "term": "水",
+      "reading": "みず",
+      "hanViet": "THỦY",
+      "emoji": "💧",
+      "meaningVi": "nước",
+      "example": "水を のみます。",
+      "exampleVi": "Tôi uống nước.",
+      "explainVi": "Chữ này đọc Hán Việt là Thủy, như trong thủy triều."
+    },
+    {
+      "id": "ja-yama",
+      "term": "山",
+      "reading": "やま",
+      "hanViet": "SƠN",
+      "emoji": "⛰️",
+      "meaningVi": "núi",
+      "example": "山は たかいです。",
+      "exampleVi": "Núi thì cao.",
+      "explainVi": "Chữ núi trông giống ba đỉnh núi, Hán Việt là Sơn, như giang sơn."
+    },
+    {
+      "id": "ja-hon",
+      "term": "本",
+      "reading": "ほん",
+      "hanViet": "BẢN",
+      "emoji": "📖",
+      "meaningVi": "quyển sách",
+      "example": "本を よみます。",
+      "exampleVi": "Tôi đọc sách."
+    },
+    {
+      "id": "ja-taberu",
+      "term": "食べます",
+      "reading": "たべます",
+      "hanViet": "THỰC",
+      "emoji": "🍚",
+      "meaningVi": "ăn",
+      "example": "りんごを 食べます。",
+      "exampleVi": "Tôi ăn táo.",
+      "explainVi": "Chữ wo đứng sau đồ vật bị tác động. Táo là thứ được ăn."
+    },
+    {
+      "id": "ja-hitotsu",
+      "term": "ひとつ",
+      "emoji": "1️⃣",
+      "meaningVi": "một cái",
+      "example": "どらやきを ひとつ ください。",
+      "exampleVi": "Cho tôi một cái bánh dorayaki."
+    },
+    {
+      "id": "ja-futatsu",
+      "term": "ふたつ",
+      "emoji": "2️⃣",
+      "meaningVi": "hai cái",
+      "example": "どらやきを ふたつ ください。",
+      "exampleVi": "Cho tôi hai cái bánh dorayaki."
+    },
+    {
+      "id": "ja-arigatou",
+      "term": "ありがとう",
+      "emoji": "🙏",
+      "meaningVi": "cảm ơn",
+      "example": "どうも ありがとう。",
+      "exampleVi": "Cảm ơn nhiều nhé."
+    },
+    {
+      "id": "ja-konnichiwa",
+      "term": "こんにちは",
+      "emoji": "👋",
+      "meaningVi": "xin chào",
+      "explainVi": "Chữ cuối viết là ha nhưng đọc là wa.",
+      "accept": ["こんにちわ"]
+    },
+    {
+      "id": "ja-koohii",
+      "term": "コーヒー",
+      "emoji": "☕",
+      "meaningVi": "cà phê",
+      "explainVi": "Từ mượn tiếng nước ngoài được viết bằng katakana. Dấu gạch dài kéo dài âm phía trước.",
+      "example": "コーヒーを のみます。",
+      "exampleVi": "Tôi uống cà phê."
+    },
+    {
+      "id": "ja-terebi",
+      "term": "テレビ",
+      "emoji": "📺",
+      "meaningVi": "ti vi",
+      "example": "テレビを みます。",
+      "exampleVi": "Tôi xem ti vi."
+    },
+    {
+      "id": "ja-sensei",
+      "term": "先生",
+      "reading": "せんせい",
+      "hanViet": "TIÊN SINH",
+      "emoji": "🧑‍🏫",
+      "meaningVi": "thầy cô giáo",
+      "example": "田中先生は やさしいです。",
+      "exampleVi": "Thầy Tanaka hiền."
+    },
+    {
+      "id": "ja-tomodachi",
+      "term": "友達",
+      "reading": "ともだち",
+      "hanViet": "HỮU ĐẠT",
+      "emoji": "🤝",
+      "meaningVi": "bạn bè",
+      "example": "友達と あそびます。",
+      "exampleVi": "Tôi chơi với bạn."
+    }
+  ]
+}

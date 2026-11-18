@@ -1,0 +1,6 @@
+# Copilot instructions
+
+Rule của dự án nằm ở [AGENTS.md](../AGENTS.md) ở gốc repo. Đọc và làm theo file đó.
+
+Tóm tắt: chơi được khi không có mạng; giải thích nào cũng đọc thành tiếng, song ngữ với tiếng Việt; điểm chủ sản phẩm
+chưa chọn thì hỏi lại; test đủ 100% dòng file bị đổi; commit/push chỉ khi người dùng bảo, làm trên nhánh rồi mở PR vào `main`.

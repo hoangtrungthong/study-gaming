@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "enableArtifact": false,
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat \"$CLAUDE_PROJECT_DIR/.claude/hooks/routing.md\" 2>/dev/null || true",
+            "statusMessage": "repo routing"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "disableBypassPermissionsMode": "disable",
+    "deny": [
+      "Read(.env)",
+      "Read(.env.local)",
+      "Read(apps/*/.env)",
+      "Read(apps/*/.env.local)",
+      "Read(apps/*/.env.production)",
+      "Read(apps/game/android/app/google-services.json)",
+      "Read(apps/game/android/**/*.jks)",
+      "Read(apps/game/android/**/*.keystore)",
+      "Read(apps/game/android/keystore.properties)",
+      "Read(apps/game/ios/**/GoogleService-Info.plist)",
+      "Read(**/*.p8)",
+      "Read(**/*.p12)",
+      "Read(**/*.mobileprovision)",
+      "Bash(git push origin main*)",
+      "Bash(git push origin HEAD:main*)",
+      "Bash(git push -u origin main*)",
+      "Bash(git push * origin main*)",
+      "Bash(git push *:main*)",
+      "Bash(git * --no-verify*)",
+      "Bash(git reset --hard*)",
+      "Bash(docker compose down -v*)",
+      "Bash(docker volume rm*)",
+      "Artifact"
+    ],
+    "ask": [
+      "WebFetch",
+      "WebSearch",
+      "Bash(git push*)",
+      "Bash(git push --force*)",
+      "Bash(git push * --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * -f*)",
+      "Bash(gh pr merge*)",
+      "Bash(*pnpm add *)",
+      "Bash(*pnpm remove *)",
+      "Bash(*pnpm update*)",
+      "Bash(*npm install *)",
+      "Bash(*npm uninstall *)",
+      "Bash(*pip install *)"
+    ]
+  }
+}

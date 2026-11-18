@@ -1,0 +1,28 @@
+{
+  "name": "@study/content",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "speech-list": "tsx scripts/export-speech-list.ts",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "wanakana": "^5.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/wanakana": "^5.3.0",
+    "@vitest/coverage-v8": "^5.1.0",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "vitest": "^5.1.0"
+  }
+}
