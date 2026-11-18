@@ -123,7 +123,7 @@ Ghi vào báo cáo: số vòng, mỗi vòng có bao nhiêu finding theo mức, b
 ### 4.3 Bảo mật (mục 14)
 
 Một reviewer riêng (cùng cách ở mục 4.2 bước 1), chiều duy nhất là bảo mật: dữ liệu trẻ em và dữ liệu cá
-nhân, đăng nhập (OTP, đặt lại mật khẩu, gộp tài khoản khách), mua bán (giá do máy chủ tính, xác minh biên
+nhân, đăng nhập (Google, mã OTP qua email: hết hạn, giới hạn số lần thử, gộp tài khoản khách), mua bán (giá do máy chủ tính, xác minh biên
 nhận cửa hàng, webhook chuyển khoản: chữ ký, xử lý lặp, khớp số tiền), quảng cáo cho trẻ em, nội dung tải
 về (đường dẫn, kích thước), secret trong code / log. Finding Critical / High đi qua phản biện như mục 4.2.
 
