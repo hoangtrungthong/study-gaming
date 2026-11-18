@@ -1,0 +1,22 @@
+node_modules/
+dist/
+dev-dist/
+coverage/
+*.log
+.DS_Store
+
+# Playwright
+test-results/
+playwright-report/
+
+# Python TTS tool
+tools/tts/.venv/
+tools/tts/.cache/
+__pycache__/
+
+# Generated speech list (rebuilt from content)
+tools/tts/speech-list.json
+
+# Cache của hook impeccable
+.impeccable/hook.cache.json
+**/.impeccable/hook.cache.json
