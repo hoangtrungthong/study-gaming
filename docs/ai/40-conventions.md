@@ -66,4 +66,4 @@
 
 ## 8. Git
 
-Xem `AGENTS.md` mục 7 và [docs/quy-trinh-lam-viec.md](../quy-trinh-lam-viec.md).
+Xem `AGENTS.md` mục 8 và [docs/quy-trinh-lam-viec.md](../quy-trinh-lam-viec.md).

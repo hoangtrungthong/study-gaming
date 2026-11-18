@@ -36,7 +36,7 @@ nói không cần.
 | 8 | Dữ liệu trẻ em, bảo mật | Không gửi dữ liệu cá nhân ra dịch vụ ngoài khi chưa cần; không log email, số điện thoại, OTP, nội dung chuyển khoản. Không có secret trong code |
 | 9 | Cấu hình, build | Biến mới có trong file `.example` (chỉ tên). `pnpm build` xanh (gồm PWA). Bước build app / chạy `tools/tts` ghi ở `README.md` |
 | 10 | Chạy thật, E2E | Thay đổi người dùng nhìn thấy có test Playwright (`pnpm e2e`) cho luồng chính và ảnh chụp ở khổ điện thoại và máy tính. Đổi app native thì thử trên máy hoặc emulator |
-| 11 | Tài liệu | Kịch bản (`docs/kich-ban-game.md`: mục 12 đã chốt / còn chờ), spec đánh dấu task xong, `README.md` cập nhật khi lệch với code |
+| 11 | Tài liệu | Kịch bản (`docs/kich-ban-game.md`: mục 12 đã chốt / còn chờ), spec `.kiro/specs/<tên>/` đánh dấu task xong, `docs/feature-checklist.md`, `docs/ai/`, `README.md` cập nhật khi lệch với code |
 | 12 | Self review | Trước khi review chính thức, tự đọc lại toàn bộ diff theo checklist này, sửa những gì thấy được. Ghi số chỗ đã tự sửa |
 | 13 | Review + phản biện | Theo mục 4.2: tối đa 3 vòng, mỗi finding Critical / High có 3 phản biện độc lập. Không còn finding Critical / High mở |
 | 14 | Bảo mật | Lượt review riêng theo mục 4.3, tách khỏi review chung. Không còn finding Critical / High mở |
@@ -86,10 +86,12 @@ sửa ngay file đó và ghi ngày sửa ở dòng đầu.
 
 ```bash
 pnpm -r test:coverage
+pnpm coverage:changed            # = node scripts/coverage-changed.mjs main
 ```
 
-Mỗi gói in bảng % dòng theo file (`@vitest/coverage-v8`). Đọc dòng của các file bị đổi
-(`git diff --name-only $(git merge-base main HEAD)`), file nào dưới 100% thì ghi các dòng chưa phủ.
+`scripts/coverage-changed.mjs` đọc clover của `apps/game` và `packages/content`, lấy đúng các file bị đổi so với `main`
+(kể cả chưa commit), in % từng file và các dòng chưa phủ, thoát mã 1 khi có file dưới 100%. File có
+`/* v8 ignore file -- lý do */` được bỏ qua. CI (`.github/workflows/ci.yml`) chạy đúng lệnh này trên mỗi push / PR.
 
 ### 4.1b E2E (mục 3, 10)
 

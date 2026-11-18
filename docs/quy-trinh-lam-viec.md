@@ -33,14 +33,17 @@ git config core.hooksPath .githooks
 
 ## 4. Pull Request
 
-1. Trước khi mở PR: `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm -r test:coverage`, `pnpm build`, `pnpm e2e`,
+1. Trước khi mở PR: `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm -r test:coverage`, `pnpm coverage:changed`, `pnpm build`, `pnpm e2e`,
    và `python -m unittest` trong `tools/tts` nếu đổi công cụ âm thanh. Tất cả xanh, không cảnh báo.
 2. Chạy skill `dod-report`, chép bảng checklist vào mô tả PR, báo cáo ở `docs/dod/`.
 3. Review theo `dod-report` mục 4.2: tối đa 3 vòng; finding Critical/High qua 3 phản biện độc lập; không còn Critical/High mở.
-4. CI (`.github/workflows/ci.yml`) phải xanh: job `check` (lint, format, typecheck, test + độ phủ, build), `tts-tool`, `e2e`.
+4. CI (`.github/workflows/ci.yml`, chạy trên mọi push và PR) phải xanh: job `check` (lint, format, typecheck, test + độ phủ, 100% file bị đổi, build), `tts-tool`, `e2e`.
 5. **Không cần người duyệt:** chủ repo tự xem và merge. Công cụ AI chỉ làm tới bước tạo PR, không tự merge.
 
-## 5. Quyết định sản phẩm
+## 5. Quyết định sản phẩm và spec
 
-Điểm chủ sản phẩm chưa chọn thì hỏi lại, không tự quyết: ghi vào mục 12.2 của `docs/kich-ban-game.md` kèm đề xuất,
-chuyển sang 12.1 khi đã chốt. Tính năng lớn viết spec ở `.kiro/specs/<tên>/` (requirements, design, tasks) trước khi làm.
+- Điểm chủ sản phẩm chưa chọn thì hỏi lại, không tự quyết: ghi vào mục 12.2 của `docs/kich-ban-game.md` kèm đề xuất,
+  chuyển sang 12.1 khi đã chốt. Tra cứu (code, kịch bản, nguồn ngoài) trước khi hỏi và đưa kết quả vào câu hỏi.
+- Mỗi tính năng có spec ở `.kiro/specs/<tên>/` trước khi code (cấu trúc ở `AGENTS.md` mục 5): `requirements.md` có
+  "Quyết định đã thống nhất" và "Chờ chốt", `design.md`, `tasks.md` với ô đánh dấu theo thứ tự phụ thuộc.
+- Xong tính năng: đánh dấu `tasks.md`, cập nhật `docs/feature-checklist.md`, báo cáo DoD — cùng PR với code.
