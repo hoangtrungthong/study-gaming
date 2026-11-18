@@ -1,0 +1,12 @@
+# Mọi file chữ luôn dùng LF, kể cả khi checkout trên Windows (core.autocrlf=true): Prettier và CI đòi LF.
+* text=auto eol=lf
+
+# File nhị phân
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary
+*.m4a binary
+*.ogg binary
+*.mp3 binary
+*.wav binary

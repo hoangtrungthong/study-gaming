@@ -9,7 +9,7 @@
 | Luồng người dùng, offline | Playwright | `apps/game/e2e/*.spec.ts` | `pnpm e2e` |
 | Công cụ tạo âm thanh | `unittest` | `tools/tts/test_generate.py` | `cd tools/tts && python -m unittest` |
 
-Tất cả unit test: `pnpm test`. Độ phủ: `pnpm -r test:coverage`.
+Tất cả unit test: `pnpm test`. Độ phủ: `pnpm -r test:coverage`, rồi `pnpm coverage:changed` để kiểm 100% các file bị đổi so với `main`.
 
 ## 2. Tiêu chuẩn
 
