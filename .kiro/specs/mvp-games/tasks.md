@@ -72,4 +72,4 @@ Nhánh `feat/mvp-games` từ `main` mới nhất. Thứ tự theo phụ thuộc:
   - [x] 15.3 `docs/content-authoring.md`: cách soạn vùng / màn, câu, mê cung, kana; `docs/audio.md` nếu đổi cách gom câu;
     `AGENTS.md` mục 4 nếu thêm lệnh
   - [x] 15.4 Kịch bản mục 12: chuyển các CC đã chốt sang 12.1
-- [ ] 16. DoD: skill `dod-report`, báo cáo `docs/dod/mvp-games_<ngày>.md`; review + phản biện; tạo PR khi người dùng bảo
+- [x] 16. DoD: skill `dod-report`, báo cáo `docs/dod/mvp-games_<ngày>.md`; review + phản biện; tạo PR khi người dùng bảo
