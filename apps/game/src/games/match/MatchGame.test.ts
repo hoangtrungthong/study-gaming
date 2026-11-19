@@ -58,6 +58,49 @@ describe('MatchGame', () => {
     expect(play(3)).toBe(1);
   });
 
+  it('Đèn Pin trả nghĩa đúng của từ đang chọn, chỉ khi đang chọn; dùng rồi thì tối đa 2 sao', () => {
+    const g = new MatchGame(pool, 3, seededRng(5));
+    expect(g.hint()).toBeNull();
+    expect(g.usedHint).toBe(false);
+    const [a, b, c] = g.left;
+    g.selectLeft(a!.id);
+    expect(g.hint()).toBe(a!.id);
+    expect(g.usedHint).toBe(true);
+    g.selectRight(a!.id);
+    g.selectLeft(b!.id);
+    g.selectRight(c!.id); // sai
+    g.selectRight(b!.id);
+    g.selectLeft(c!.id);
+    g.selectRight(c!.id);
+    expect(g.done).toBe(true);
+    expect(g.stars).toBe(2);
+    // a nhờ Đèn Pin, b từng sai: chỉ c đúng ngay lần đầu.
+    expect(g.firstTry).toEqual([c!.id]);
+    expect(g.wrong).toEqual([b!.id]);
+    expect(g.hinted).toEqual([a!.id]);
+
+    // Không sai lần nào nhưng đã dùng Đèn Pin: vẫn chỉ 2 sao.
+    const h = new MatchGame(pool, 2, seededRng(6));
+    for (const item of h.left) {
+      h.selectLeft(item.id);
+      h.hint();
+      h.selectRight(item.id);
+    }
+    expect(h.stars).toBe(2);
+    expect(h.firstTry).toEqual([]);
+    expect(h.hinted).toEqual(h.left.map((i) => i.id));
+
+    // Sai trước rồi mới nhờ Đèn Pin: chỉ tính là sai.
+    const k = new MatchGame(pool, 2, seededRng(7));
+    const [x, y] = k.left;
+    k.selectLeft(x!.id);
+    k.selectRight(y!.id);
+    k.hint();
+    k.selectRight(x!.id);
+    expect(k.wrong).toEqual([x!.id]);
+    expect(k.hinted).toEqual([]);
+  });
+
   it('không lấy quá số từ có trong bộ', () => {
     expect(new MatchGame(pool.slice(0, 2), 5).left).toHaveLength(2);
   });

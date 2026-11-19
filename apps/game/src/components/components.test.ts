@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { ref } from 'vue';
+import { nextStepKey } from './nextStep';
 import { decks } from '@study/content';
 import { settings, defaultSettings } from '../settings';
 
@@ -14,6 +16,8 @@ vi.mock('../audio', async () => {
 
 const { default: KnowledgeCard } = await import('./KnowledgeCard.vue');
 const { default: ResultPanel } = await import('./ResultPanel.vue');
+const { default: HintButton } = await import('./HintButton.vue');
+const { hints, START_HINTS } = await import('../games/hints');
 
 const mizu = decks.ja.items.find((i) => i.id === 'ja-mizu')!;
 const apple = decks.en.items.find((i) => i.id === 'en-apple')!;
@@ -23,6 +27,7 @@ beforeEach(() => {
   audio.mock!.said.length = 0;
   audio.mock!.speaker.say.mockClear();
   audio.mock!.speaker.stop.mockClear();
+  hints.value = START_HINTS;
 });
 
 describe('KnowledgeCard', () => {
@@ -104,5 +109,53 @@ describe('ResultPanel', () => {
     await w.findAll('button')[1]!.trigger('click');
     expect(w.emitted('again')).toHaveLength(1);
     expect(w.emitted('exit')).toHaveLength(1);
+    expect(w.find('[data-testid="result-next"]').exists()).toBe(false);
+    expect(w.findAll('button')[0]!.classes()).toContain('primary');
+  });
+
+  it('có bước tiếp thì nút đó là nút chính, "Chơi lại" thành nút phụ', async () => {
+    const go = vi.fn();
+    const w = mount(ResultPanel, {
+      props: { stars: 3, message: 'Giỏi' },
+      global: { provide: { [nextStepKey as symbol]: ref({ label: 'Tiếp: Viết Lại Từ', go }) } },
+    });
+    const next = w.get('[data-testid="result-next"]');
+    expect(next.text()).toBe('Tiếp: Viết Lại Từ');
+    expect(next.classes()).toContain('primary');
+    expect(w.findAll('button')[1]!.classes()).not.toContain('primary');
+    await next.trigger('click');
+    expect(go).toHaveBeenCalledOnce();
+  });
+});
+
+describe('HintButton', () => {
+  it('hiện số Đèn Pin còn lại và phát use khi bấm', async () => {
+    const w = mount(HintButton);
+    const btn = w.get('button');
+    expect(btn.text()).toContain(String(START_HINTS));
+    expect(btn.attributes('aria-label')).toBe(`Đèn Pin, còn ${START_HINTS}`);
+    expect(btn.attributes('aria-disabled')).toBeUndefined();
+    expect(btn.attributes('disabled')).toBeUndefined();
+    await btn.trigger('click');
+    expect(w.emitted('use')).toHaveLength(1);
+  });
+
+  it('hết Đèn Pin thì chỉ mờ (aria-disabled), vẫn focus được và vẫn phát use', async () => {
+    hints.value = 0;
+    const w = mount(HintButton, { attachTo: document.body });
+    const btn = w.get('button');
+    expect(btn.attributes('aria-disabled')).toBe('true');
+    expect(btn.attributes('disabled')).toBeUndefined();
+    expect(btn.attributes('aria-label')).toBe('Đèn Pin, còn 0');
+    (btn.element as HTMLButtonElement).focus();
+    expect(document.activeElement).toBe(btn.element);
+    await btn.trigger('click');
+    expect(w.emitted('use')).toHaveLength(1);
+    w.unmount();
+  });
+
+  it('prop disabled thì tắt hẳn nút', () => {
+    const w = mount(HintButton, { props: { disabled: true } });
+    expect(w.get('button').attributes('disabled')).toBeDefined();
   });
 });

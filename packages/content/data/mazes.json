@@ -1,0 +1,150 @@
+{
+  "mazes": [
+    {
+      "id": "it-m-01",
+      "grid": ["S..#", "##.#", "##H#", "####"],
+      "dir": ">",
+      "blocks": ["forward", "left", "right"],
+      "maxBlocks": 6,
+      "optimal": 5,
+      "hintVi": "Đi tới hai ô, rẽ phải, rồi đi tới hai ô nữa."
+    },
+    {
+      "id": "it-m-02",
+      "grid": ["S....", "####.", "####.", "####.", "####H"],
+      "dir": ">",
+      "blocks": ["forward", "left", "right", "repeat"],
+      "maxBlocks": 8,
+      "optimal": 5,
+      "hintVi": "Dùng khối lặp lại để đi tới bốn lần.",
+      "solution": [
+        {
+          "kind": "repeat",
+          "times": 4,
+          "body": [
+            {
+              "kind": "forward"
+            }
+          ]
+        },
+        {
+          "kind": "right"
+        },
+        {
+          "kind": "repeat",
+          "times": 4,
+          "body": [
+            {
+              "kind": "forward"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "it-m-03",
+      "grid": ["####.H", "###..#", "##..##", "#..###", "..####", "S#####"],
+      "dir": "^",
+      "blocks": ["forward", "left", "right", "repeat"],
+      "maxBlocks": 8,
+      "optimal": 5,
+      "hintVi": "Mỗi bậc thang gồm: đi lên, rẽ phải, đi sang, rẽ trái. Lặp lại năm lần.",
+      "solution": [
+        {
+          "kind": "repeat",
+          "times": 5,
+          "body": [
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "right"
+            },
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "left"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "it-m-04",
+      "grid": ["##H#", "...#", "S###", "####"],
+      "dir": "^",
+      "blocks": ["forward", "left", "right"],
+      "maxBlocks": 7,
+      "optimal": 6,
+      "hintVi": "Đi lên một ô, rẽ phải, đi tới hai ô, rẽ trái, rồi đi lên một ô."
+    },
+    {
+      "id": "it-m-05",
+      "grid": [".....", ".###.", ".###.", ".###.", "S###H"],
+      "dir": "^",
+      "blocks": ["forward", "left", "right", "repeat"],
+      "maxBlocks": 8,
+      "optimal": 6,
+      "hintVi": "Mỗi cạnh: đi tới bốn ô rồi rẽ phải. Lặp lại ba lần là về tới nhà.",
+      "solution": [
+        {
+          "kind": "repeat",
+          "times": 3,
+          "body": [
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "right"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "it-m-06",
+      "grid": ["##..H", "##.##", "...##", ".####", "S####"],
+      "dir": "^",
+      "blocks": ["forward", "left", "right", "repeat"],
+      "maxBlocks": 8,
+      "optimal": 7,
+      "hintVi": "Mỗi bậc thang: đi lên hai ô, rẽ phải, đi sang hai ô, rẽ trái. Lặp lại hai lần.",
+      "solution": [
+        {
+          "kind": "repeat",
+          "times": 2,
+          "body": [
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "right"
+            },
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "forward"
+            },
+            {
+              "kind": "left"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

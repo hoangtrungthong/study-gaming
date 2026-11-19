@@ -30,5 +30,11 @@ test('Chơi được khi mất mạng sau lần mở đầu tiên', async ({ pag
     return document.fonts.check('16px "Noto Sans JP"', 'ねこ');
   });
   expect(fontsOk).toBe(true);
+
+  // Vẽ Kana: chunk của trò và dữ liệu nét (kana-strokes.json) đều tải lazy, phải có sẵn khi mất mạng.
+  await page.locator('.back').click();
+  await page.getByTestId('play-kana').click();
+  await expect(page.getByTestId('kana-board')).toBeVisible();
+  await expect(page.getByTestId('kana-char')).not.toBeEmpty();
   await context.setOffline(false);
 });

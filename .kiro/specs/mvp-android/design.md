@@ -1,6 +1,6 @@
 # Thiết kế — App Android cho MVP (mvp-android)
 
-> **Cập nhật 2026-11-18:** chủ sản phẩm đồng ý toàn bộ đề xuất — mọi chỗ ghi `(CC-n)` / `[CC-x]` / "Chặn bởi CC-n" nay là **đã chốt** theo đề xuất, trừ các điểm gắn nhãn **Còn mở** ở `requirements.md` (xem `../mvp-cho-chot.md`).
+> **Cập nhật 2026-11-18:** chủ sản phẩm đồng ý toàn bộ đề xuất — mọi chỗ ghi `(CC-n)` / `[CC-x]` / "Chặn bởi CC-n" nay là **đã chốt** theo đề xuất, trừ các điểm gắn nhãn **Còn mở** ở `requirements.md` (xem `../mvp-open-questions.md`).
 
 > Đi cùng `requirements.md`. Chỗ nào phụ thuộc "Chờ chốt" thì ghi `(CC-n)` và viết theo **đề xuất**; nếu chủ sản phẩm chọn
 > khác thì sửa mục đó trước khi code.
@@ -55,7 +55,7 @@ export default defineConfig(({ mode }) => ({
   mang **giọng mặc định** của mỗi ngôn ngữ: thêm một plugin Vite nhỏ (chạy ở `closeBundle`, chỉ mode `capacitor`) xoá thư mục
   giọng không mặc định khỏi `dist/audio/` và ghi `dist/audio/manifest.json` chỉ còn các giọng đóng gói, kèm trường
   `bundled: true` cho từng giọng. "Giọng mặc định" = giọng đầu tiên của mỗi ngôn ngữ trong `tools/tts/voices.json` (đúng thứ tự
-  `Speaker` đang ưu tiên, `docs/am-thanh.md` mục 1).
+  `Speaker` đang ưu tiên, `docs/audio.md` mục 1).
 - Logic chọn giọng giữ / bỏ là hàm TS thuần `pickBundledVoices(manifest)` có unit test; plugin Vite chỉ gọi nó.
 - Nếu chủ sản phẩm chọn đóng gói **mọi** giọng (khác CC-7) thì bỏ bước lọc, phần còn lại không đổi.
 - Nếu AAB vượt ngưỡng (Yêu cầu 2.5): chuyển âm thanh sang **Play Asset Delivery** gói `install-time` (vẫn offline ngay khi cài,
@@ -97,7 +97,7 @@ const config: CapacitorConfig = {
 | `android:screenOrientation` | `portrait` | CC-5; Android 16 tự bỏ qua trên màn ≥ 600 dp |
 | `android:configChanges` | thêm `density` vào danh sách mặc định | Capacitor 8 khuyên, để đổi kích thước không tải lại WebView (Yêu cầu 5.2) |
 | `android:windowSoftInputMode` | `adjustResize` | CC-6 |
-| `android:allowBackup` | `true` (mặc định) | Đổi máy vẫn giữ tiến độ của khách qua sao lưu Google; xem lại khi `mvp-tai-khoan` lưu token |
+| `android:allowBackup` | `true` (mặc định) | Đổi máy vẫn giữ tiến độ của khách qua sao lưu Google; xem lại khi `mvp-accounts` lưu token |
 | Quyền | chỉ `INTERNET` | Yêu cầu 1.4, Families |
 
 `MainActivity`: gọi `EdgeToEdge.enable(this)` trong `onCreate` như tài liệu System Bars khuyên khi `insetsHandling` khác
@@ -134,7 +134,7 @@ defaultConfig {
 | Code, phông, hình, `manifest.json` | Precache Workbox | Nằm trong AAB, phục vụ từ `https://localhost` |
 | Âm thanh giọng mặc định | Runtime cache `tomo-audio-v1` + `warmAudioCache` | Nằm trong AAB; **không** warm cache |
 | Âm thanh giọng tải thêm (CC-9) | Như trên | Cache Storage `tomo-audio-v1` của WebView; phát bằng `blob:` URL |
-| Cấu hình quảng cáo từ xa, API máy chủ | Cùng origin | URL tuyệt đối từ biến `VITE_WEB_ORIGIN` (phụ thuộc Q-29; dùng ở `mvp-quang-cao`, `mvp-tai-khoan`) |
+| Cấu hình quảng cáo từ xa, API máy chủ | Cùng origin | URL tuyệt đối từ biến `VITE_WEB_ORIGIN` (phụ thuộc Q-29; dùng ở `mvp-ads`, `mvp-accounts`) |
 
 `src/audio/clipSource.ts`:
 
@@ -238,20 +238,20 @@ closed test không bị chặn. Tài khoản cá nhân: closed test ≥ 12 ngư�
 | Tên, mô tả ngắn (≤ 80), mô tả dài (≤ 4000) | Tiếng Việt; mô tả dài có dòng ghi công `VOICEVOX:<tên>` lấy từ manifest âm thanh |
 | Icon 512×512, ảnh tính năng 1024×500 | Sinh từ `apps/game/resources/` (CC-13) |
 | Ảnh chụp | ≥ 2 ảnh điện thoại; chụp bằng Playwright khổ điện thoại (`apps/game/test-results/`) hoặc máy thật |
-| Phân loại nội dung | Bảng câu hỏi IARC: không bạo lực, không mua bán ngoài (mua trong app có khi `mvp-mua-ban` xong) |
+| Phân loại nội dung | Bảng câu hỏi IARC: không bạo lực, không mua bán ngoài (mua trong app có khi `mvp-purchases` xong) |
 | Nhóm tuổi | CC-18 |
 | Data safety | Bảng nháp ở `docs/mobile-app.md`; bản app thuần (spec này) không gửi dữ liệu nào ra ngoài; tài khoản / mua / quảng cáo bổ sung theo spec của chúng |
 | Chính sách quyền riêng tư | CC-19 |
-| Xoá tài khoản | Bắt buộc khi `mvp-tai-khoan` cho tạo tài khoản: nút trong app + link web |
+| Xoá tài khoản | Bắt buộc khi `mvp-accounts` cho tạo tài khoản: nút trong app + link web |
 | Quảng cáo | Khai "có quảng cáo" khi build có `ADS_ENABLED=true` |
 
 ### 9.4. Ràng buộc Families cho các spec khác (khi CC-18 chọn có nhóm trẻ em)
 
 | Spec | Ràng buộc |
 |---|---|
-| `mvp-quang-cao` | Chỉ SDK quảng cáo trong danh sách Families Self-Certified (AdMob có); với trẻ / người chưa rõ tuổi: không cá nhân hoá, gắn cờ `tagForChildDirectedTreatment` / `maxAdContentRating`; không quảng cáo toàn màn hình lúc mở app; xem lại quyền `AD_ID` (Families: app **chỉ** cho trẻ không khai `AD_ID` khi nhắm API ≥ 33; app hỗn hợp không gửi AAID của trẻ) |
-| `mvp-tai-khoan` | Dịch vụ đăng nhập phải cho phép dùng với đối tượng trẻ em; không gửi định danh máy; có xoá tài khoản trong app + web |
-| `mvp-mua-ban` | Nút mua ở Góc phụ huynh (kịch bản 10.5); khai "có mua trong app" trên hồ sơ |
+| `mvp-ads` | Chỉ SDK quảng cáo trong danh sách Families Self-Certified (AdMob có); với trẻ / người chưa rõ tuổi: không cá nhân hoá, gắn cờ `tagForChildDirectedTreatment` / `maxAdContentRating`; không quảng cáo toàn màn hình lúc mở app; xem lại quyền `AD_ID` (Families: app **chỉ** cho trẻ không khai `AD_ID` khi nhắm API ≥ 33; app hỗn hợp không gửi AAID của trẻ) |
+| `mvp-accounts` | Dịch vụ đăng nhập phải cho phép dùng với đối tượng trẻ em; không gửi định danh máy; có xoá tài khoản trong app + web |
+| `mvp-purchases` | Nút mua ở Góc phụ huynh (kịch bản 10.5); khai "có mua trong app" trên hồ sơ |
 | Spec này | Không xin quyền vị trí / danh bạ; app không phải WebView bọc website (nội dung nằm trong AAB) |
 
 ## 10. CI (`.github/workflows/android.yml`)

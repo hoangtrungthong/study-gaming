@@ -1,0 +1,29 @@
+# Phát triển game trong container (docs/deploy.md mục 2).
+# Máy chủ NestJS + PostgreSQL sẽ thêm service vào file này trong spec mvp-accounts.
+services:
+  game:
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    working_dir: /app
+    # Cài gói theo lockfile mỗi lần khởi động (nhanh khi đã có trong volume), rồi chạy dev server.
+    command: sh -c "pnpm install --frozen-lockfile --store-dir /pnpm/store && pnpm --filter @study/game dev --host 0.0.0.0 --port 5173"
+    environment:
+      # Ổ Windows gắn vào container không phát sự kiện đổi file: Vite phải dò định kỳ.
+      VITE_USE_POLLING: 'true'
+    ports:
+      - '5173:5173'
+      - '4173:4173'
+    volumes:
+      - .:/app
+      # node_modules của Linux nằm trong volume riêng, không đè lên node_modules của Windows trên máy.
+      - root_node_modules:/app/node_modules
+      - game_node_modules:/app/apps/game/node_modules
+      - content_node_modules:/app/packages/content/node_modules
+      - pnpm_store:/pnpm/store
+
+volumes:
+  root_node_modules:
+  game_node_modules:
+  content_node_modules:
+  pnpm_store:

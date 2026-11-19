@@ -1,7 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
-import { decks, phrases } from '@study/content';
+import { decks, phrases, type Level } from '@study/content';
 import { defaultSettings, settings } from '../settings';
+import { hints, START_HINTS } from './hints';
+import type { LevelResult } from './result';
 import type { RainController } from './rain/RainScene';
 
 const audio = vi.hoisted(() => ({
@@ -33,6 +35,7 @@ const { default: RainView } = await import('./rain/RainView.vue');
 
 beforeEach(() => {
   Object.assign(settings, defaultSettings());
+  hints.value = START_HINTS;
   audio.mock!.said.length = 0;
   scene.ctl = null;
   scene.started = 0;
@@ -42,6 +45,13 @@ beforeEach(() => {
 afterEach(() => vi.useRealTimers());
 
 const lastSaid = () => audio.mock!.said.at(-1)!;
+/** Màn giả lấy vài từ đầu của bộ (không phụ thuộc dữ liệu màn đang được soạn). */
+const fakeLevel = (id: string, game: Level['game'], count: number): Level => ({
+  id,
+  game,
+  items: decks.en.items.slice(0, count).map((i) => i.id),
+});
+const finishOf = (w: ReturnType<typeof mount>) => w.emitted('finish') as [LevelResult][] | undefined;
 
 describe('MatchView', () => {
   const leftIds = (w: ReturnType<typeof mount>) =>
@@ -131,6 +141,94 @@ describe('MatchView', () => {
     }
     await w.findAll('[data-testid="result"] button').at(-1)!.trigger('click');
     expect(w.emitted('exit')).toHaveLength(1);
+  });
+
+  /** Ghép hết các cặp còn lại (chọn từ nếu chưa chọn). */
+  async function matchAll(w: ReturnType<typeof mount>, ids: string[]) {
+    for (const id of ids) {
+      if (!w.get(`[data-testid="left-${id}"]`).classes().includes('selected')) {
+        await w.get(`[data-testid="left-${id}"]`).trigger('click');
+      }
+      await w.get(`[data-testid="right-${id}"]`).trigger('click');
+    }
+  }
+
+  it('dùng từ của màn; ghép xong phát finish một lần với levelId, firstTry, wrong', async () => {
+    const level = fakeLevel('en-r1-l1', 'match', 4);
+    const w = mount(MatchView, { props: { deck: decks.en, level } });
+    const ids = leftIds(w);
+    expect(new Set(ids)).toEqual(new Set(level.items));
+    await w.get(`[data-testid="left-${ids[0]}"]`).trigger('click');
+    await w.get(`[data-testid="right-${ids[1]}"]`).trigger('click'); // sai
+    await matchAll(w, ids);
+    expect(finishOf(w)).toHaveLength(1);
+    expect(finishOf(w)![0]![0]).toEqual({
+      levelId: 'en-r1-l1',
+      game: 'match',
+      stars: 2,
+      firstTry: ids.slice(1),
+      wrong: [ids[0]],
+      usedHint: false,
+    });
+  });
+
+  it('màn "-all" hoặc màn không có từ: dùng cả bộ từ và không có levelId', async () => {
+    const empty: Level = { id: 'en-match-x', game: 'match', items: [] };
+    const w0 = mount(MatchView, { props: { deck: decks.en, level: empty } });
+    expect(leftIds(w0)).toHaveLength(4);
+    const w = mount(MatchView, { props: { deck: decks.en, level: fakeLevel('en-match-all', 'match', 6) } });
+    await matchAll(w, leftIds(w));
+    expect(finishOf(w)![0]![0]).not.toHaveProperty('levelId');
+    expect(finishOf(w)![0]![0].stars).toBe(3);
+    expect(finishOf(w)![0]![0]).not.toHaveProperty('hinted');
+  });
+
+  it('Đèn Pin chỉ bật khi đang chọn từ, loé sáng nghĩa đúng 1 giây, rồi tối đa 2 sao', async () => {
+    vi.useFakeTimers();
+    const w = mount(MatchView, { props: { deck: decks.en } });
+    const ids = leftIds(w);
+    const btn = () => w.get('[data-testid="match-hint"]');
+    expect(btn().attributes('disabled')).toBeDefined();
+    expect(btn().text()).toContain(String(START_HINTS));
+    await w.get(`[data-testid="left-${ids[0]}"]`).trigger('click');
+    expect(btn().attributes('disabled')).toBeUndefined();
+    await btn().trigger('click');
+    expect(hints.value).toBe(START_HINTS - 1);
+    expect(lastSaid()).toEqual([{ lang: 'vi', text: phrases.hint }]);
+    const right = () => w.get(`[data-testid="right-${ids[0]}"]`);
+    expect(right().classes()).toContain('flash');
+    expect(right().attributes('aria-describedby')).toBe('match-flash-note');
+    expect(w.get('#match-flash-note').text()).toContain('nghĩa đúng');
+    vi.advanceTimersByTime(1000);
+    await w.vm.$nextTick();
+    expect(right().classes()).not.toContain('flash');
+    expect(right().attributes('aria-describedby')).toBeUndefined();
+
+    // Chọn từ khác thì tắt loé sáng ngay.
+    await btn().trigger('click');
+    expect(right().classes()).toContain('flash');
+    await w.get(`[data-testid="left-${ids[1]}"]`).trigger('click');
+    expect(right().classes()).not.toContain('flash');
+
+    // Hết Đèn Pin: nút mờ nhưng vẫn bấm được; Tomo báo hết, không loé sáng.
+    hints.value = 0;
+    await w.get(`[data-testid="left-${ids[0]}"]`).trigger('click');
+    expect(btn().attributes('disabled')).toBeUndefined();
+    expect(btn().attributes('aria-disabled')).toBe('true');
+    audio.mock!.said.length = 0;
+    await btn().trigger('click');
+    expect(audio.mock!.said).toEqual([[{ lang: 'vi', text: phrases.noHints }]]);
+    expect(hints.value).toBe(0);
+    expect(right().classes()).not.toContain('flash');
+
+    await matchAll(w, ids);
+    const result = finishOf(w)![0]![0];
+    expect(result.usedHint).toBe(true);
+    expect(result.stars).toBe(2);
+    expect(result.firstTry).not.toContain(ids[0]);
+    expect(result.hinted).toEqual([ids[0]]);
+    expect(w.get('[data-testid="result"]').find('[aria-label="2 trên 3 sao"]').exists()).toBe(true);
+    w.unmount();
   });
 
   it('thoát thì phát sự kiện và dừng đọc', async () => {
@@ -347,6 +445,137 @@ describe('RainView', () => {
     await flushPromises();
     await w.findAll('[data-testid="result"] button').at(-1)!.trigger('click');
     expect(w.emitted('exit')).toHaveLength(1);
+  });
+
+  it('dùng từ của màn; hết trận phát finish với levelId, firstTry, wrong', async () => {
+    const level = fakeLevel('en-r1-l2', 'rain', 3);
+    const w = mount(RainView, { props: { deck: decks.en, level } });
+    await w.get('[data-testid="rain-start"]').trigger('click');
+    await flushPromises();
+    const ctl = scene.ctl!;
+    ctl.onEvents(ctl.game.tick(0.01));
+    const first = ctl.game.drops[0]!;
+    expect(level.items).toContain(first.item.id);
+    await w.get('[data-testid="rain-input"]').setValue(first.item.term);
+    const missed = decks.en.items.find((i) => i.id !== first.item.id)!;
+    ctl.game.missed.push(missed);
+    ctl.onEvents([{ type: 'over', reason: 'time' }]);
+    await flushPromises();
+    expect(finishOf(w)).toHaveLength(1);
+    expect(finishOf(w)![0]![0]).toEqual({
+      levelId: 'en-r1-l2',
+      game: 'rain',
+      stars: 1,
+      firstTry: [first.item.id],
+      wrong: [missed.id],
+      usedHint: false,
+    });
+  });
+
+  it('màn "-all" hoặc màn không có từ: dùng cả bộ từ và không có levelId', async () => {
+    const level: Level = { id: 'en-rain-all', game: 'rain', items: [] };
+    const w = mount(RainView, { props: { deck: decks.en, level } });
+    await w.get('[data-testid="rain-start"]').trigger('click');
+    await flushPromises();
+    const ctl = scene.ctl!;
+    ctl.onEvents(ctl.game.tick(0.01));
+    expect(decks.en.items).toContain(ctl.game.drops[0]!.item);
+    ctl.onEvents([{ type: 'over', reason: 'time' }]);
+    await flushPromises();
+    expect(finishOf(w)![0]![0]).not.toHaveProperty('levelId');
+  });
+
+  it('Đèn Pin làm mưa rơi chậm 5 giây và tối đa 2 sao; hết Đèn Pin thì Tomo báo hết', async () => {
+    const w = await startGame(decks.en);
+    const ctl = scene.ctl!;
+    const normal = ctl.game.speed;
+    const btn = w.get('[data-testid="rain-hint"]');
+    expect(btn.text()).toContain(String(START_HINTS));
+    expect(btn.attributes('disabled')).toBeUndefined();
+    await btn.trigger('click');
+    expect(hints.value).toBe(START_HINTS - 1);
+    expect(ctl.game.speed).toBeLessThan(normal);
+    // Đang rơi chậm thì nút tắt (bấm thêm không chậm hơn); hết 5 giây thì bật lại.
+    expect(btn.attributes('disabled')).toBeDefined();
+    ctl.game.drops.length = 0;
+    ctl.onEvents(ctl.game.tick(5.1));
+    await w.vm.$nextTick();
+    expect(ctl.game.slowed).toBe(false);
+    expect(btn.attributes('disabled')).toBeUndefined();
+    ctl.game.hits.push(...decks.en.items.slice(0, 5));
+    ctl.onEvents([{ type: 'over', reason: 'time' }]);
+    await flushPromises();
+    expect(finishOf(w)![0]![0]).toMatchObject({ stars: 2, usedHint: true });
+    expect(w.find('[data-testid="rain-hint"]').exists()).toBe(false);
+
+    // Chơi lại: cờ Đèn Pin được đặt lại; hết Đèn Pin thì nút mờ nhưng vẫn bấm được, Tomo báo hết.
+    await w.get('[data-testid="result"] .primary').trigger('click');
+    await flushPromises();
+    hints.value = 0;
+    await w.vm.$nextTick();
+    const again = w.get('[data-testid="rain-hint"]');
+    expect(again.attributes('disabled')).toBeUndefined();
+    expect(again.attributes('aria-disabled')).toBe('true');
+    audio.mock!.said.length = 0;
+    await again.trigger('click');
+    expect(audio.mock!.said).toEqual([[{ lang: 'vi', text: phrases.noHints }]]);
+    expect(scene.ctl!.game.slowed).toBe(false);
+    scene.ctl!.onEvents([{ type: 'over', reason: 'time' }]);
+    await flushPromises();
+    expect(finishOf(w)![1]![0].usedHint).toBe(false);
+  });
+
+  it('nhóm Mầm: ô gõ chỉ đọc, bàn phím ảo có các chữ của hạt đang rơi; gõ đủ thì phá hạt', async () => {
+    settings.ageGroup = 'mam';
+    const w = await startGame(decks.ja);
+    const input = w.get('[data-testid="rain-input"]');
+    expect(input.attributes('readonly')).toBeDefined();
+    expect(input.attributes('inputmode')).toBe('none');
+    const ctl = scene.ctl!;
+    ctl.onEvents(ctl.game.tick(0.01));
+    await w.vm.$nextTick();
+    const drop = ctl.game.drops[0]!;
+    const answer = [...(drop.item.reading ?? drop.item.term)];
+    const keys = w.findAll('[data-testid^="vkey-"]').map((k) => k.attributes('data-testid')!.slice('vkey-'.length));
+    expect(new Set(keys)).toEqual(new Set([...answer, 'back']));
+
+    const value = () => (input.element as HTMLInputElement).value;
+    await w.get(`[data-testid="vkey-${answer[0]}"]`).trigger('click');
+    await w.get(`[data-testid="vkey-${answer[0]}"]`).trigger('click');
+    expect(value()).toBe(answer[0]! + answer[0]!);
+    await w.get('[data-testid="vkey-back"]').trigger('click');
+    expect(value()).toBe(answer[0]);
+    for (const ch of answer.slice(1)) await w.get(`[data-testid="vkey-${ch}"]`).trigger('click');
+    expect(ctl.game.score).toBe(1);
+    expect(value()).toBe('');
+    w.unmount();
+  });
+
+  it('nhóm Mầm: hạt rơi xuống đất thì xoá chữ gõ dở; nhóm khác thì giữ', async () => {
+    settings.ageGroup = 'mam';
+    const w = await startGame(decks.en);
+    const ctl = scene.ctl!;
+    ctl.onEvents(ctl.game.tick(0.01));
+    await w.vm.$nextTick();
+    const first = [...ctl.game.drops[0]!.item.term][0]!;
+    await w.get(`[data-testid="vkey-${first}"]`).trigger('click');
+    ctl.game.drops[0]!.y = 0.999;
+    ctl.onEvents(ctl.game.tick(0.05));
+    await w.vm.$nextTick();
+    expect((w.get('[data-testid="rain-input"]').element as HTMLInputElement).value).toBe('');
+    w.unmount();
+
+    settings.ageGroup = 'choi';
+    const c = await startGame(decks.en);
+    expect(c.find('[data-testid="virtual-keyboard"]').exists()).toBe(false);
+    expect(c.get('[data-testid="rain-input"]').attributes('readonly')).toBeUndefined();
+    const ctl2 = scene.ctl!;
+    ctl2.onEvents(ctl2.game.tick(0.01));
+    await c.get('[data-testid="rain-input"]').setValue('zz');
+    ctl2.game.drops[0]!.y = 0.999;
+    ctl2.onEvents(ctl2.game.tick(0.05));
+    expect((c.get('[data-testid="rain-input"]').element as HTMLInputElement).value).toBe('zz');
+    c.unmount();
   });
 
   it('nhóm Mầm không hiện đồng hồ; nút thoát phát sự kiện', async () => {

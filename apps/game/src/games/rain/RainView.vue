@@ -1,23 +1,34 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue';
 import {
+  levelItems,
   phrases,
+  primaryAnswer,
   romajiPreview,
   termSegment,
   translationSegment,
   viSegment,
   type Deck,
+  type Level,
   type SpeechSegment,
 } from '@study/content';
+import HintButton from '../../components/HintButton.vue';
 import ResultPanel from '../../components/ResultPanel.vue';
+import VirtualKeyboard from '../../components/VirtualKeyboard.vue';
 import { speaker } from '../../audio';
 import { settings } from '../../settings';
 import { RAIN_CONFIG } from '../ageConfig';
+import { useHint } from '../hints';
+import { levelIdOf, type LevelResult } from '../result';
 import { RainGame, type Drop, type RainEvent } from './RainGame';
 import { promptLabel, type PromptMode } from './labels';
 
-const props = defineProps<{ deck: Deck }>();
-defineEmits<{ exit: [] }>();
+// `level`: màn đang chơi; không có (hoặc màn không có từ) thì dùng toàn bộ từ của đảo.
+const props = defineProps<{ deck: Deck; level?: Level }>();
+const emit = defineEmits<{ exit: []; finish: [result: LevelResult] }>();
+
+/** Đèn Pin làm mưa rơi chậm 5 giây (chốt 2026-11-18). */
+const SLOW_SECONDS = 5;
 
 type Phase = 'setup' | 'playing' | 'over';
 const phase = ref<Phase>('setup');
@@ -27,10 +38,13 @@ const flash = ref<'ok' | 'bad' | null>(null);
 const composing = ref(false);
 const playArea = ref<HTMLElement | null>(null);
 const input = ref<HTMLInputElement | null>(null);
+const usedHint = ref(false);
+// Nhóm Mầm gõ bằng bàn phím ảo chữ to, không bật bàn phím của máy [CC-19].
+const virtualKeyboard = computed(() => settings.ageGroup === 'mam');
 
 const game = shallowRef<RainGame | null>(null);
 // Bản sao phản ứng để vẽ HUD và danh sách đọc màn hình.
-const hud = ref({ score: 0, lives: 0, timeLeft: 0, drops: [] as Drop[] });
+const hud = ref({ score: 0, lives: 0, timeLeft: 0, drops: [] as Drop[], slowed: false });
 
 let stopScene: (() => void) | null = null;
 let sceneApi: { burst(id: number, kind: 'hit' | 'miss'): void } | null = null;
@@ -47,14 +61,20 @@ const placeholder = computed(() =>
       : 'Bấm Chơi lại để chơi tiếp',
 );
 const preview = computed(() => (props.deck.subject === 'ja' ? romajiPreview(typed.value) : ''));
+/**
+ * Phím của bàn phím ảo: hợp các chữ trong đáp án của MỌI hạt đang rơi, vì `RainGame.submit` so chữ gõ với
+ * từng hạt (ưu tiên hạt thấp nhất) chứ không chỉ một hạt. Nhóm Mầm chỉ có 1 hạt một lúc nên thực tế là các chữ
+ * của đúng từ đó. Xếp và bỏ trùng để chuỗi chỉ đổi khi tập chữ đổi, bàn phím không xáo lại vô cớ.
+ */
+const keyboardAnswer = computed(() =>
+  [...new Set(hud.value.drops.flatMap((d) => [...primaryAnswer(d.item)]))].sort().join(''),
+);
 const fontScale = computed(() => (settings.ageGroup === 'mam' ? 1.3 : 1));
 const result = computed(() => {
   const g = game.value;
   if (!g) return { stars: 0, message: '' };
-  const total = g.hits.length + g.missed.length;
-  const ratio = total === 0 ? 0 : g.hits.length / total;
   return {
-    stars: ratio >= 0.9 ? 3 : ratio >= 0.6 ? 2 : 1,
+    stars: g.stars(usedHint.value),
     message: `Bạn phá được ${g.hits.length} hạt mưa, lỡ ${g.missed.length} hạt.`,
   };
 });
@@ -62,7 +82,13 @@ const result = computed(() => {
 function refreshHud() {
   const g = game.value;
   if (!g) return;
-  hud.value = { score: g.score, lives: g.lives, timeLeft: Math.ceil(g.timeLeft), drops: [...g.drops] };
+  hud.value = {
+    score: g.score,
+    lives: g.lives,
+    timeLeft: Math.ceil(g.timeLeft),
+    drops: [...g.drops],
+    slowed: g.slowed,
+  };
 }
 
 /**
@@ -92,6 +118,8 @@ function handleEvents(events: RainEvent[]) {
       return;
     }
     if (e.type === 'miss') {
+      // Bàn phím ảo đổi theo hạt mới: bỏ chữ đã gõ dở cho hạt vừa rơi.
+      if (virtualKeyboard.value) typed.value = '';
       feedback.push(viSegment(phrases.missed));
       speak = true;
     }
@@ -107,7 +135,10 @@ async function start() {
   speaker.stop();
   phase.value = 'playing';
   typed.value = '';
-  game.value = new RainGame(props.deck.subject, props.deck.items, RAIN_CONFIG[settings.ageGroup]);
+  usedHint.value = false;
+  const items = props.level ? levelItems(props.deck.subject, props.level) : [];
+  const pool = items.length > 0 ? items : props.deck.items;
+  game.value = new RainGame(props.deck.subject, pool, RAIN_CONFIG[settings.ageGroup]);
   refreshHud();
   await nextTick();
   const { startRainScene } = await import('./RainScene');
@@ -133,8 +164,38 @@ async function finish() {
   stopScene?.();
   stopScene = null;
   window.clearInterval(hudTimer);
+  emitResult();
   const recap = missedOnce.value.flatMap((item) => [termSegment(props.deck, item), translationSegment(item.meaningVi)]);
   await speaker.say([viSegment(phrases.rainOver), ...recap]);
+}
+
+function emitResult() {
+  const g = game.value!;
+  const res: LevelResult = {
+    ...levelIdOf(props.level),
+    game: 'rain',
+    stars: result.value.stars,
+    firstTry: g.firstTry,
+    wrong: g.wrong,
+    usedHint: usedHint.value,
+  };
+  emit('finish', res);
+}
+
+function hint() {
+  if (phase.value !== 'playing' || !useHint()) return;
+  usedHint.value = true;
+  game.value!.slowDown(SLOW_SECONDS);
+  refreshHud();
+}
+
+function press(key: string) {
+  typed.value += key;
+  check();
+}
+
+function backspace() {
+  typed.value = [...typed.value].slice(0, -1).join('');
 }
 
 function check() {
@@ -184,6 +245,8 @@ onBeforeUnmount(() => {
         >
         <span aria-label="Chậu hoa còn lại">🌼 {{ hud.lives }}</span>
         <span v-if="settings.ageGroup !== 'mam'" aria-label="Thời gian còn lại">⏱ {{ hud.timeLeft }}s</span>
+        <!-- Đang rơi chậm thì tắt nút: bấm thêm chỉ tốn Đèn Pin vì không cộng dồn. -->
+        <HintButton class="lamp" data-testid="rain-hint" :disabled="phase !== 'playing' || hud.slowed" @use="hint" />
       </span>
     </header>
 
@@ -200,7 +263,7 @@ onBeforeUnmount(() => {
           ><input v-model="mode" type="radio" name="rain-mode" value="audio" /> Chỉ nghe 🔊</label
         >
       </div>
-      <p v-if="deck.subject === 'ja'" class="hint">
+      <p v-if="deck.subject === 'ja'" class="ime-tip">
         Gõ bằng bàn phím tiếng Nhật hoặc gõ romaji (ví dụ <code>neko</code> → ねこ).
       </p>
       <button type="button" class="primary big" data-testid="rain-start" @click="start">Bắt đầu</button>
@@ -237,6 +300,8 @@ onBeforeUnmount(() => {
         spellcheck="false"
         enterkeyhint="done"
         :lang="deck.termLang"
+        :readonly="virtualKeyboard"
+        :inputmode="virtualKeyboard ? 'none' : undefined"
         :placeholder="placeholder"
         @input="check"
         @compositionstart="composing = true"
@@ -245,6 +310,14 @@ onBeforeUnmount(() => {
       <span v-if="preview && preview !== typed" class="preview" lang="ja" aria-hidden="true">{{ preview }}</span>
       <button type="submit" class="primary">OK</button>
     </form>
+
+    <VirtualKeyboard
+      v-if="virtualKeyboard && phase === 'playing'"
+      :answer="keyboardAnswer"
+      :lang="deck.termLang"
+      @press="press"
+      @backspace="backspace"
+    />
   </div>
 </template>
 
@@ -261,7 +334,20 @@ onBeforeUnmount(() => {
 .hud {
   display: flex;
   gap: 14px;
+  align-items: center;
   font-size: 1.1rem;
+}
+.lamp {
+  font: inherit;
+  border: 2px solid var(--sea-200);
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.lamp:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 .setup {
   display: grid;
@@ -290,7 +376,7 @@ onBeforeUnmount(() => {
 .modes input {
   accent-color: var(--sea);
 }
-.hint {
+.ime-tip {
   color: var(--ink-soft);
 }
 .sky {

@@ -1,6 +1,6 @@
 # Kế hoạch triển khai — App Android cho MVP (mvp-android)
 
-> **Cập nhật 2026-11-18:** chủ sản phẩm đồng ý toàn bộ đề xuất — mọi chỗ ghi `(CC-n)` / `[CC-x]` / "Chặn bởi CC-n" nay là **đã chốt** theo đề xuất, trừ các điểm gắn nhãn **Còn mở** ở `requirements.md` (xem `../mvp-cho-chot.md`).
+> **Cập nhật 2026-11-18:** chủ sản phẩm đồng ý toàn bộ đề xuất — mọi chỗ ghi `(CC-n)` / `[CC-x]` / "Chặn bởi CC-n" nay là **đã chốt** theo đề xuất, trừ các điểm gắn nhãn **Còn mở** ở `requirements.md` (xem `../mvp-open-questions.md`).
 
 Nhánh: `feat/mvp-android` (từ `main` mới nhất). Node 22 + pnpm 11 (AGENTS mục 4).
 
@@ -78,6 +78,6 @@ không cảnh báo.
     thêm người thử, điền hồ sơ / Data safety / nhóm tuổi / IARC, phát bản mới (tăng phiên bản, tag `android-v*`), mất upload
     key, ngưỡng dung lượng và khi nào chuyển Play Asset Delivery, bảng ràng buộc Families cho các spec khác, checklist máy thật.
   - Cập nhật `AGENTS.md` mục 4 (lệnh `build:app`, `app:android`, `app:icons`, `app:size`) và mục 8 nếu có file mới không commit;
-    `docs/README.md`; `docs/ai/00-overview.md` (mục 1, 6: offline trong app); `docs/am-thanh.md` (mục 4: âm thanh trong app);
+    `docs/README.md`; `docs/ai/00-overview.md` (mục 1, 6: offline trong app); `docs/audio.md` (mục 4: âm thanh trong app);
     `docs/feature-checklist.md`; chuyển các CC đã chốt vào kịch bản mục 12.1 và câu mới (nếu có) vào 12.2.
   - Đánh dấu `- [x]` từng việc; chạy skill `dod-report`, báo cáo ở `docs/dod/`.

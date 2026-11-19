@@ -141,9 +141,158 @@
     {
       "id": "it-bucket",
       "term": "bucket",
-      "emoji": "🪣",
+      "emoji": "🛢️",
       "meaningVi": "thùng lưu trữ",
       "explainVi": "Bucket là cái thùng chứa file trên đám mây. Bên AWS là S3, bên Google Cloud là Cloud Storage."
+    },
+    {
+      "id": "it-printer",
+      "term": "printer",
+      "emoji": "🖨️",
+      "meaningVi": "máy in",
+      "explainVi": "Máy in đưa chữ và hình từ máy tính ra tờ giấy."
+    },
+    {
+      "id": "it-speaker",
+      "term": "speaker",
+      "emoji": "🔊",
+      "meaningVi": "loa",
+      "explainVi": "Loa phát ra âm thanh, như tiếng nhạc hay tiếng nói, từ máy tính."
+    },
+    {
+      "id": "it-headphones",
+      "term": "headphones",
+      "emoji": "🎧",
+      "meaningVi": "tai nghe",
+      "explainVi": "Tai nghe đeo lên tai, giúp mình nghe tiếng mà không làm ồn người bên cạnh.",
+      "accept": ["headphone"]
+    },
+    {
+      "id": "it-microphone",
+      "term": "microphone",
+      "emoji": "🎤",
+      "meaningVi": "micrô",
+      "explainVi": "Micrô thu giọng nói của mình vào máy tính.",
+      "accept": ["mic"]
+    },
+    {
+      "id": "it-camera",
+      "term": "camera",
+      "emoji": "📷",
+      "meaningVi": "máy ảnh",
+      "explainVi": "Camera chụp ảnh và quay phim. Nhiều máy tính có camera nhỏ ở phía trên màn hình."
+    },
+    {
+      "id": "it-smartphone",
+      "term": "smartphone",
+      "emoji": "📱",
+      "meaningVi": "điện thoại thông minh",
+      "explainVi": "Điện thoại thông minh cũng là một chiếc máy tính nhỏ, bỏ vừa túi áo."
+    },
+    {
+      "id": "it-battery",
+      "term": "battery",
+      "emoji": "🔋",
+      "meaningVi": "pin",
+      "explainVi": "Pin cất điện bên trong, giúp máy chạy được khi không cắm dây."
+    },
+    {
+      "id": "it-charger",
+      "term": "charger",
+      "emoji": "🔌",
+      "meaningVi": "bộ sạc",
+      "explainVi": "Bộ sạc cắm vào ổ điện để nạp điện lại cho pin."
+    },
+    {
+      "id": "it-command",
+      "term": "command",
+      "emoji": "📢",
+      "meaningVi": "lệnh",
+      "explainVi": "Lệnh là một việc mình bảo máy tính làm, ví dụ: đi tới một bước."
+    },
+    {
+      "id": "it-program",
+      "term": "program",
+      "emoji": "📜",
+      "meaningVi": "chương trình",
+      "explainVi": "Chương trình là nhiều lệnh xếp theo thứ tự. Máy làm lần lượt từng lệnh, từ trên xuống dưới."
+    },
+    {
+      "id": "it-step",
+      "term": "step",
+      "emoji": "👣",
+      "meaningVi": "bước",
+      "explainVi": "Mỗi lệnh đi tới làm Bit bước thêm một ô."
+    },
+    {
+      "id": "it-forward",
+      "term": "forward",
+      "emoji": "⬆️",
+      "meaningVi": "đi tới",
+      "explainVi": "Lệnh đi tới làm Bit bước thẳng một ô theo hướng đang nhìn."
+    },
+    {
+      "id": "it-left",
+      "term": "left",
+      "emoji": "⬅️",
+      "meaningVi": "bên trái",
+      "explainVi": "Rẽ trái là quay người sang bên trái. Bit đứng yên tại chỗ, chỉ đổi hướng nhìn."
+    },
+    {
+      "id": "it-right",
+      "term": "right",
+      "emoji": "➡️",
+      "meaningVi": "bên phải",
+      "explainVi": "Rẽ phải là quay người sang bên phải. Bit đứng yên tại chỗ, chỉ đổi hướng nhìn."
+    },
+    {
+      "id": "it-turn",
+      "term": "turn",
+      "emoji": "🔄",
+      "meaningVi": "rẽ, quay",
+      "explainVi": "Turn là quay sang hướng khác. Có rẽ trái và rẽ phải."
+    },
+    {
+      "id": "it-repeat",
+      "term": "repeat",
+      "emoji": "🔂",
+      "meaningVi": "lặp lại",
+      "explainVi": "Khối lặp lại làm cùng một việc nhiều lần, nên mình không phải xếp cùng một khối nhiều lần."
+    },
+    {
+      "id": "it-goal",
+      "term": "goal",
+      "emoji": "🎯",
+      "meaningVi": "đích",
+      "explainVi": "Đích là nơi mình muốn tới. Trong mê cung, đích của Bit là ngôi nhà."
+    },
+    {
+      "id": "it-start",
+      "term": "start",
+      "emoji": "▶️",
+      "meaningVi": "bắt đầu",
+      "explainVi": "Bấm bắt đầu thì chương trình chạy từ lệnh đầu tiên."
+    },
+    {
+      "id": "it-stop",
+      "term": "stop",
+      "emoji": "🛑",
+      "meaningVi": "dừng lại",
+      "explainVi": "Lệnh dừng làm máy ngưng chạy chương trình."
+    },
+    {
+      "id": "it-debug",
+      "term": "debug",
+      "emoji": "🔧",
+      "meaningVi": "gỡ lỗi",
+      "explainVi": "Gỡ lỗi là tìm chỗ sai trong chương trình rồi sửa lại cho đúng."
+    },
+    {
+      "id": "it-algorithm",
+      "term": "algorithm",
+      "emoji": "📋",
+      "meaningVi": "thuật toán",
+      "explainVi": "Thuật toán là các bước giải một bài toán, giống công thức nấu ăn ghi từng bước."
     }
   ]
 }

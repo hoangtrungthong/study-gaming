@@ -1,0 +1,142 @@
+{
+  "regions": [
+    {
+      "id": "ja-r1",
+      "subject": "ja",
+      "order": 1,
+      "titleVi": "Cổng Torii",
+      "titleTarget": "鳥居",
+      "levels": [
+        {
+          "id": "ja-r1-l1",
+          "game": "match",
+          "items": ["ja-neko", "ja-inu", "ja-sakana", "ja-tori", "ja-usagi", "ja-ringo"],
+          "newWords": ["ja-neko", "ja-inu", "ja-sakana", "ja-tori", "ja-usagi"]
+        },
+        {
+          "id": "ja-r1-l2",
+          "game": "kana",
+          "kana": ["あ", "い", "う", "え", "お"]
+        },
+        {
+          "id": "ja-r1-l3",
+          "game": "memory",
+          "items": ["ja-ringo", "ja-ichigo", "ja-mikan", "ja-mizu", "ja-yama", "ja-neko", "ja-inu", "ja-sakana"],
+          "newWords": ["ja-ringo", "ja-ichigo", "ja-mikan", "ja-mizu", "ja-yama"]
+        },
+        {
+          "id": "ja-r1-l4",
+          "game": "sentence",
+          "sentences": [
+            "ja-s-ringo-kudasai",
+            "ja-s-neko-imasu",
+            "ja-s-mizu-nomimasu",
+            "ja-s-ichigo-akai",
+            "ja-s-yama-ookii"
+          ]
+        },
+        {
+          "id": "ja-r1-l5",
+          "game": "listen",
+          "items": ["ja-ki", "ja-hon", "ja-sakura", "ja-sensei", "ja-taberu", "ja-yama", "ja-mizu", "ja-tori"],
+          "newWords": ["ja-ki", "ja-hon", "ja-sakura", "ja-sensei", "ja-taberu"]
+        },
+        {
+          "id": "ja-r1-l6",
+          "game": "rain",
+          "items": [
+            "ja-konnichiwa",
+            "ja-arigatou",
+            "ja-hitotsu",
+            "ja-futatsu",
+            "ja-tomodachi",
+            "ja-neko",
+            "ja-usagi",
+            "ja-ichigo",
+            "ja-ki",
+            "ja-sakura"
+          ],
+          "newWords": ["ja-konnichiwa", "ja-arigatou", "ja-hitotsu", "ja-futatsu", "ja-tomodachi"]
+        }
+      ]
+    },
+    {
+      "id": "ja-r2",
+      "subject": "ja",
+      "order": 2,
+      "titleVi": "Phố Đèn Lồng",
+      "titleTarget": "ちょうちん通り",
+      "levels": [
+        {
+          "id": "ja-r2-l1",
+          "game": "match",
+          "items": ["ja-koohii", "ja-pan", "ja-keeki", "ja-banana", "ja-tomato", "ja-ringo"],
+          "newWords": ["ja-koohii", "ja-pan", "ja-keeki", "ja-banana", "ja-tomato"]
+        },
+        {
+          "id": "ja-r2-l2",
+          "game": "kana",
+          "kana": ["ア", "イ", "ウ", "エ", "オ"]
+        },
+        {
+          "id": "ja-r2-l3",
+          "game": "star",
+          "items": ["ja-panda", "ja-raion", "ja-booru", "ja-piano", "ja-gitaa", "ja-pan", "ja-banana", "ja-koohii"],
+          "newWords": ["ja-panda", "ja-raion", "ja-booru", "ja-piano", "ja-gitaa"]
+        },
+        {
+          "id": "ja-r2-l4",
+          "game": "listen",
+          "items": ["ja-basu", "ja-takushii", "ja-hoteru", "ja-pen", "ja-nooto", "ja-panda", "ja-raion", "ja-booru"],
+          "newWords": ["ja-basu", "ja-takushii", "ja-hoteru", "ja-pen", "ja-nooto"]
+        },
+        {
+          "id": "ja-r2-l5",
+          "game": "sentence",
+          "sentences": [
+            "ja-s-koohii-nomimasu",
+            "ja-s-pan-tabemasu",
+            "ja-s-keeki-amai",
+            "ja-s-juusu-kudasai",
+            "ja-s-miruku-nomimasu",
+            "ja-s-raamen-oishii",
+            "ja-s-banana-kiiroi",
+            "ja-s-tomato-akai",
+            "ja-s-panda-kawaii",
+            "ja-s-raion-ookii",
+            "ja-s-piano-hikimasu",
+            "ja-s-gitaa-hikimasu",
+            "ja-s-booru-nagemasu",
+            "ja-s-kamera-torimasu",
+            "ja-s-basu-norimasu",
+            "ja-s-takushii-yobimasu",
+            "ja-s-hoteru-tomarimasu",
+            "ja-s-pen-kakimasu",
+            "ja-s-terebi-mimasu",
+            "ja-s-hon-yomimasu",
+            "ja-s-terebi-heya",
+            "ja-s-kamera-kaimashita",
+            "ja-s-asa-pan-miruku"
+          ],
+          "newWords": ["ja-juusu", "ja-miruku", "ja-raamen", "ja-kamera", "ja-terebi"]
+        },
+        {
+          "id": "ja-r2-l6",
+          "game": "write",
+          "items": [
+            "ja-koohii",
+            "ja-terebi",
+            "ja-pan",
+            "ja-banana",
+            "ja-juusu",
+            "ja-panda",
+            "ja-raion",
+            "ja-basu",
+            "ja-kamera",
+            "ja-nooto"
+          ]
+        }
+      ]
+    }
+  ]
+}

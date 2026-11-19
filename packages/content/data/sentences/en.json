@@ -1,0 +1,160 @@
+{
+  "subject": "en",
+  "sentences": [
+    {
+      "id": "en-s-red-apple",
+      "chunks": ["red", "apple"],
+      "textVi": "quả táo đỏ",
+      "emoji": "🍎"
+    },
+    {
+      "id": "en-s-i-like-apples",
+      "chunks": ["I", "like", "apples"],
+      "textVi": "Tôi thích táo.",
+      "emoji": "🍎"
+    },
+    {
+      "id": "en-s-cat-sleeping",
+      "chunks": ["The cat", "is", "sleeping"],
+      "textVi": "Con mèo đang ngủ.",
+      "emoji": "🐱"
+    },
+    {
+      "id": "en-s-sky-blue",
+      "chunks": ["The sky", "is", "blue"],
+      "textVi": "Bầu trời màu xanh dương.",
+      "emoji": "🔵"
+    },
+    {
+      "id": "en-s-read-book",
+      "chunks": ["I", "read", "a book"],
+      "textVi": "Tôi đọc một quyển sách.",
+      "emoji": "📖",
+      "distractors": ["eats"]
+    },
+    {
+      "id": "en-s-boat-on-sea",
+      "chunks": ["The boat", "is", "on the sea"],
+      "textVi": "Con thuyền ở trên biển.",
+      "emoji": "⛵"
+    },
+    {
+      "id": "en-s-two-ducks",
+      "chunks": ["I see", "two", "ducks"],
+      "textVi": "Tôi nhìn thấy hai con vịt.",
+      "emoji": "🦆"
+    },
+    {
+      "id": "en-s-crab-in-sea",
+      "chunks": ["The crab", "lives", "in the sea"],
+      "textVi": "Con cua sống ở biển.",
+      "emoji": "🦀"
+    },
+    {
+      "id": "en-s-dog-can-run",
+      "chunks": ["The dog", "can", "run"],
+      "textVi": "Con chó biết chạy.",
+      "emoji": "🐶",
+      "distractors": ["blue"]
+    },
+    {
+      "id": "en-s-fish-swim",
+      "chunks": ["Fish", "can", "swim"],
+      "textVi": "Cá biết bơi.",
+      "emoji": "🐟"
+    },
+    {
+      "id": "en-s-hello-friend",
+      "chunks": ["Hello", "my", "friend"],
+      "textVi": "Xin chào bạn của tôi.",
+      "emoji": "👋"
+    },
+    {
+      "id": "en-s-eat-egg",
+      "chunks": ["I", "eat", "an egg"],
+      "textVi": "Tôi ăn một quả trứng.",
+      "emoji": "🥚"
+    },
+    {
+      "id": "en-s-five-birds",
+      "chunks": ["I", "can see", "five", "birds", "in the sky"],
+      "textVi": "Tôi nhìn thấy năm con chim trên bầu trời.",
+      "emoji": "🐦",
+      "distractors": ["eat"]
+    },
+    {
+      "id": "en-s-cat-and-dog",
+      "chunks": ["I have", "a cat", "and", "a dog"],
+      "textVi": "Tôi có một con mèo và một con chó.",
+      "emoji": "🐱",
+      "accept": [["I have", "a dog", "and", "a cat"]]
+    },
+    {
+      "id": "en-s-red-and-blue",
+      "chunks": ["red", "and", "blue"],
+      "textVi": "màu đỏ và màu xanh dương",
+      "emoji": "🎨",
+      "accept": [["blue", "and", "red"]]
+    },
+    {
+      "id": "en-s-green-frog",
+      "chunks": ["a", "green", "frog"],
+      "textVi": "một con ếch màu xanh lá",
+      "emoji": "🐸"
+    },
+    {
+      "id": "en-s-bee-flowers",
+      "chunks": ["The bee", "likes", "flowers"],
+      "textVi": "Con ong thích hoa.",
+      "emoji": "🐝",
+      "distractors": ["blue"]
+    },
+    {
+      "id": "en-s-leaves-green",
+      "chunks": ["Leaves", "are", "green"],
+      "textVi": "Lá cây màu xanh lá.",
+      "emoji": "🍃"
+    },
+    {
+      "id": "en-s-snail-slow",
+      "chunks": ["The snail", "is", "very", "slow"],
+      "textVi": "Con ốc sên đi rất chậm.",
+      "emoji": "🐌",
+      "distractors": ["fast"]
+    },
+    {
+      "id": "en-s-rabbit-grass",
+      "chunks": ["The rabbit", "eats", "green", "grass"],
+      "textVi": "Con thỏ ăn cỏ xanh.",
+      "emoji": "🐰"
+    },
+    {
+      "id": "en-s-flower-pink-white",
+      "chunks": ["The flower", "is", "pink", "and", "white"],
+      "textVi": "Bông hoa màu hồng và màu trắng.",
+      "emoji": "🌷",
+      "accept": [["The flower", "is", "white", "and", "pink"]]
+    },
+    {
+      "id": "en-s-butterfly-leaf",
+      "chunks": ["The butterfly", "is", "on", "the big", "green", "leaf"],
+      "textVi": "Con bướm đậu trên chiếc lá to màu xanh lá.",
+      "emoji": "🦋",
+      "distractors": ["an"]
+    },
+    {
+      "id": "en-s-flower-and-tree",
+      "chunks": ["I", "see", "a red flower", "and", "a green tree", "in the garden"],
+      "textVi": "Tôi nhìn thấy một bông hoa đỏ và một cái cây xanh trong vườn.",
+      "emoji": "🏡",
+      "accept": [["I", "see", "a green tree", "and", "a red flower", "in the garden"]]
+    },
+    {
+      "id": "en-s-rainbow-after-rain",
+      "chunks": ["I", "can", "see", "a big", "rainbow", "after", "the rain"],
+      "textVi": "Tôi nhìn thấy một cầu vồng thật to sau cơn mưa.",
+      "emoji": "🌈",
+      "distractors": ["sun"]
+    }
+  ]
+}

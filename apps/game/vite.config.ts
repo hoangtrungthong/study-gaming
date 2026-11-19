@@ -4,6 +4,8 @@ import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+  // Chạy trong Docker trên Windows: ổ gắn vào container không báo đổi file, phải dò định kỳ (docker-compose.yml).
+  server: process.env.VITE_USE_POLLING ? { watch: { usePolling: true, interval: 300 } } : {},
   plugins: [
     vue(),
     VitePWA({

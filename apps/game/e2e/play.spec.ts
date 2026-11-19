@@ -36,9 +36,9 @@ test('Ghép Đôi: ghép sai thì không được tính và bị trừ sao', asy
   await page.goto('/');
   await page.getByTestId('island-it').click();
   await page.getByTestId('play-match').click();
-  const ids = await page
-    .locator('[data-testid^="left-"]')
-    .evaluateAll((els) => els.map((e) => e.getAttribute('data-testid')!.slice('left-'.length)));
+  const left = page.locator('[data-testid^="left-"]');
+  await expect(left).toHaveCount(4);
+  const ids = await left.evaluateAll((els) => els.map((e) => e.getAttribute('data-testid')!.slice('left-'.length)));
 
   await page.getByTestId(`left-${ids[0]}`).click();
   await page.getByTestId(`right-${ids[1]}`).click();

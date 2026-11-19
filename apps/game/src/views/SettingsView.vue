@@ -83,6 +83,17 @@ function preview(lang: SpeechLang) {
       <legend>Ghi công giọng đọc</legend>
       <p v-for="c in credits" :key="c">{{ c }}</p>
     </fieldset>
+
+    <fieldset>
+      <legend>Nguồn dữ liệu</legend>
+      <!-- Giấy phép CC BY-SA 3.0 của KanjiVG bắt buộc ghi công kèm link (packages/content/vendor/kanjivg/README.md). -->
+      <p data-testid="credit-kanjivg">
+        Nguồn nét chữ:
+        <a href="https://kanjivg.tagaini.net" target="_blank" rel="noopener">KanjiVG</a>
+        của Ulrich Apel, giấy phép
+        <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>
+      </p>
+    </fieldset>
   </main>
 </template>
 

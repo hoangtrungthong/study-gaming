@@ -148,6 +148,206 @@
       "meaningVi": "bạn bè",
       "example": "友達と あそびます。",
       "exampleVi": "Tôi chơi với bạn."
+    },
+    {
+      "id": "ja-tori",
+      "term": "とり",
+      "emoji": "🐦",
+      "meaningVi": "con chim",
+      "example": "とりが とびます。",
+      "exampleVi": "Con chim bay."
+    },
+    {
+      "id": "ja-usagi",
+      "term": "うさぎ",
+      "emoji": "🐰",
+      "meaningVi": "con thỏ",
+      "example": "うさぎは かわいいです。",
+      "exampleVi": "Con thỏ dễ thương."
+    },
+    {
+      "id": "ja-ichigo",
+      "term": "いちご",
+      "emoji": "🍓",
+      "meaningVi": "quả dâu tây",
+      "example": "いちごが すきです。",
+      "exampleVi": "Tôi thích dâu tây."
+    },
+    {
+      "id": "ja-mikan",
+      "term": "みかん",
+      "emoji": "🍊",
+      "meaningVi": "quả quýt",
+      "example": "みかんを たべます。",
+      "exampleVi": "Tôi ăn quýt."
+    },
+    {
+      "id": "ja-sakura",
+      "term": "さくら",
+      "emoji": "🌸",
+      "meaningVi": "hoa anh đào",
+      "example": "さくらが きれいです。",
+      "exampleVi": "Hoa anh đào đẹp quá.",
+      "explainVi": "Đảo của chúng ta tên là đảo Hoa Anh Đào, tiếng Nhật là Sa-ku-ra."
+    },
+    {
+      "id": "ja-ki",
+      "term": "木",
+      "reading": "き",
+      "hanViet": "MỘC",
+      "emoji": "🌳",
+      "meaningVi": "cái cây",
+      "example": "木の したで やすみます。",
+      "exampleVi": "Tôi nghỉ dưới gốc cây.",
+      "explainVi": "Chữ cây trông như cái cây có cành và rễ. Hán Việt là Mộc, như thợ mộc."
+    },
+    {
+      "id": "ja-pan",
+      "term": "パン",
+      "emoji": "🍞",
+      "meaningVi": "bánh mì",
+      "example": "パンを たべます。",
+      "exampleVi": "Tôi ăn bánh mì."
+    },
+    {
+      "id": "ja-keeki",
+      "term": "ケーキ",
+      "emoji": "🍰",
+      "meaningVi": "bánh kem",
+      "example": "ケーキは あまいです。",
+      "exampleVi": "Bánh kem thì ngọt.",
+      "explainVi": "Dấu gạch dài kéo dài âm phía trước, đọc là kê-ki."
+    },
+    {
+      "id": "ja-juusu",
+      "term": "ジュース",
+      "emoji": "🧃",
+      "meaningVi": "nước trái cây",
+      "example": "ジュースを ください。",
+      "exampleVi": "Cho tôi nước trái cây."
+    },
+    {
+      "id": "ja-miruku",
+      "term": "ミルク",
+      "emoji": "🥛",
+      "meaningVi": "sữa",
+      "example": "ミルクを のみます。",
+      "exampleVi": "Tôi uống sữa."
+    },
+    {
+      "id": "ja-banana",
+      "term": "バナナ",
+      "emoji": "🍌",
+      "meaningVi": "quả chuối",
+      "example": "バナナは きいろいです。",
+      "exampleVi": "Quả chuối màu vàng."
+    },
+    {
+      "id": "ja-tomato",
+      "term": "トマト",
+      "emoji": "🍅",
+      "meaningVi": "quả cà chua",
+      "example": "トマトは あかいです。",
+      "exampleVi": "Quả cà chua màu đỏ."
+    },
+    {
+      "id": "ja-raamen",
+      "term": "ラーメン",
+      "emoji": "🍜",
+      "meaningVi": "mì ramen",
+      "example": "ラーメンは おいしいです。",
+      "exampleVi": "Mì ramen ngon."
+    },
+    {
+      "id": "ja-piano",
+      "term": "ピアノ",
+      "emoji": "🎹",
+      "meaningVi": "đàn piano",
+      "example": "ピアノを ひきます。",
+      "exampleVi": "Tôi chơi đàn piano.",
+      "explainVi": "Chơi đàn thì dùng từ hi-ki-ma-su."
+    },
+    {
+      "id": "ja-gitaa",
+      "term": "ギター",
+      "emoji": "🎸",
+      "meaningVi": "đàn ghi-ta",
+      "example": "ギターを ひきます。",
+      "exampleVi": "Tôi chơi đàn ghi-ta."
+    },
+    {
+      "id": "ja-booru",
+      "term": "ボール",
+      "emoji": "⚽",
+      "meaningVi": "quả bóng",
+      "example": "ボールを なげます。",
+      "exampleVi": "Tôi ném quả bóng."
+    },
+    {
+      "id": "ja-kamera",
+      "term": "カメラ",
+      "emoji": "📷",
+      "meaningVi": "máy ảnh",
+      "example": "カメラで しゃしんを とります。",
+      "exampleVi": "Tôi chụp ảnh bằng máy ảnh."
+    },
+    {
+      "id": "ja-basu",
+      "term": "バス",
+      "emoji": "🚌",
+      "meaningVi": "xe buýt",
+      "example": "バスに のります。",
+      "exampleVi": "Tôi đi xe buýt.",
+      "explainVi": "Lên xe thì nói ni no-ri-ma-su."
+    },
+    {
+      "id": "ja-takushii",
+      "term": "タクシー",
+      "emoji": "🚕",
+      "meaningVi": "xe taxi",
+      "example": "タクシーを よびます。",
+      "exampleVi": "Tôi gọi xe taxi."
+    },
+    {
+      "id": "ja-hoteru",
+      "term": "ホテル",
+      "emoji": "🏨",
+      "meaningVi": "khách sạn",
+      "example": "ホテルに とまります。",
+      "exampleVi": "Tôi ngủ lại ở khách sạn."
+    },
+    {
+      "id": "ja-pen",
+      "term": "ペン",
+      "emoji": "🖊️",
+      "meaningVi": "cây bút",
+      "example": "ペンで かきます。",
+      "exampleVi": "Tôi viết bằng bút."
+    },
+    {
+      "id": "ja-nooto",
+      "term": "ノート",
+      "emoji": "📓",
+      "meaningVi": "quyển vở",
+      "example": "ノートに かきます。",
+      "exampleVi": "Tôi viết vào vở.",
+      "explainVi": "Trong tiếng Nhật, nô-tô là quyển vở để viết bài."
+    },
+    {
+      "id": "ja-panda",
+      "term": "パンダ",
+      "emoji": "🐼",
+      "meaningVi": "gấu trúc",
+      "example": "パンダは しろと くろです。",
+      "exampleVi": "Gấu trúc màu trắng và đen."
+    },
+    {
+      "id": "ja-raion",
+      "term": "ライオン",
+      "emoji": "🦁",
+      "meaningVi": "sư tử",
+      "example": "ライオンは つよいです。",
+      "exampleVi": "Sư tử rất khỏe."
     }
   ]
 }

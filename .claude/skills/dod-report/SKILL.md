@@ -24,7 +24,7 @@ nói không cần.
 
 | # | Mục | Đạt khi |
 |---|---|---|
-| 1 | Đúng yêu cầu | Mỗi điểm của kịch bản (`docs/kich-ban-game.md`) hoặc spec (`.kiro/specs/<tên>/`) mà task nhận làm có code và có test chạm tới. Fix bug: test chặn tái phát đỏ trước bản sửa, xanh sau bản sửa |
+| 1 | Đúng yêu cầu | Mỗi điểm của kịch bản (`docs/game-design.md`) hoặc spec (`.kiro/specs/<tên>/`) mà task nhận làm có code và có test chạm tới. Fix bug: test chặn tái phát đỏ trước bản sửa, xanh sau bản sửa |
 | 2 | Test xanh | `pnpm test` chạy hết, 0 đỏ, không thêm `skip` / `todo` |
 | 2a | Độ phủ 100% file bị đổi | Mỗi file code bị đổi trong `packages/*/src/`, `apps/*/src/` đạt **100% dòng**, tính cả phần cũ của file. Đo bằng mục 4.1. Dòng thật sự không test được bằng unit test (vẽ Phaser, `<audio>`, `speechSynthesis`) phải có `/* v8 ignore … */` kèm lý do, được E2E phủ, và liệt kê ở phần "Còn lại" |
 | 2b | Lint, typecheck | `pnpm lint` và `pnpm typecheck` sạch, không cảnh báo |
@@ -36,7 +36,7 @@ nói không cần.
 | 8 | Dữ liệu trẻ em, bảo mật | Không gửi dữ liệu cá nhân ra dịch vụ ngoài khi chưa cần; không log email, số điện thoại, OTP, nội dung chuyển khoản. Không có secret trong code |
 | 9 | Cấu hình, build | Biến mới có trong file `.example` (chỉ tên). `pnpm build` xanh (gồm PWA). Bước build app / chạy `tools/tts` ghi ở `README.md` |
 | 10 | Chạy thật, E2E | Thay đổi người dùng nhìn thấy có test Playwright (`pnpm e2e`) cho luồng chính và ảnh chụp ở khổ điện thoại và máy tính. Đổi app native thì thử trên máy hoặc emulator |
-| 11 | Tài liệu | Kịch bản (`docs/kich-ban-game.md`: mục 12 đã chốt / còn chờ), spec `.kiro/specs/<tên>/` đánh dấu task xong, `docs/feature-checklist.md`, `docs/ai/`, `README.md` cập nhật khi lệch với code |
+| 11 | Tài liệu | Kịch bản (`docs/game-design.md`: mục 12 đã chốt / còn chờ), spec `.kiro/specs/<tên>/` đánh dấu task xong, `docs/feature-checklist.md`, `docs/ai/`, `README.md` cập nhật khi lệch với code |
 | 12 | Self review | Trước khi review chính thức, tự đọc lại toàn bộ diff theo checklist này, sửa những gì thấy được. Ghi số chỗ đã tự sửa |
 | 13 | Review + phản biện | Theo mục 4.2: tối đa 3 vòng, mỗi finding Critical / High có 3 phản biện độc lập. Không còn finding Critical / High mở |
 | 14 | Bảo mật | Lượt review riêng theo mục 4.3, tách khỏi review chung. Không còn finding Critical / High mở |
@@ -109,7 +109,7 @@ Review chạy bằng subagent của Claude Code (Agent tool, loại `general-pur
 1. Vòng 1: mở song song mỗi chiều một reviewer, cùng phạm vi `git diff $(git merge-base main HEAD)` (gồm cả
    thay đổi chưa commit): đúng sai, nội dung bài học, hiệu năng (khung hình, bộ nhớ trên điện thoại yếu),
    offline, test, thiết kế. Mỗi reviewer nhận: lệnh xem diff, mục đích của thay đổi (phần "Đã làm"),
-   `docs/kich-ban-game.md`, và **một** chiều. Trả về danh sách finding: vị trí `file:dòng`, mức
+   `docs/game-design.md`, và **một** chiều. Trả về danh sách finding: vị trí `file:dòng`, mức
    (Critical / High / Medium / Low), nhận định, cách tái hiện.
 2. Mỗi finding Critical / High đưa cho **3 subagent phản biện độc lập**, chạy song song. Mỗi agent chỉ nhận
    vị trí, mức, nhận định và lệnh xem diff, **không** nhận lập luận đã sinh ra finding. Yêu cầu agent cố bác

@@ -1,6 +1,6 @@
 # Đối chiếu kịch bản game với code
 
-Nguồn yêu cầu: [kich-ban-game.md](kich-ban-game.md). Cập nhật khi xong một tính năng (cùng commit với code).
+Nguồn yêu cầu: [game-design.md](game-design.md). Cập nhật khi xong một tính năng (cùng commit với code).
 
 Trạng thái: ✅ đã làm · ⚠️ làm một phần · ⏳ chưa làm (ghi giai đoạn dự kiến theo mục 11 của kịch bản).
 
@@ -9,20 +9,20 @@ Trạng thái: ✅ đã làm · ⚠️ làm một phần · ⏳ chưa làm (ghi 
 | Mã | Trò | Trạng thái | Nơi triển khai |
 |---|---|---|---|
 | G1 | Ghép Đôi | ✅ | `apps/game/src/games/match/` (`MatchGame.ts`, `MatchView.vue`) |
-| G2 | Hứng Sao | ⏳ MVP | |
-| G3 | Xếp Câu | ⏳ MVP | |
-| G4 | Nghe Chọn | ⏳ MVP | |
-| G5 | Lật Thẻ Nhớ | ⏳ MVP | |
+| G2 | Hứng Sao | ✅ | `apps/game/src/games/star/` (`StarGame.ts`, `StarView.vue`, `StarScene.ts`) |
+| G3 | Xếp Câu | ✅ | `apps/game/src/games/sentence/` (`SentenceGame.ts`, `SentenceView.vue`, kéo-thả `games/drag.ts`) |
+| G4 | Nghe Chọn | ✅ | `apps/game/src/games/listen/` (`ListenGame.ts`, `ListenView.vue`) |
+| G5 | Lật Thẻ Nhớ | ✅ | `apps/game/src/games/memory/` (`MemoryGame.ts`, `MemoryView.vue`) |
 | G6 | Ai Nói Gì | ⏳ giai đoạn 2 | |
 | G7 | Đúng / Sai Siêu Tốc | ⏳ giai đoạn 2 | |
 | G8 | Điền Chỗ Trống | ⏳ giai đoạn 2 | |
-| W1 | Viết Lại Từ | ⏳ MVP | |
+| W1 | Viết Lại Từ | ✅ (chế độ nghe viết có sẵn trong luật, chưa gắn nhóm tuổi) | `apps/game/src/games/write/` (`WriteGame.ts`, `WriteView.vue`); nối sau màn có từ mới ở `App.vue` |
 | W2 | Mưa Chữ (3 chế độ: từ gốc / nghĩa / chỉ nghe) | ✅ | `apps/game/src/games/rain/` (`RainGame.ts`, `RainView.vue`, `RainScene.ts`) |
-| J1 | Vẽ Kana | ⏳ MVP | |
+| J1 | Vẽ Kana | ✅ | `apps/game/src/games/kana/` (`KanaTrace.ts`, `strokeMatch.ts`, `KanaView.vue`); nét `packages/content/data/kana-strokes.json` |
 | J2 | Tiệm Bánh Ông Haru | ⏳ giai đoạn 2 | |
 | J3 | Ghép Bộ Kanji | ⏳ giai đoạn 2 | |
 | E1–E3 | Thư Viện Bay, Đọc Theo Tomo, Truyện Nghe Chọn Nhánh | ⏳ giai đoạn 2 (E2 chấm phát âm: chờ Q-7) | |
-| I1 | Đưa Bit Về Nhà (khối lệnh) | ⏳ MVP | |
+| I1 | Đưa Bit Về Nhà (khối lệnh) | ✅ | `apps/game/src/games/maze/` (`MazeGame.ts`, `MazeView.vue`, `MazeProgram.vue`); chạy `packages/content/src/maze.ts` |
 | I2–I7 | Đèn Nhị Phân, Săn Bọ, Phòng Lắp Máy, Dọn Kho, Gửi Thư Qua Mạng, Từ Điển IT | ⏳ giai đoạn 2 | |
 | I8–I9 | Xây Thành Phố Mây, Phòng Thi Thử (chứng chỉ đám mây) | ⏳ chờ Q-30 | |
 | — | Màn trùm cuối vùng | ⏳ giai đoạn 2 | |
@@ -39,14 +39,15 @@ Trạng thái: ✅ đã làm · ⚠️ làm một phần · ⏳ chưa làm (ghi 
 | Kanji kèm cách đọc và âm Hán Việt | ✅ | `packages/content/data/ja.json`, `validateDeck` |
 | Âm thanh tạo sẵn (VieNeu, VOICEVOX, Kokoro) | ⚠️ | Công cụ xong (`tools/tts/`); **chưa tạo file** (cần ~5 GB trống) — đang dùng giọng của máy |
 | Giọng tiếng Anh: VieNeu hay Kokoro | ⏳ chờ nghe so sánh (Q-17) | |
-| Ghi công giọng VOICEVOX | ✅ | Màn Cài đặt; [giong-voicevox.md](giong-voicevox.md) |
+| Ghi công giọng VOICEVOX | ✅ | Màn Cài đặt; [voicevox-voices.md](voicevox-voices.md) |
 | Karaoke tô sáng từng chữ | ⏳ | Hiện tô theo đoạn; cần mốc thời gian từ bộ đọc |
 
 ## Nội dung (mục 7)
 
 | Yêu cầu | Trạng thái | Ghi chú |
 |---|---|---|
-| Bộ mẫu 3 đảo | ✅ | en 16, ja 16, it 20 từ |
+| Bộ mẫu 3 đảo | ✅ | en 45, ja 40, it 41 từ; câu en 23, ja 26; 6 mê cung (bản nháp AI, chờ chủ dự án duyệt — CC-3) |
+| 2 vùng × 6 màn mỗi đảo (MVP) | ✅ | `packages/content/data/regions/`; vào chơi tạm theo đảo (CC-25) cho tới `mvp-progress` |
 | Đủ vùng 1–8 mỗi đảo | ⏳ | Chờ Q-4 (ai soạn, có bám CEFR/JLPT) |
 | Nhánh chứng chỉ AWS / Google Cloud (vùng 9, 10) | ⏳ chờ Q-30 | 4 thẻ đám mây mẫu trong `it.json` |
 
@@ -54,7 +55,8 @@ Trạng thái: ✅ đã làm · ⚠️ làm một phần · ⏳ chưa làm (ghi 
 
 | Yêu cầu | Trạng thái |
 |---|---|
-| Sao 1–3 mỗi màn | ✅ (Ghép Đôi, Mưa Chữ) |
+| Sao 1–3 mỗi màn | ✅ (cả 9 trò; dùng Đèn Pin thì tối đa 2 sao) |
+| Đèn Pin (gợi ý) trong mọi trò | ⚠️ | Nút và hành vi từng trò xong (`games/hints.ts`); kho Đèn Pin chưa lưu (chờ `mvp-progress`) |
 | Lưu tiến độ, chuỗi ngày, ôn tập lặp lại ngắt quãng | ⏳ MVP / giai đoạn 2 |
 | Nhà của Tomo, bộ sưu tập, huy hiệu | ⏳ giai đoạn 2 |
 | Góc phụ huynh | ⏳ giai đoạn 2 |

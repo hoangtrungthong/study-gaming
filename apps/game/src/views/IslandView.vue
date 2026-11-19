@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import type { Deck } from '@study/content';
+import { computed } from 'vue';
+import type { Deck, GameKind } from '@study/content';
+import { gamesFor } from '../games/registry';
 
-defineProps<{ deck: Deck }>();
-defineEmits<{ play: [game: 'match' | 'rain']; back: [] }>();
+const props = defineProps<{ deck: Deck }>();
+defineEmits<{ play: [game: GameKind]; back: [] }>();
+
+// Lối vào tạm: liệt kê mọi trò của đảo; khi có bản đồ vùng (mvp-progress) thì trò mở theo màn.
+const list = computed(() => gamesFor(props.deck.subject));
 </script>
 
 <template>
@@ -13,15 +18,17 @@ defineEmits<{ play: [game: 'match' | 'rain']; back: [] }>();
       <span></span>
     </header>
     <div class="games">
-      <button type="button" class="game" data-testid="play-match" @click="$emit('play', 'match')">
-        <span class="icon" aria-hidden="true">🃏</span>
-        <span class="name">Ghép Đôi</span>
-        <span class="desc">Nối từ với nghĩa của nó</span>
-      </button>
-      <button type="button" class="game" data-testid="play-rain" @click="$emit('play', 'rain')">
-        <span class="icon" aria-hidden="true">🌧️</span>
-        <span class="name">Mưa Chữ</span>
-        <span class="desc">Gõ từ trước khi hạt mưa chạm đất</span>
+      <button
+        v-for="g in list"
+        :key="g.kind"
+        type="button"
+        class="game"
+        :data-testid="`play-${g.kind}`"
+        @click="$emit('play', g.kind)"
+      >
+        <span class="icon" aria-hidden="true">{{ g.icon }}</span>
+        <span class="name">{{ g.nameVi }}</span>
+        <span class="desc">{{ g.descVi }}</span>
       </button>
     </div>
   </main>

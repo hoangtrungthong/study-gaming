@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { inject, onMounted, ref } from 'vue';
+import { nextStepKey } from './nextStep';
 
 defineProps<{ stars: number; message: string }>();
 defineEmits<{ again: []; exit: [] }>();
 
 // Hiện kết quả thì đưa focus vào khung kết quả (nút vừa bấm đã biến mất).
 const root = ref<HTMLElement | null>(null);
+// Màn còn bước sau (Viết Lại Từ) thì nút đó là nút chính; "Chơi lại" lùi xuống nút phụ.
+const next = inject(nextStepKey, ref(null));
 onMounted(() => root.value?.focus());
 </script>
 
@@ -17,7 +20,10 @@ onMounted(() => root.value?.focus());
     <p class="msg">{{ message }}</p>
     <slot />
     <div class="actions">
-      <button type="button" class="primary" @click="$emit('again')">Chơi lại</button>
+      <button v-if="next" type="button" class="primary" data-testid="result-next" @click="next.go()">
+        {{ next.label }}
+      </button>
+      <button type="button" :class="{ primary: !next }" @click="$emit('again')">Chơi lại</button>
       <button type="button" @click="$emit('exit')">Về đảo</button>
     </div>
   </section>

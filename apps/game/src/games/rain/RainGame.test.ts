@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { decks, type LearnItem } from '@study/content';
 import { RAIN_CONFIG, type RainConfig } from '../ageConfig';
 import { seededRng } from '../random';
-import { RainGame } from './RainGame';
+import { RainGame, SLOW_FACTOR } from './RainGame';
 import { promptLabel } from './labels';
 
 const config: RainConfig = { maxDrops: 2, spawnEvery: 1, speed: 0.5, speedUpPerMinute: 0, lives: 2, duration: 30 };
@@ -78,6 +78,30 @@ describe('RainGame', () => {
     expect(g.speed).toBeCloseTo(before * 1.5);
   });
 
+  it('Đèn Pin làm rơi chậm trong số giây đã cho, không cộng dồn', () => {
+    const g = new RainGame('en', decks.en.items, { ...config, duration: 999, lives: 99 });
+    const normal = g.speed;
+    expect(g.slowed).toBe(false);
+    g.slowDown(5);
+    g.slowDown(2);
+    expect(g.slowed).toBe(true);
+    expect(g.speed).toBeCloseTo(normal * SLOW_FACTOR);
+    g.tick(4.9);
+    expect(g.speed).toBeCloseTo(normal * SLOW_FACTOR);
+    g.tick(0.2);
+    expect(g.speed).toBeCloseTo(normal);
+    expect(g.slowed).toBe(false);
+  });
+
+  it('firstTry là từ phá được mà chưa lần nào rơi; wrong là từ từng rơi, mỗi từ một lần', () => {
+    const g = new RainGame('en', decks.en.items, config);
+    const [a, b, c] = decks.en.items;
+    g.hits.push(a!, b!, a!);
+    g.missed.push(b!, c!, c!);
+    expect(g.firstTry).toEqual([a!.id]);
+    expect(g.wrong).toEqual([b!.id, c!.id]);
+  });
+
   it('tiếp tục sinh từ khi đã dùng hết một vòng bộ từ', () => {
     const items = decks.en.items.slice(0, 2);
     const g = new RainGame('en', items, { ...config, maxDrops: 1 }, seededRng(7));
@@ -90,6 +114,28 @@ describe('RainGame', () => {
     }
     expect(seen).toHaveLength(4);
     expect(new Set(seen)).toEqual(new Set(items.map((i) => i.id)));
+  });
+
+  it('sao theo tỉ lệ hạt phá được: từ 90% là 3, từ 60% là 2, còn lại 1; chưa có hạt nào là 1; Đèn Pin tối đa 2', () => {
+    const g = new RainGame('en', decks.en.items, config, seededRng(6));
+    const word = decks.en.items[0]!;
+    expect(g.stars()).toBe(1);
+    const play = (hits: number, missed: number) => {
+      g.hits.length = 0;
+      g.missed.length = 0;
+      for (let i = 0; i < hits; i++) g.hits.push(word);
+      for (let i = 0; i < missed; i++) g.missed.push(word);
+    };
+    play(9, 1);
+    expect(g.stars()).toBe(3);
+    expect(g.stars(true)).toBe(2);
+    play(8, 2);
+    expect(g.stars()).toBe(2);
+    play(6, 4);
+    expect(g.stars()).toBe(2);
+    play(5, 5);
+    expect(g.stars()).toBe(1);
+    expect(g.stars(true)).toBe(1);
   });
 
   it('cấu hình nhóm Mầm chậm và ít hạt hơn nhóm Cây', () => {

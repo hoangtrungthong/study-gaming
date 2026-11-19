@@ -12,6 +12,9 @@
   tự `resize` bằng `ResizeObserver` (`startRainScene`, `RainScene.ts:138`). Mọi kích thước vẽ nhân `pixelRatio`.
 - Bước thời gian giới hạn 100 ms (`update`) để chuyển tab quay lại hạt mưa không rơi một mạch.
 - Cảnh chỉ đọc trạng thái từ `RainController`; luật nằm ở `RainGame`.
+- Hứng Sao (`star/StarScene.ts`) theo cùng mẫu: `StarView.vue` tải lazy `./StarScene`, `startStarScene(parent, ctl)` trả
+  `{ scene, destroy }`; luật `StarGame` giới hạn bước `MAX_STEP`. Kéo giỏ bằng con trỏ trên canvas hoặc phím mũi tên, kèm nút trợ năng
+  `star-catch-<id>` (bàn phím, trình đọc màn hình, E2E).
 
 ## Nhập liệu tiếng Nhật
 
@@ -56,3 +59,19 @@
 - Chỉ dùng thư viện chuẩn trong phần lõi; bộ đọc nạp lazy trong `vieneu_engine` / `kokoro_engine` / `voicevox_engine`.
 - Nén AAC bằng ffmpeg trong PATH hoặc `imageio-ffmpeg`; ghi ra `*.part.m4a` rồi đổi tên.
 - Kokoro cần PyTorch: nên để môi trường ảo riêng với VieNeu.
+
+## Pointer Events (kéo-thả, vẽ)
+
+- Không dùng kéo-thả HTML5 (không chạy trên phần lớn trình duyệt điện thoại). Dùng `useDrag` (`apps/game/src/games/drag.ts`):
+  `setPointerCapture`, ngưỡng 6 px mới tính là kéo (dưới ngưỡng là chạm để chọn), thả lên phần tử có `data-drop`.
+- Phần tử kéo / bảng vẽ có CSS `touch-action: none` để kéo không cuộn trang; `@pointerdown.prevent`.
+- `pointercancel` (hệ điều hành cướp cử chỉ) thì bỏ nét / lượt kéo đang dở, không chấm.
+
+## SVG nét kana
+
+- Nét chuẩn ở khung 109 × 109 của KanjiVG (`BOX`, `kana/strokeMatch.ts`), sinh sẵn thành các điểm trong `kana-strokes.json`
+  để lúc chơi không phải phân tích path SVG.
+- Đổi toạ độ con trỏ sang khung: `getBoundingClientRect` của SVG (`KanaView.vue`, `toBox`); không dùng `getScreenCTM` vì
+  jsdom không có.
+- So nét: lấy mẫu lại 16 điểm (`resample`), kiểm điểm đầu, hướng và hình dạng trong một ngưỡng theo nhóm tuổi
+  (`strokeMatch`). Kết quả sai trả lý do (`start` / `direction` / `shape`) để Tomo nhắc đúng chỗ.

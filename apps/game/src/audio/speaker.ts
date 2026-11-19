@@ -61,11 +61,13 @@ export class Speaker {
   /**
    * Đọc lần lượt các đoạn. Lần gọi mới huỷ lần đang đọc.
    * `onSegment(i)` báo đoạn đang đọc để tô sáng phụ đề; `-1` khi xong.
+   * `rateFactor` nhân với tốc độ trong cài đặt cho riêng lượt này (ví dụ 0,8 để đọc chậm khi người học gõ sai).
    */
-  async say(segments: SpeechSegment[], onSegment?: (index: number) => void): Promise<void> {
+  async say(segments: SpeechSegment[], onSegment?: (index: number) => void, rateFactor = 1): Promise<void> {
     const run = ++this.run;
     this.backend.stop();
-    const opts = this.getOptions();
+    const base = this.getOptions();
+    const opts = { ...base, rate: base.rate * rateFactor };
     for (const [i, seg] of segments.entries()) {
       if (run !== this.run) break;
       if (opts.skipTranslations && seg.translation) continue;

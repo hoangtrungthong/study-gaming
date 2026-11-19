@@ -7,7 +7,8 @@ import { emptyManifest, type AudioManifest } from '../audio/speaker';
 export function createAudioMock() {
   const said: SpeechSegment[][] = [];
   const speaker = {
-    say: vi.fn(async (segments: SpeechSegment[], onSegment?: (i: number) => void) => {
+    // rateFactor giữ đúng chữ ký speaker.say để test kiểm được tốc độ đọc
+    say: vi.fn(async (segments: SpeechSegment[], onSegment?: (i: number) => void, _rateFactor = 1) => {
       said.push(segments);
       segments.forEach((_, i) => onSegment?.(i));
     }),

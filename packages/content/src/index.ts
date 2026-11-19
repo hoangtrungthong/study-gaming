@@ -4,3 +4,6 @@ export * from './answer';
 export * from './phrases';
 export * from './speech';
 export * from './validate';
+export * from './regions';
+export * from './maze';
+export * from './kana';

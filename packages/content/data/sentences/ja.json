@@ -1,0 +1,190 @@
+{
+  "subject": "ja",
+  "sentences": [
+    {
+      "id": "ja-s-ringo-kudasai",
+      "chunks": ["りんごを", "ください"],
+      "textVi": "Cho tôi táo.",
+      "emoji": "🍎"
+    },
+    {
+      "id": "ja-s-neko-imasu",
+      "chunks": ["ねこが", "います"],
+      "textVi": "Có một con mèo.",
+      "emoji": "🐱"
+    },
+    {
+      "id": "ja-s-mizu-nomimasu",
+      "chunks": ["水を", "のみます"],
+      "readings": ["みずを", null],
+      "textVi": "Tôi uống nước.",
+      "emoji": "💧"
+    },
+    {
+      "id": "ja-s-terebi-mimasu",
+      "chunks": ["テレビを", "みます"],
+      "textVi": "Tôi xem ti vi.",
+      "emoji": "📺"
+    },
+    {
+      "id": "ja-s-hon-yomimasu",
+      "chunks": ["本を", "よみます"],
+      "readings": ["ほんを", null],
+      "textVi": "Tôi đọc sách.",
+      "emoji": "📖",
+      "distractors": ["たべます"]
+    },
+    {
+      "id": "ja-s-ichigo-akai",
+      "chunks": ["いちごは", "あかいです"],
+      "textVi": "Quả dâu tây màu đỏ.",
+      "emoji": "🍓"
+    },
+    {
+      "id": "ja-s-yama-ookii",
+      "chunks": ["山は", "おおきいです"],
+      "readings": ["やまは", null],
+      "textVi": "Ngọn núi thì to.",
+      "emoji": "⛰️",
+      "distractors": ["ちいさいです"]
+    },
+    {
+      "id": "ja-s-koohii-nomimasu",
+      "chunks": ["コーヒーを", "のみます"],
+      "textVi": "Tôi uống cà phê.",
+      "emoji": "☕"
+    },
+    {
+      "id": "ja-s-pan-tabemasu",
+      "chunks": ["パンを", "食べます"],
+      "readings": [null, "たべます"],
+      "textVi": "Tôi ăn bánh mì.",
+      "emoji": "🍞"
+    },
+    {
+      "id": "ja-s-keeki-amai",
+      "chunks": ["ケーキは", "あまいです"],
+      "textVi": "Bánh kem thì ngọt.",
+      "emoji": "🍰"
+    },
+    {
+      "id": "ja-s-juusu-kudasai",
+      "chunks": ["ジュースを", "ください"],
+      "textVi": "Cho tôi nước trái cây.",
+      "emoji": "🧃"
+    },
+    {
+      "id": "ja-s-miruku-nomimasu",
+      "chunks": ["わたしは", "ミルクを", "のみます"],
+      "textVi": "Tôi uống sữa.",
+      "emoji": "🥛",
+      "distractors": ["たべます"]
+    },
+    {
+      "id": "ja-s-raamen-oishii",
+      "chunks": ["ラーメンは", "とても", "おいしいです"],
+      "textVi": "Mì ramen rất ngon.",
+      "emoji": "🍜"
+    },
+    {
+      "id": "ja-s-banana-kiiroi",
+      "chunks": ["バナナは", "きいろいです"],
+      "textVi": "Quả chuối màu vàng.",
+      "emoji": "🍌"
+    },
+    {
+      "id": "ja-s-tomato-akai",
+      "chunks": ["トマトは", "あかいです"],
+      "textVi": "Quả cà chua màu đỏ.",
+      "emoji": "🍅",
+      "distractors": ["あおいです"]
+    },
+    {
+      "id": "ja-s-panda-kawaii",
+      "chunks": ["パンダは", "かわいいです"],
+      "textVi": "Gấu trúc dễ thương.",
+      "emoji": "🐼"
+    },
+    {
+      "id": "ja-s-raion-ookii",
+      "chunks": ["ライオンは", "おおきいです"],
+      "textVi": "Sư tử thì to.",
+      "emoji": "🦁",
+      "distractors": ["ちいさいです"]
+    },
+    {
+      "id": "ja-s-piano-hikimasu",
+      "chunks": ["わたしは", "ピアノを", "ひきます"],
+      "textVi": "Tôi chơi đàn piano.",
+      "emoji": "🎹"
+    },
+    {
+      "id": "ja-s-gitaa-hikimasu",
+      "chunks": ["友達は", "ギターを", "ひきます"],
+      "readings": ["ともだちは", null, null],
+      "textVi": "Bạn tôi chơi đàn ghi-ta.",
+      "emoji": "🎸"
+    },
+    {
+      "id": "ja-s-booru-nagemasu",
+      "chunks": ["ボールを", "なげます"],
+      "textVi": "Tôi ném quả bóng.",
+      "emoji": "⚽",
+      "distractors": ["のみます"]
+    },
+    {
+      "id": "ja-s-kamera-torimasu",
+      "chunks": ["カメラで", "しゃしんを", "とります"],
+      "textVi": "Tôi chụp ảnh bằng máy ảnh.",
+      "emoji": "📷",
+      "accept": [["しゃしんを", "カメラで", "とります"]]
+    },
+    {
+      "id": "ja-s-basu-norimasu",
+      "chunks": ["あした", "バスに", "のります"],
+      "textVi": "Ngày mai tôi đi xe buýt.",
+      "emoji": "🚌",
+      "accept": [["バスに", "あした", "のります"]]
+    },
+    {
+      "id": "ja-s-takushii-yobimasu",
+      "chunks": ["タクシーを", "よびます"],
+      "textVi": "Tôi gọi xe taxi.",
+      "emoji": "🚕"
+    },
+    {
+      "id": "ja-s-hoteru-tomarimasu",
+      "chunks": ["こんばん", "ホテルに", "とまります"],
+      "textVi": "Tối nay tôi ngủ lại ở khách sạn.",
+      "emoji": "🏨",
+      "accept": [["ホテルに", "こんばん", "とまります"]]
+    },
+    {
+      "id": "ja-s-pen-kakimasu",
+      "chunks": ["ペンで", "ノートに", "かきます"],
+      "textVi": "Tôi viết vào vở bằng bút.",
+      "emoji": "🖊️",
+      "accept": [["ノートに", "ペンで", "かきます"]]
+    },
+    {
+      "id": "ja-s-terebi-heya",
+      "chunks": ["へやで", "テレビを", "みます"],
+      "textVi": "Tôi xem ti vi trong phòng.",
+      "emoji": "📺",
+      "accept": [["テレビを", "へやで", "みます"]]
+    },
+    {
+      "id": "ja-s-kamera-kaimashita",
+      "chunks": ["わたしは", "あたらしい", "カメラを", "かいました"],
+      "textVi": "Tôi đã mua một cái máy ảnh mới.",
+      "emoji": "📷",
+      "distractors": ["ふるい"]
+    },
+    {
+      "id": "ja-s-asa-pan-miruku",
+      "chunks": ["あさ", "パンを", "たべて", "ミルクを", "のみます"],
+      "textVi": "Buổi sáng tôi ăn bánh mì và uống sữa.",
+      "emoji": "🍞"
+    }
+  ]
+}
