@@ -1,0 +1,12 @@
+# Image chỉ chứa công cụ; mã nguồn gắn vào lúc chạy. Bỏ hết để build nhanh, không gửi file thừa vào Docker.
+**/node_modules
+**/dist
+**/dev-dist
+**/coverage
+**/test-results
+**/playwright-report
+tools/tts/.venv
+tools/tts/.cache
+.git
+.env*
+*.log

@@ -82,6 +82,13 @@ describe('SettingsView', () => {
     expect(settings.voices.ja).toBeUndefined();
   });
 
+  it('luôn ghi nguồn nét chữ KanjiVG kèm giấy phép và link', () => {
+    const credit = mount(SettingsView).get('[data-testid="credit-kanjivg"]');
+    expect(credit.text()).toContain('Nguồn nét chữ: KanjiVG của Ulrich Apel, giấy phép CC BY-SA 3.0');
+    expect(credit.find('a[href="https://creativecommons.org/licenses/by-sa/3.0/"]').exists()).toBe(true);
+    expect(credit.get('a').attributes('href')).toBe('https://kanjivg.tagaini.net');
+  });
+
   it('nghe thử từng ngôn ngữ', async () => {
     const w = mount(SettingsView);
     const buttons = w.findAll('.voice button');

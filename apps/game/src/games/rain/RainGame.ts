@@ -1,6 +1,7 @@
 import { isCorrectAnswer, type LearnItem, type Subject } from '@study/content';
 import type { RainConfig } from '../ageConfig';
 import { shuffle, type Rng } from '../random';
+import { capForHint } from '../result';
 
 export interface Drop {
   id: number;
@@ -13,6 +14,9 @@ export interface Drop {
 
 export type RainEvent =
   { type: 'spawn'; drop: Drop } | { type: 'miss'; drop: Drop } | { type: 'over'; reason: 'time' | 'lives' };
+
+/** Đèn Pin làm hạt mưa rơi chậm bằng nửa tốc độ (như Hứng Sao). */
+export const SLOW_FACTOR = 0.5;
 
 /** Luật trò Mưa Chữ, tách khỏi phần vẽ để test được. */
 export class RainGame {
@@ -27,6 +31,7 @@ export class RainGame {
   private nextId = 1;
   private sinceSpawn: number;
   private queue: LearnItem[] = [];
+  private slowLeft = 0;
 
   constructor(
     private readonly subject: Subject,
@@ -40,7 +45,36 @@ export class RainGame {
   }
 
   get speed(): number {
-    return this.config.speed * (1 + (this.config.speedUpPerMinute * this.elapsed) / 60);
+    const base = this.config.speed * (1 + (this.config.speedUpPerMinute * this.elapsed) / 60);
+    return this.slowLeft > 0 ? base * SLOW_FACTOR : base;
+  }
+
+  /** Id từ phá được mà chưa lần nào để rơi xuống đất (mỗi từ một lần). */
+  get firstTry(): string[] {
+    const wrong = new Set(this.wrong);
+    return [...new Set(this.hits.map((i) => i.id))].filter((id) => !wrong.has(id));
+  }
+
+  /** Id từ từng để rơi xuống đất (mỗi từ một lần). */
+  get wrong(): string[] {
+    return [...new Set(this.missed.map((i) => i.id))];
+  }
+
+  /** Sao theo tỉ lệ hạt phá được: từ 90% là 3 sao, từ 60% là 2 sao, còn lại 1. Đã dùng Đèn Pin thì tối đa 2. */
+  stars(usedHint = false): number {
+    const total = this.hits.length + this.missed.length;
+    const ratio = total === 0 ? 0 : this.hits.length / total;
+    return capForHint(ratio >= 0.9 ? 3 : ratio >= 0.6 ? 2 : 1, usedHint);
+  }
+
+  /** Đèn Pin: rơi chậm trong `seconds` giây (không cộng dồn, lấy thời gian dài hơn). */
+  slowDown(seconds: number): void {
+    this.slowLeft = Math.max(this.slowLeft, seconds);
+  }
+
+  /** Đang rơi chậm nhờ Đèn Pin: bấm thêm cũng không chậm hơn (không cộng dồn). */
+  get slowed(): boolean {
+    return this.slowLeft > 0;
   }
 
   get timeLeft(): number {
@@ -55,6 +89,7 @@ export class RainGame {
     this.sinceSpawn += dt;
 
     for (const drop of this.drops) drop.y += this.speed * dt;
+    this.slowLeft = Math.max(0, this.slowLeft - dt);
     const fallen = this.drops.filter((d) => d.y >= 1);
     if (fallen.length > 0) {
       this.drops = this.drops.filter((d) => d.y < 1);

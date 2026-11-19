@@ -1,0 +1,124 @@
+{
+  "regions": [
+    {
+      "id": "it-r1",
+      "subject": "it",
+      "order": 1,
+      "titleVi": "Xưởng Lắp Ráp",
+      "titleTarget": "Assembly Workshop",
+      "levels": [
+        {
+          "id": "it-r1-l1",
+          "game": "match",
+          "items": ["it-cpu", "it-ram", "it-keyboard", "it-mouse", "it-screen", "it-file"],
+          "newWords": ["it-cpu", "it-ram", "it-keyboard"]
+        },
+        {
+          "id": "it-r1-l2",
+          "game": "listen",
+          "items": ["it-cpu", "it-ram", "it-keyboard", "it-mouse", "it-screen", "it-file", "it-folder", "it-code"]
+        },
+        {
+          "id": "it-r1-l3",
+          "game": "maze",
+          "maze": "it-m-01"
+        },
+        {
+          "id": "it-r1-l4",
+          "game": "memory",
+          "items": [
+            "it-printer",
+            "it-speaker",
+            "it-headphones",
+            "it-microphone",
+            "it-camera",
+            "it-smartphone",
+            "it-battery",
+            "it-charger"
+          ],
+          "newWords": ["it-printer", "it-speaker", "it-headphones", "it-microphone"]
+        },
+        {
+          "id": "it-r1-l5",
+          "game": "maze",
+          "maze": "it-m-04"
+        },
+        {
+          "id": "it-r1-l6",
+          "game": "rain",
+          "items": [
+            "it-cpu",
+            "it-ram",
+            "it-keyboard",
+            "it-mouse",
+            "it-screen",
+            "it-file",
+            "it-folder",
+            "it-code",
+            "it-printer",
+            "it-speaker",
+            "it-headphones",
+            "it-microphone",
+            "it-camera",
+            "it-smartphone",
+            "it-battery",
+            "it-charger"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "it-r2",
+      "subject": "it",
+      "order": 2,
+      "titleVi": "Mê Cung Của Bit",
+      "titleTarget": "Bit's Maze",
+      "levels": [
+        {
+          "id": "it-r2-l1",
+          "game": "star",
+          "items": [
+            "it-command",
+            "it-program",
+            "it-step",
+            "it-forward",
+            "it-left",
+            "it-right",
+            "it-turn",
+            "it-repeat",
+            "it-goal",
+            "it-start",
+            "it-stop"
+          ],
+          "newWords": ["it-command", "it-forward", "it-turn", "it-repeat"]
+        },
+        {
+          "id": "it-r2-l2",
+          "game": "maze",
+          "maze": "it-m-02"
+        },
+        {
+          "id": "it-r2-l3",
+          "game": "maze",
+          "maze": "it-m-05"
+        },
+        {
+          "id": "it-r2-l4",
+          "game": "listen",
+          "items": ["it-loop", "it-bug", "it-debug", "it-algorithm", "it-command", "it-program", "it-left", "it-right"],
+          "newWords": ["it-loop", "it-bug", "it-debug", "it-algorithm"]
+        },
+        {
+          "id": "it-r2-l5",
+          "game": "maze",
+          "maze": "it-m-03"
+        },
+        {
+          "id": "it-r2-l6",
+          "game": "maze",
+          "maze": "it-m-06"
+        }
+      ]
+    }
+  ]
+}

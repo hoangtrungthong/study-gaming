@@ -17,11 +17,51 @@ export async function shot(page: Page, info: TestInfo, name: string): Promise<vo
   await page.screenshot({ path: info.outputPath(`${name}-${info.project.name}.png`), fullPage: true });
 }
 
-/** Tắt giọng đọc của trình duyệt để test không phụ thuộc máy chạy test. */
+/** Một câu giọng đọc đã "đọc": `lang` là hai chữ đầu mã ngôn ngữ (`vi`, `en`, `ja`). */
+export interface Spoken {
+  lang: string;
+  text: string;
+}
+
+/**
+ * Tắt giọng đọc của trình duyệt để test không phụ thuộc máy chạy test. Giọng giả đọc xong ngay và ghi lại từng câu,
+ * chia theo lượt đọc (mỗi lần app huỷ giọng cũ là một lượt mới), để test biết Tomo đang đọc gì ở những trò chỉ cho
+ * nghe mà không hiện chữ (Nghe Chọn, Viết Lại Từ).
+ */
 export async function muteSpeech(page: Page): Promise<void> {
   await page.addInitScript(() => {
+    const runs: { lang: string; text: string }[][] = [[]];
+    const voices = ['vi-VN', 'en-US', 'ja-JP'].map((lang) => ({
+      lang,
+      name: lang,
+      voiceURI: lang,
+      localService: true,
+      default: false,
+    }));
+    class Utterance {
+      voice: unknown = null;
+      lang = '';
+      rate = 1;
+      onend: (() => void) | null = null;
+      onerror: (() => void) | null = null;
+      constructor(readonly text: string) {}
+    }
+    Object.defineProperty(window, '__speechRuns', { value: runs });
+    Object.defineProperty(window, 'SpeechSynthesisUtterance', { value: Utterance, configurable: true });
     Object.defineProperty(window, 'speechSynthesis', {
-      value: { getVoices: () => [], speak: () => {}, cancel: () => {} },
+      value: {
+        getVoices: () => voices,
+        speak: (u: Utterance) => {
+          runs.at(-1)!.push({ lang: u.lang.slice(0, 2), text: u.text });
+          setTimeout(() => u.onend?.());
+        },
+        cancel: () => runs.push([]),
+      },
     });
   });
+}
+
+/** Các câu của lượt đọc hiện tại (xem `muteSpeech`). */
+export async function currentSpeech(page: Page): Promise<Spoken[]> {
+  return page.evaluate(() => (window as unknown as { __speechRuns: Spoken[][] }).__speechRuns.at(-1)!);
 }

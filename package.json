@@ -14,6 +14,7 @@
     "test": "pnpm -r test",
     "e2e": "pnpm --filter @study/game e2e",
     "speech-list": "pnpm --filter @study/content speech-list",
+    "kana-strokes": "pnpm --filter @study/content kana-strokes",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "coverage:changed": "node scripts/coverage-changed.mjs"

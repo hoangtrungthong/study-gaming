@@ -119,6 +119,18 @@ describe('Speaker', () => {
     expect(backend.played).toEqual(['file:audio/ja-z/1.ogg', 'tts:ja:ねこ']);
   });
 
+  it('tốc độ riêng cho một lượt nhân với tốc độ trong cài đặt (đọc chậm khi gõ sai)', async () => {
+    const backend = fakeBackend();
+    const speaker = new Speaker(
+      backend,
+      () => manifest,
+      () => opts({ rate: 1.25 }),
+      '',
+    );
+    await speaker.say([{ lang: 'ja', text: 'ねこ' }], undefined, 0.8);
+    expect(backend.playFile).toHaveBeenCalledWith('audio/ja-z/1.ogg', 1);
+  });
+
   it('dùng giọng người dùng chọn', async () => {
     const backend = fakeBackend();
     const speaker = new Speaker(

@@ -12,6 +12,7 @@
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run",
     "speech-list": "tsx scripts/export-speech-list.ts",
+    "kana-strokes": "tsx scripts/build-kana-strokes.ts",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {

@@ -16,3 +16,5 @@ pnpm-lock.yaml
 tools/tts/.venv
 docs
 **/.impeccable
+# File sinh bởi pnpm kana-strokes (mỗi chữ một dòng)
+packages/content/data/kana-strokes.json

@@ -8,11 +8,11 @@ Người chơi cùng chú robot Tomo đi qua ba hòn đảo; mỗi màn là mộ
 - **Chơi không cần mạng** sau lần mở đầu tiên.
 - **Ba nhóm tuổi:** 🌱 Mầm (5–8), 🌿 Chồi (9–14), 🌳 Cây (15+) — khác tốc độ, số lượng, cỡ chữ.
 
-Kịch bản đầy đủ và các quyết định đã chốt: [docs/kich-ban-game.md](docs/kich-ban-game.md).
+Kịch bản đầy đủ và các quyết định đã chốt: [docs/game-design.md](docs/game-design.md).
 
 ## Trạng thái
 
-**Giai đoạn 0 — bản mẫu** (xem [báo cáo DoD](docs/dod/giai-doan-0-ban-mau_2026-11-17.md)):
+**Giai đoạn 0 — bản mẫu** (xem [báo cáo DoD](docs/dod/phase-0-prototype_2026-11-17.md)):
 
 | Đã có                                                                                | Chưa có                                                       |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
@@ -46,7 +46,7 @@ pnpm dev                              # mở http://localhost:5173
 | Build (web + service worker)                                  | `pnpm build` → `apps/game/dist`                                                    |
 | E2E (Playwright, máy tính + điện thoại, có kịch bản mất mạng) | `pnpm e2e` (lần đầu: `pnpm --filter @study/game exec playwright install chromium`) |
 | Xuất danh sách câu cần đọc                                    | `pnpm speech-list`                                                                 |
-| Tạo âm thanh                                                  | `cd tools/tts && python generate.py` — xem [docs/am-thanh.md](docs/am-thanh.md)    |
+| Tạo âm thanh                                                  | `cd tools/tts && python generate.py` — xem [docs/audio.md](docs/audio.md)          |
 
 ## Cấu trúc
 
@@ -65,15 +65,15 @@ Bản đồ code chi tiết: [docs/ai/00-overview.md](docs/ai/00-overview.md).
 
 ## Tài liệu
 
-| Tài liệu                                                 | Nội dung                                                                     |
-| -------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| [AGENTS.md](AGENTS.md)                                   | **Rule của dự án** (cho người và mọi công cụ AI)                             |
-| [docs/README.md](docs/README.md)                         | Danh mục toàn bộ tài liệu                                                    |
-| [docs/kich-ban-game.md](docs/kich-ban-game.md)           | Kịch bản, nhân vật, trò chơi, lộ trình, quyết định đã chốt và câu hỏi còn mở |
-| [docs/noi-dung-bai-hoc.md](docs/noi-dung-bai-hoc.md)     | Cách thêm / sửa bài học                                                      |
-| [docs/am-thanh.md](docs/am-thanh.md)                     | Giọng đọc và công cụ tạo âm thanh                                            |
-| [docs/kiem-thu.md](docs/kiem-thu.md)                     | Cách test và tiêu chuẩn xong việc                                            |
-| [docs/quy-trinh-lam-viec.md](docs/quy-trinh-lam-viec.md) | Nhánh, commit, PR, review                                                    |
+| Tài liệu                                               | Nội dung                                                                     |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| [AGENTS.md](AGENTS.md)                                 | **Rule của dự án** (cho người và mọi công cụ AI)                             |
+| [docs/README.md](docs/README.md)                       | Danh mục toàn bộ tài liệu                                                    |
+| [docs/game-design.md](docs/game-design.md)             | Kịch bản, nhân vật, trò chơi, lộ trình, quyết định đã chốt và câu hỏi còn mở |
+| [docs/content-authoring.md](docs/content-authoring.md) | Cách thêm / sửa bài học                                                      |
+| [docs/audio.md](docs/audio.md)                         | Giọng đọc và công cụ tạo âm thanh                                            |
+| [docs/testing.md](docs/testing.md)                     | Cách test và tiêu chuẩn xong việc                                            |
+| [docs/workflow.md](docs/workflow.md)                   | Nhánh, commit, PR, review                                                    |
 
 ## Công cụ AI đi kèm
 
@@ -86,9 +86,9 @@ Bản đồ code chi tiết: [docs/ai/00-overview.md](docs/ai/00-overview.md).
 
 ## Giấy phép bên thứ ba
 
-| Thành phần                                    | Giấy phép                                                                                |
-| --------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Phaser, Vue, Vite, wanakana                   | MIT                                                                                      |
-| Phông Noto Sans, Noto Sans JP (`@fontsource`) | SIL OFL 1.1                                                                              |
-| VieNeu-TTS, Kokoro-82M                        | Apache-2.0                                                                               |
-| Giọng VOICEVOX                                | Theo từng nhân vật, bắt buộc ghi công — [docs/giong-voicevox.md](docs/giong-voicevox.md) |
+| Thành phần                                    | Giấy phép                                                                                  |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Phaser, Vue, Vite, wanakana                   | MIT                                                                                        |
+| Phông Noto Sans, Noto Sans JP (`@fontsource`) | SIL OFL 1.1                                                                                |
+| VieNeu-TTS, Kokoro-82M                        | Apache-2.0                                                                                 |
+| Giọng VOICEVOX                                | Theo từng nhân vật, bắt buộc ghi công — [docs/voicevox-voices.md](docs/voicevox-voices.md) |

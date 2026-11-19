@@ -1,13 +1,13 @@
 # Tài liệu yêu cầu — App Android cho MVP (mvp-android)
 
 > Viết ngày 2026-11-18. Phạm vi: đóng gói `apps/game` thành app Android bằng Capacitor cho nhóm thử nghiệm của giai đoạn 1
-> (MVP). **Không** gồm: code mua hàng (spec `mvp-mua-ban`), code quảng cáo (spec `mvp-quang-cao`), đăng nhập Google gốc
-> (spec `mvp-tai-khoan`), bản iOS (giai đoạn 2). Spec này chỉ chừa chỗ cho ba spec kia và liệt kê những gì cửa hàng đòi hỏi
+> (MVP). **Không** gồm: code mua hàng (spec `mvp-purchases`), code quảng cáo (spec `mvp-ads`), đăng nhập Google gốc
+> (spec `mvp-accounts`), bản iOS (giai đoạn 2). Spec này chỉ chừa chỗ cho ba spec kia và liệt kê những gì cửa hàng đòi hỏi
 > ở chúng.
 
 ## Giới thiệu
 
-Kịch bản (`docs/kich-ban-game.md` mục 10.1, 11) chốt: một code web Vue 3 + Phaser, bản web là PWA, app điện thoại đóng gói
+Kịch bản (`docs/game-design.md` mục 10.1, 11) chốt: một code web Vue 3 + Phaser, bản web là PWA, app điện thoại đóng gói
 bằng Capacitor, chơi được hoàn toàn khi không có mạng. Giai đoạn 1 ra "bản web + Android cho nhóm thử nghiệm"; iOS để giai
 đoạn 2.
 
@@ -23,7 +23,7 @@ bằng Capacitor, chơi được hoàn toàn khi không có mạng. Giai đoạn
 - **Âm thanh:** `src/audio/index.ts:11-18` nạp `audio/manifest.json` rồi, nếu `navigator.onLine`, gọi `warmAudioCache`
   (`src/audio/offlineCache.ts`) tải mọi file vào Cache Storage. Phát bằng `new Audio(url)` (`src/audio/browserBackend.ts:30`);
   không có file hoặc phát lỗi thì dùng `window.speechSynthesis` (`browserBackend.ts:11,40-54`). File là `.m4a` AAC 48 kbps mono
-  (`docs/am-thanh.md` mục 3). `public/audio/manifest.json` hiện rỗng (chưa chạy `tools/tts`), nên **chưa đo được dung lượng
+  (`docs/audio.md` mục 3). `public/audio/manifest.json` hiện rỗng (chưa chạy `tools/tts`), nên **chưa đo được dung lượng
   âm thanh thật**.
 - **Bàn phím ảo:** `index.html:7` có `viewport-fit=cover, interactive-widget=resizes-content`. Ô gõ Mưa Chữ
   (`src/games/rain/RainView.vue:229-244`) tắt tự sửa / gợi ý, `lang` theo bộ bài, theo dõi `compositionstart` /
@@ -72,19 +72,19 @@ Chỉ gồm những gì kịch bản mục 12.1 / thân kịch bản đã chốt
 5. Gõ tiếng Nhật nhận cả bộ gõ của máy và romaji (10.1).
 6. Giai đoạn 1 (MVP) ra **bản web + Android cho nhóm thử nghiệm**; **iOS ở giai đoạn 2** (mục 11).
 7. Gói bỏ quảng cáo trên app bán qua Google Play; trong app không hiện / nhắc chuyển khoản ngân hàng (10.5, Q-16). Code ở
-   spec `mvp-mua-ban`.
-8. Quảng cáo AdMob qua plugin Capacitor, hai tầng công tắc, Mầm không có quảng cáo (Q-11, Q-12). Code ở spec `mvp-quang-cao`.
+   spec `mvp-purchases`.
+8. Quảng cáo AdMob qua plugin Capacitor, hai tầng công tắc, Mầm không có quảng cáo (Q-11, Q-12). Code ở spec `mvp-ads`.
 9. Đăng nhập MVP: Google (trên app dùng đăng nhập Google gốc) + email OTP; chơi khách được (Q-3, Q-26). Code ở spec
-   `mvp-tai-khoan`.
+   `mvp-accounts`.
 10. Bố cục: dọc trên điện thoại, ngang trên máy tính; bàn phím ảo bật thì khu vực chơi co lên, không bị che (10.6).
-11. Ghi công VOICEVOX trong app và trong mô tả cửa hàng (10.3, `docs/am-thanh.md` mục 5).
+11. Ghi công VOICEVOX trong app và trong mô tả cửa hàng (10.3, `docs/audio.md` mục 5).
 
 ### Điểm chốt thêm (2026-11-18)
 
 Chủ sản phẩm **đồng ý toàn bộ đề xuất** ngày 2026-11-18: mỗi điểm dưới đây chốt theo phần **Đề xuất** của nó (phần tra cứu
-và lý do giữ lại để biết vì sao). Điểm nào gắn nhãn **Còn mở** thì chưa chốt — xem `.kiro/specs/mvp-cho-chot.md`.
+và lý do giữ lại để biết vì sao). Điểm nào gắn nhãn **Còn mở** thì chưa chốt — xem `.kiro/specs/mvp-open-questions.md`.
 
-- ~~**Chốt thêm 2026-11-18 — Lưu tiến độ trên Android bằng `@capacitor/preferences`** (`mvp-cho-chot.md` mục 6.2) qua lớp `KeyValueStore`; web vẫn dùng `localStorage`. Lần đầu mở bản app có Preferences thì chép dữ liệu cũ từ `localStorage` sang.~~ (đã thay, xem dòng dưới)
+- ~~**Chốt thêm 2026-11-18 — Lưu tiến độ trên Android bằng `@capacitor/preferences`** (`mvp-open-questions.md` mục 6.2) qua lớp `KeyValueStore`; web vẫn dùng `localStorage`. Lần đầu mở bản app có Preferences thì chép dữ liệu cũ từ `localStorage` sang.~~ (đã thay, xem dòng dưới)
 - **Chốt thêm 2026-11-18 (thay cho dòng `@capacitor/preferences` ở trên) — Dữ liệu offline trên máy dùng SQLite**, theo mẫu bản offline của medicine-management (`frontend/src/offline/db/`): một lớp `Db` chung; app Android dùng `@capacitor-community/sqlite` (bản 8.x, hợp Capacitor 8); trình duyệt dùng `sql.js` (WASM) và lưu cả file DB vào IndexedDB (gom ghi sau một khoảng trễ ngắn); test dùng `sql.js` trong bộ nhớ. Có bảng `schema_version` + hàm `migrate()` chạy khi mở DB. Lần đầu mở bản có SQLite thì chép dữ liệu cũ (`localStorage`: cài đặt, tiến độ nếu có) vào DB. `ProgressDocV1` vẫn là gói dữ liệu khi đồng bộ với máy chủ (đọc ra từ / ghi vào SQLite). File `.wasm` của sql.js phải nằm trong precache để chơi offline.
 
 - **CC-1 Mã app (`appId` / `applicationId`)** — không đổi được sau khi đăng lên Google Play.
@@ -154,10 +154,10 @@ và lý do giữ lại để biết vì sao). Điểm nào gắn nhãn **Còn m�
   **Đề xuất:** internal testing, danh sách người thử quản lý bằng **một Google Group** (thêm / bớt không phải sửa Play
   Console); khoảng 10–20 người, có cả phụ huynh có con 5–14 tuổi và người học tiếng Nhật dùng Gboard / bộ gõ Nhật. Lý do:
   internal testing có ngay sau khi tải lên, tối đa 100 người; cần người thật thử bộ gõ và nhóm tuổi Mầm/Chồi.
-- **CC-18 Nhóm tuổi khai trên Google Play** — **Đã chốt 2026-11-18: gồm cả nhóm "5 tuổi trở xuống"** (theo đề xuất bên dưới; `mvp-quang-cao` CC-6 theo cùng quyết định) (bắt Families policy).
+- **CC-18 Nhóm tuổi khai trên Google Play** — **Đã chốt 2026-11-18: gồm cả nhóm "5 tuổi trở xuống"** (theo đề xuất bên dưới; `mvp-ads` CC-6 theo cùng quyết định) (bắt Families policy).
   **Đề xuất:** khai 5 trở xuống, 6–8, 9–12, 13–15, 16–17, 18+ (đối tượng hỗn hợp, đúng ba nhóm Mầm/Chồi/Cây). Lý do: kịch
   bản nhắm 5 tuổi trở lên; khai thiếu nhóm trẻ mà hình ảnh hướng trẻ em thì Google tự xếp lại và có thể gỡ app. Hệ quả: áp
-  Families policy cho cả app; spec `mvp-quang-cao` và `mvp-tai-khoan` phải tuân theo (bảng ràng buộc ở `design.md` mục 9).
+  Families policy cho cả app; spec `mvp-ads` và `mvp-accounts` phải tuân theo (bảng ràng buộc ở `design.md` mục 9).
 - **CC-19 Chính sách quyền riêng tư**: đặt ở đâu, ai soạn nội dung. Phụ thuộc Q-5 (dữ liệu trẻ em) và Q-29 (nơi đặt web).
   **Đề xuất:** trang tĩnh trong chính bản web (`/privacy.html`, tiếng Việt + tiếng Anh), nội dung do chủ sản phẩm duyệt,
   dev soạn bản nháp theo những gì app thu thật (bảng Data safety ở `docs/mobile-app.md`). Lý do: không cần dịch vụ ngoài, đi
@@ -188,7 +188,7 @@ và lý do giữ lại để biết vì sao). Điểm nào gắn nhãn **Còn m�
 3. Lệnh `pnpm --filter @study/game build:app` build web ở mode `capacitor` rồi `cap sync android`; lệnh không có trong
    AGENTS mục 4 thì thêm vào bảng lệnh cùng commit.
 4. App chỉ xin quyền `INTERNET`; manifest sau khi gộp (merged manifest) không có quyền vị trí, danh bạ, `AD_ID`
-   (trừ khi spec `mvp-quang-cao` thêm và ghi lý do).
+   (trừ khi spec `mvp-ads` thêm và ghi lý do).
 5. `pnpm build`, `pnpm test`, `pnpm e2e` của bản web không đổi hành vi.
 
 ### Yêu cầu 2 — Chơi không cần mạng trong app

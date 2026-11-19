@@ -1,0 +1,138 @@
+{
+  "regions": [
+    {
+      "id": "en-r1",
+      "subject": "en",
+      "order": 1,
+      "titleVi": "Bến Cảng ABC",
+      "titleTarget": "ABC Harbor",
+      "levels": [
+        {
+          "id": "en-r1-l1",
+          "game": "match",
+          "items": ["en-apple", "en-cat", "en-dog", "en-fish", "en-bird", "en-sun"],
+          "newWords": ["en-apple", "en-cat", "en-dog"]
+        },
+        {
+          "id": "en-r1-l2",
+          "game": "listen",
+          "items": ["en-apple", "en-cat", "en-dog", "en-fish", "en-bird", "en-sun", "en-hello", "en-friend"],
+          "newWords": ["en-fish", "en-bird", "en-sun", "en-hello", "en-friend"]
+        },
+        {
+          "id": "en-r1-l3",
+          "game": "memory",
+          "items": ["en-boat", "en-sea", "en-crab", "en-duck", "en-egg", "en-fish", "en-bird", "en-sun"],
+          "newWords": ["en-boat", "en-sea", "en-crab", "en-duck", "en-egg"]
+        },
+        {
+          "id": "en-r1-l4",
+          "game": "star",
+          "items": [
+            "en-one",
+            "en-two",
+            "en-three",
+            "en-four",
+            "en-five",
+            "en-apple",
+            "en-cat",
+            "en-dog",
+            "en-boat",
+            "en-crab"
+          ],
+          "newWords": ["en-one", "en-two", "en-three", "en-four", "en-five"]
+        },
+        {
+          "id": "en-r1-l5",
+          "game": "sentence",
+          "sentences": [
+            "en-s-i-like-apples",
+            "en-s-cat-sleeping",
+            "en-s-cat-and-dog",
+            "en-s-boat-on-sea",
+            "en-s-two-ducks",
+            "en-s-crab-in-sea",
+            "en-s-dog-can-run",
+            "en-s-fish-swim",
+            "en-s-hello-friend",
+            "en-s-eat-egg",
+            "en-s-five-birds"
+          ]
+        },
+        {
+          "id": "en-r1-l6",
+          "game": "write",
+          "items": ["en-cat", "en-dog", "en-sun", "en-boat", "en-crab", "en-egg", "en-two", "en-five"]
+        }
+      ]
+    },
+    {
+      "id": "en-r2",
+      "subject": "en",
+      "order": 2,
+      "titleVi": "Khu Vườn Màu",
+      "titleTarget": "Color Garden",
+      "levels": [
+        {
+          "id": "en-r2-l1",
+          "game": "match",
+          "items": ["en-red", "en-blue", "en-green", "en-yellow", "en-pink", "en-purple"],
+          "newWords": ["en-red", "en-blue", "en-green", "en-yellow", "en-pink"]
+        },
+        {
+          "id": "en-r2-l2",
+          "game": "rain",
+          "items": [
+            "en-red",
+            "en-blue",
+            "en-green",
+            "en-yellow",
+            "en-pink",
+            "en-purple",
+            "en-orange",
+            "en-black",
+            "en-white",
+            "en-brown"
+          ],
+          "newWords": ["en-purple", "en-orange", "en-black", "en-white", "en-brown"]
+        },
+        {
+          "id": "en-r2-l3",
+          "game": "match",
+          "items": ["en-flower", "en-tree", "en-leaf", "en-grass", "en-rainbow", "en-cloud"],
+          "newWords": ["en-flower", "en-tree", "en-leaf", "en-grass"]
+        },
+        {
+          "id": "en-r2-l4",
+          "game": "match",
+          "items": ["en-butterfly", "en-bee", "en-frog", "en-rabbit", "en-snail", "en-duck"],
+          "newWords": ["en-butterfly", "en-bee", "en-frog", "en-rabbit", "en-snail"]
+        },
+        {
+          "id": "en-r2-l5",
+          "game": "memory",
+          "items": ["en-rainbow", "en-cloud", "en-rain", "en-sun", "en-flower", "en-tree", "en-bee", "en-butterfly"],
+          "newWords": ["en-rainbow", "en-cloud", "en-rain"]
+        },
+        {
+          "id": "en-r2-l6",
+          "game": "sentence",
+          "sentences": [
+            "en-s-red-apple",
+            "en-s-sky-blue",
+            "en-s-red-and-blue",
+            "en-s-green-frog",
+            "en-s-bee-flowers",
+            "en-s-leaves-green",
+            "en-s-snail-slow",
+            "en-s-rabbit-grass",
+            "en-s-flower-pink-white",
+            "en-s-butterfly-leaf",
+            "en-s-flower-and-tree",
+            "en-s-rainbow-after-rain"
+          ]
+        }
+      ]
+    }
+  ]
+}

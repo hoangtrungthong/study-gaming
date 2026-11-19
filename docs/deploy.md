@@ -2,10 +2,10 @@
 
 > Đã chốt (Q-29, 2026-11-18): máy chủ là **một máy ảo Ubuntu trên cloud**, mọi thứ chạy bằng **Docker / Docker Compose**.
 > Docker dùng cả khi phát triển. Nhà cung cấp cloud, tên miền, cỡ máy và các chi tiết khác đang ở mục "Chờ chốt" của spec
-> [mvp-tai-khoan](../.kiro/specs/mvp-tai-khoan/requirements.md) — đánh dấu **(chờ chốt)** dưới đây.
+> [mvp-accounts](../.kiro/specs/mvp-accounts/requirements.md) — đánh dấu **(chờ chốt)** dưới đây.
 >
 > Hiện tại (giai đoạn 0) **chưa có máy chủ**: game là web tĩnh chạy offline. Các file Docker (`apps/server/Dockerfile`,
-> `docker-compose.yml`, `docker-compose.prod.yml`, `.env.prod.example`) sẽ được tạo trong spec `mvp-tai-khoan`; tài liệu
+> `docker-compose.yml`, `docker-compose.prod.yml`, `.env.prod.example`) sẽ được tạo trong spec `mvp-accounts`; tài liệu
 > này viết trước các bước, cập nhật khi các file đó có thật. Chưa chạy thử thật trên máy chủ.
 
 ## 1. Thành phần
@@ -16,8 +16,8 @@
 | Máy chủ NestJS (`apps/server`): tài khoản, đồng bộ tiến độ, đơn hàng, webhook SePay, xác minh Google Play | Container `server` | Máy ảo |
 | PostgreSQL | Container `db`, dữ liệu trong volume | Máy ảo, **không mở cổng ra ngoài** |
 | Sao lưu PostgreSQL | Container `backup` | Máy ảo + chép ra ngoài |
-| Trang quản trị (`apps/admin`, spec `mvp-mua-ban`) | File tĩnh qua reverse proxy | Máy ảo, đường dẫn / tên miền riêng **(chờ chốt)** |
-| Cấu hình quảng cáo từ xa (`ads-config.json`, spec `mvp-quang-cao`) | File tĩnh | Cùng tên miền với game |
+| Trang quản trị (`apps/admin`, spec `mvp-purchases`) | File tĩnh qua reverse proxy | Máy ảo, đường dẫn / tên miền riêng **(chờ chốt)** |
+| Cấu hình quảng cáo từ xa (`ads-config.json`, spec `mvp-ads`) | File tĩnh | Cùng tên miền với game |
 | Âm thanh tạo sẵn | Tạo trên máy nhóm bằng `tools/tts`, đóng gói vào `apps/game/dist` | Cùng game |
 
 Game vẫn chơi được khi máy chủ không chạy (offline-first); máy chủ chỉ cần cho đăng nhập, mua, đồng bộ.
@@ -26,14 +26,28 @@ Game vẫn chơi được khi máy chủ không chạy (offline-first); máy ch�
 
 Theo cách của medicine-management: mọi dịch vụ chạy trong container, lệnh test chạy trong container.
 
+Hiện có service `game` (`docker-compose.yml`, image `docker/dev.Dockerfile`: Node 22, pnpm theo `packageManager`, Chromium
+cho Playwright). Máy chủ (`server`) và PostgreSQL (`db`) thêm vào cùng file trong spec `mvp-accounts`.
+
+Lần đầu cần khoảng 3 GB trống (image ~2 GB + `node_modules` Linux trong volume).
+
 ```bash
-docker compose up -d                       # server + db (+ game dev server) — file tạo trong spec mvp-tai-khoan
-docker compose exec -T server pnpm test    # test máy chủ trong container (lệnh chính xác ghi khi có code)
-docker compose logs -f server
-docker compose down                        # dừng (KHÔNG dùng -v: xoá volume là mất dữ liệu)
+docker compose up -d --build game                 # lần đầu / khi đổi Dockerfile; sau đó: docker compose up -d game
+docker compose logs -f game                       # chờ dòng "Local: http://localhost:5173"
+docker compose exec -T game pnpm lint
+docker compose exec -T game pnpm typecheck
+docker compose exec -T game pnpm test             # unit test; độ phủ: pnpm -r test:coverage && pnpm coverage:changed
+docker compose exec -T game pnpm build
+docker compose exec -T game pnpm e2e              # Playwright: build + vite preview cổng 4173 ngay trong container
+docker compose down                               # dừng (KHÔNG dùng -v: xoá volume là mất dữ liệu)
 ```
 
-Phần game hiện tại (giai đoạn 0) vẫn chạy được trực tiếp bằng Node 22 (`pnpm dev`, `pnpm test`) như trong `README.md`.
+- Mở game ở http://localhost:5173 (dev) hoặc http://localhost:4173 (bản build khi đang chạy E2E / `pnpm preview`).
+- Mã nguồn gắn từ máy vào `/app`; sửa file trên máy là dev server tự tải lại (dò định kỳ, `VITE_USE_POLLING`).
+- `node_modules` trong container nằm ở volume riêng, không đụng `node_modules` Windows trên máy; đổi `pnpm-lock.yaml`
+  thì `docker compose restart game` để cài lại.
+- Đổi bản `@playwright/test` thì sửa `PLAYWRIGHT_VERSION` trong `docker/dev.Dockerfile` cho trùng, rồi `up -d --build`.
+- Vẫn chạy được trực tiếp bằng Node 22 trên máy (`AGENTS.md` mục 4) khi không muốn dùng Docker.
 
 ## 3. Máy ảo Ubuntu
 
@@ -66,12 +80,12 @@ tên miền riêng trước khi phát hành vì **dữ liệu PWA (tiến độ 
 
 ```bash
 git clone https://github.com/hoangtrungthong/study-gaming.git && cd study-gaming
-cp .env.prod.example .env.prod             # điền giá trị (danh sách khoá ở spec mvp-tai-khoan); KHÔNG commit .env.prod
+cp .env.prod.example .env.prod             # điền giá trị (danh sách khoá ở spec mvp-accounts); KHÔNG commit .env.prod
 P="docker compose -f docker-compose.prod.yml --env-file .env.prod"
 $P build
 $P up -d
 $P exec server <lệnh migrate>              # ghi chính xác khi có code
-$P exec server <lệnh tạo quản trị viên>    # users.role='admin' qua CLI (spec mvp-mua-ban CC-19)
+$P exec server <lệnh tạo quản trị viên>    # users.role='admin' qua CLI (spec mvp-purchases CC-19)
 ```
 
 Bí mật (khoá Resend, Google OAuth client, khoá SePay, tài khoản dịch vụ Google Play, mật khẩu DB) chỉ nằm trong `.env.prod`
@@ -114,6 +128,6 @@ Bản game mới: người chơi thấy banner "Đã có bản mới" và bấm 
 
 ## 8. Liên kết
 
-- Webhook SePay trỏ về `https://<tên-miền>/api/...` (spec `mvp-mua-ban`).
-- Google OAuth: thêm origin của game vào "Authorized JavaScript origins" (spec `mvp-tai-khoan`).
+- Webhook SePay trỏ về `https://<tên-miền>/api/...` (spec `mvp-purchases`).
+- Google OAuth: thêm origin của game vào "Authorized JavaScript origins" (spec `mvp-accounts`).
 - App Android gọi API bằng `VITE_WEB_ORIGIN` (spec `mvp-android`).

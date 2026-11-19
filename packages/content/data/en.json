@@ -19,7 +19,8 @@
       "emoji": "🐱",
       "meaningVi": "con mèo",
       "example": "The cat is sleeping.",
-      "exampleVi": "Con mèo đang ngủ."
+      "exampleVi": "Con mèo đang ngủ.",
+      "explainVi": "Cat là con mèo, con vật kêu meo meo."
     },
     {
       "id": "en-dog",
@@ -27,7 +28,8 @@
       "emoji": "🐶",
       "meaningVi": "con chó",
       "example": "My dog likes to run.",
-      "exampleVi": "Con chó của tôi thích chạy."
+      "exampleVi": "Con chó của tôi thích chạy.",
+      "explainVi": "Dog là con chó, con vật kêu gâu gâu."
     },
     {
       "id": "en-fish",
@@ -35,7 +37,8 @@
       "emoji": "🐟",
       "meaningVi": "con cá",
       "example": "Fish live in water.",
-      "exampleVi": "Cá sống ở dưới nước."
+      "exampleVi": "Cá sống ở dưới nước.",
+      "explainVi": "Fish là con cá. Một con hay nhiều con cá đều nói là fish."
     },
     {
       "id": "en-bird",
@@ -43,7 +46,8 @@
       "emoji": "🐦",
       "meaningVi": "con chim",
       "example": "A bird can fly.",
-      "exampleVi": "Con chim biết bay."
+      "exampleVi": "Con chim biết bay.",
+      "explainVi": "Bird là con chim, con vật có cánh và biết bay."
     },
     {
       "id": "en-red",
@@ -51,7 +55,8 @@
       "emoji": "🔴",
       "meaningVi": "màu đỏ",
       "example": "The apple is red.",
-      "exampleVi": "Quả táo màu đỏ."
+      "exampleVi": "Quả táo màu đỏ.",
+      "explainVi": "Red là màu đỏ, màu của quả táo chín."
     },
     {
       "id": "en-blue",
@@ -59,7 +64,8 @@
       "emoji": "🔵",
       "meaningVi": "màu xanh dương",
       "example": "The sky is blue.",
-      "exampleVi": "Bầu trời màu xanh dương."
+      "exampleVi": "Bầu trời màu xanh dương.",
+      "explainVi": "Blue là màu xanh dương, màu của bầu trời."
     },
     {
       "id": "en-green",
@@ -67,7 +73,8 @@
       "emoji": "🟢",
       "meaningVi": "màu xanh lá",
       "example": "Leaves are green.",
-      "exampleVi": "Lá cây màu xanh lá."
+      "exampleVi": "Lá cây màu xanh lá.",
+      "explainVi": "Green là màu xanh lá, màu của lá cây."
     },
     {
       "id": "en-sun",
@@ -75,7 +82,8 @@
       "emoji": "☀️",
       "meaningVi": "mặt trời",
       "example": "The sun is hot.",
-      "exampleVi": "Mặt trời nóng."
+      "exampleVi": "Mặt trời nóng.",
+      "explainVi": "Sun là mặt trời, chiếu sáng vào ban ngày."
     },
     {
       "id": "en-book",
@@ -83,7 +91,8 @@
       "emoji": "📖",
       "meaningVi": "quyển sách",
       "example": "I read a book.",
-      "exampleVi": "Tôi đọc một quyển sách."
+      "exampleVi": "Tôi đọc một quyển sách.",
+      "explainVi": "Book là quyển sách. Trước book ta dùng a."
     },
     {
       "id": "en-water",
@@ -91,7 +100,8 @@
       "emoji": "💧",
       "meaningVi": "nước",
       "example": "Drink some water.",
-      "exampleVi": "Hãy uống chút nước."
+      "exampleVi": "Hãy uống chút nước.",
+      "explainVi": "Water là nước, thứ ta uống mỗi ngày."
     },
     {
       "id": "en-house",
@@ -99,7 +109,8 @@
       "emoji": "🏠",
       "meaningVi": "ngôi nhà",
       "example": "This is my house.",
-      "exampleVi": "Đây là nhà của tôi."
+      "exampleVi": "Đây là nhà của tôi.",
+      "explainVi": "House là ngôi nhà, nơi cả nhà mình ở."
     },
     {
       "id": "en-school",
@@ -107,7 +118,8 @@
       "emoji": "🏫",
       "meaningVi": "trường học",
       "example": "I go to school.",
-      "exampleVi": "Tôi đi học."
+      "exampleVi": "Tôi đi học.",
+      "explainVi": "School là trường học, nơi các bạn đến học."
     },
     {
       "id": "en-friend",
@@ -115,7 +127,8 @@
       "emoji": "🤝",
       "meaningVi": "người bạn",
       "example": "She is my friend.",
-      "exampleVi": "Cô ấy là bạn của tôi."
+      "exampleVi": "Cô ấy là bạn của tôi.",
+      "explainVi": "Friend là người bạn, người cùng chơi với mình."
     },
     {
       "id": "en-hello",
@@ -133,7 +146,269 @@
       "meaningVi": "cảm ơn",
       "example": "Thank you very much!",
       "exampleVi": "Cảm ơn bạn rất nhiều!",
+      "explainVi": "Thank you là lời cảm ơn khi ai đó giúp mình.",
       "accept": ["thankyou", "thanks"]
+    },
+    {
+      "id": "en-boat",
+      "term": "boat",
+      "emoji": "⛵",
+      "meaningVi": "con thuyền",
+      "example": "The boat is on the sea.",
+      "exampleVi": "Con thuyền ở trên biển.",
+      "explainVi": "Boat là con thuyền, đi trên mặt nước."
+    },
+    {
+      "id": "en-sea",
+      "term": "sea",
+      "emoji": "🌊",
+      "meaningVi": "biển",
+      "example": "The sea is big.",
+      "exampleVi": "Biển rất rộng.",
+      "explainVi": "Sea là biển, nơi có rất nhiều nước và sóng."
+    },
+    {
+      "id": "en-crab",
+      "term": "crab",
+      "emoji": "🦀",
+      "meaningVi": "con cua",
+      "example": "The crab lives in the sea.",
+      "exampleVi": "Con cua sống ở biển.",
+      "explainVi": "Crab là con cua, có hai cái càng và bò ngang."
+    },
+    {
+      "id": "en-duck",
+      "term": "duck",
+      "emoji": "🦆",
+      "meaningVi": "con vịt",
+      "example": "The duck can swim.",
+      "exampleVi": "Con vịt biết bơi.",
+      "explainVi": "Duck là con vịt, con vật kêu cạp cạp."
+    },
+    {
+      "id": "en-egg",
+      "term": "egg",
+      "emoji": "🥚",
+      "meaningVi": "quả trứng",
+      "example": "I eat an egg.",
+      "exampleVi": "Tôi ăn một quả trứng.",
+      "explainVi": "Trước egg ta dùng an, vì egg bắt đầu bằng nguyên âm e."
+    },
+    {
+      "id": "en-yellow",
+      "term": "yellow",
+      "emoji": "🟡",
+      "meaningVi": "màu vàng",
+      "example": "The sun is yellow.",
+      "exampleVi": "Mặt trời màu vàng.",
+      "explainVi": "Yellow là màu vàng, màu của quả chuối chín."
+    },
+    {
+      "id": "en-pink",
+      "term": "pink",
+      "emoji": "💗",
+      "meaningVi": "màu hồng",
+      "example": "I like pink.",
+      "exampleVi": "Tôi thích màu hồng.",
+      "explainVi": "Pink là màu hồng, như màu hoa đào."
+    },
+    {
+      "id": "en-purple",
+      "term": "purple",
+      "emoji": "🟣",
+      "meaningVi": "màu tím",
+      "example": "The flower is purple.",
+      "exampleVi": "Bông hoa màu tím.",
+      "explainVi": "Purple là màu tím, như màu quả nho."
+    },
+    {
+      "id": "en-orange",
+      "term": "orange",
+      "emoji": "🟠",
+      "meaningVi": "màu cam",
+      "example": "The ball is orange.",
+      "exampleVi": "Quả bóng màu cam.",
+      "explainVi": "Orange là màu cam. Orange cũng là tên quả cam."
+    },
+    {
+      "id": "en-black",
+      "term": "black",
+      "emoji": "⚫",
+      "meaningVi": "màu đen",
+      "example": "The cat is black.",
+      "exampleVi": "Con mèo màu đen.",
+      "explainVi": "Black là màu đen, màu của bầu trời ban đêm."
+    },
+    {
+      "id": "en-white",
+      "term": "white",
+      "emoji": "⚪",
+      "meaningVi": "màu trắng",
+      "example": "Snow is white.",
+      "exampleVi": "Tuyết màu trắng.",
+      "explainVi": "White là màu trắng, màu của đám mây."
+    },
+    {
+      "id": "en-brown",
+      "term": "brown",
+      "emoji": "🟤",
+      "meaningVi": "màu nâu",
+      "example": "My dog is brown.",
+      "exampleVi": "Con chó của tôi màu nâu.",
+      "explainVi": "Brown là màu nâu, màu của thân cây."
+    },
+    {
+      "id": "en-flower",
+      "term": "flower",
+      "emoji": "🌸",
+      "meaningVi": "bông hoa",
+      "example": "This flower is pink.",
+      "exampleVi": "Bông hoa này màu hồng.",
+      "explainVi": "Flower là bông hoa, nở trong vườn."
+    },
+    {
+      "id": "en-tree",
+      "term": "tree",
+      "emoji": "🌳",
+      "meaningVi": "cái cây",
+      "example": "The tree is tall.",
+      "exampleVi": "Cái cây rất cao.",
+      "explainVi": "Tree là cái cây, có thân, cành và lá."
+    },
+    {
+      "id": "en-leaf",
+      "term": "leaf",
+      "emoji": "🍁",
+      "meaningVi": "chiếc lá",
+      "example": "The leaf is red.",
+      "exampleVi": "Chiếc lá màu đỏ.",
+      "explainVi": "Leaf là chiếc lá. Nhiều chiếc lá thì nói là leaves."
+    },
+    {
+      "id": "en-grass",
+      "term": "grass",
+      "emoji": "🌿",
+      "meaningVi": "cỏ",
+      "example": "The grass is green.",
+      "exampleVi": "Cỏ màu xanh lá.",
+      "explainVi": "Grass là cỏ, mọc khắp mặt đất trong vườn."
+    },
+    {
+      "id": "en-rainbow",
+      "term": "rainbow",
+      "emoji": "🌈",
+      "meaningVi": "cầu vồng",
+      "example": "I see a rainbow.",
+      "exampleVi": "Tôi nhìn thấy cầu vồng.",
+      "explainVi": "Rainbow là cầu vồng, hay hiện ra sau cơn mưa."
+    },
+    {
+      "id": "en-cloud",
+      "term": "cloud",
+      "emoji": "☁️",
+      "meaningVi": "đám mây",
+      "example": "The cloud is white.",
+      "exampleVi": "Đám mây màu trắng.",
+      "explainVi": "Cloud là đám mây, bay trên bầu trời."
+    },
+    {
+      "id": "en-rain",
+      "term": "rain",
+      "emoji": "🌧️",
+      "meaningVi": "mưa",
+      "example": "I like the rain.",
+      "exampleVi": "Tôi thích mưa.",
+      "explainVi": "Rain là mưa, nước rơi từ đám mây xuống."
+    },
+    {
+      "id": "en-butterfly",
+      "term": "butterfly",
+      "emoji": "🦋",
+      "meaningVi": "con bướm",
+      "example": "The butterfly can fly.",
+      "exampleVi": "Con bướm biết bay.",
+      "explainVi": "Butterfly là con bướm, có đôi cánh nhiều màu."
+    },
+    {
+      "id": "en-bee",
+      "term": "bee",
+      "emoji": "🐝",
+      "meaningVi": "con ong",
+      "example": "The bee likes flowers.",
+      "exampleVi": "Con ong thích hoa.",
+      "explainVi": "Bee là con ong, bay đến hoa để lấy mật."
+    },
+    {
+      "id": "en-frog",
+      "term": "frog",
+      "emoji": "🐸",
+      "meaningVi": "con ếch",
+      "example": "The frog is green.",
+      "exampleVi": "Con ếch màu xanh lá.",
+      "explainVi": "Frog là con ếch, nhảy rất giỏi và kêu ộp ộp."
+    },
+    {
+      "id": "en-rabbit",
+      "term": "rabbit",
+      "emoji": "🐰",
+      "meaningVi": "con thỏ",
+      "example": "The rabbit can jump.",
+      "exampleVi": "Con thỏ biết nhảy.",
+      "explainVi": "Rabbit là con thỏ, có đôi tai dài."
+    },
+    {
+      "id": "en-snail",
+      "term": "snail",
+      "emoji": "🐌",
+      "meaningVi": "con ốc sên",
+      "example": "The snail is slow.",
+      "exampleVi": "Con ốc sên đi chậm.",
+      "explainVi": "Snail là con ốc sên, mang cái vỏ trên lưng và đi rất chậm."
+    },
+    {
+      "id": "en-one",
+      "term": "one",
+      "emoji": "1️⃣",
+      "meaningVi": "số một",
+      "example": "I have one cat.",
+      "exampleVi": "Tôi có một con mèo.",
+      "explainVi": "One là số một. Mình có một cái mũi."
+    },
+    {
+      "id": "en-two",
+      "term": "two",
+      "emoji": "2️⃣",
+      "meaningVi": "số hai",
+      "example": "I see two birds.",
+      "exampleVi": "Tôi nhìn thấy hai con chim.",
+      "explainVi": "Two là số hai. Mình có hai con mắt."
+    },
+    {
+      "id": "en-three",
+      "term": "three",
+      "emoji": "3️⃣",
+      "meaningVi": "số ba",
+      "example": "I have three books.",
+      "exampleVi": "Tôi có ba quyển sách.",
+      "explainVi": "Three là số ba, nhiều hơn hai một chút."
+    },
+    {
+      "id": "en-four",
+      "term": "four",
+      "emoji": "4️⃣",
+      "meaningVi": "số bốn",
+      "example": "A dog has four legs.",
+      "exampleVi": "Con chó có bốn chân.",
+      "explainVi": "Four là số bốn. Con chó có bốn cái chân."
+    },
+    {
+      "id": "en-five",
+      "term": "five",
+      "emoji": "5️⃣",
+      "meaningVi": "số năm",
+      "example": "My hand has five fingers.",
+      "exampleVi": "Bàn tay của tôi có năm ngón.",
+      "explainVi": "Five là số năm. Một bàn tay có năm ngón."
     }
   ]
 }
